@@ -43,8 +43,8 @@ const PrevalentDiamonds: FC = () => {
                   }}
                   className="text-center"
                 >
-                  <img src={shape?.image} alt="shapeImg" className="max-w-full h-[72px]" />
-                  <h6 className="text-base font-normal pt-2">{shape?.name}</h6>
+                  <img src={shape?.image} alt="shapeImg" className="max-w-full h-[72px] mx-auto" />
+                  <h6 className="text-base font-normal pt-2 break-words break-all">{shape?.name}</h6>
                 </Link>
               </div>
             )

@@ -354,7 +354,7 @@ const headerMenu = (
           </div>
         )}
         <div className="w-full py-[18px]">
-          <div className="container flex mx-auto flex-nowrap justify-between items-stretch w-full">
+          <div className="container flex mx-auto flex-nowrap justify-between items-stretch w-full lg:px-5 md:px-4 px-4">
             <div className="items-center justify-start lg:flex md:hidden sm:hidden hidden">
               <div className="w-full flex flex-nowrap items-start flex-col">
                 <div className="pt-2 relative text-gray-600">
@@ -376,7 +376,7 @@ const headerMenu = (
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-center w-[500px] lg:order-1 md:order-2 sm:order-2 order-2">
+            <div className="flex items-center justify-center w-[500px] lg:order-1 md:order-2 sm:order-2 order-2 mx-4">
               <div className="flex flex-nowrap flex-col items-start">
                 <Link to={""}>
                   <img

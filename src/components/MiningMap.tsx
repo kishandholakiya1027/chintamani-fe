@@ -147,7 +147,7 @@ const MiningMap: FC = () => {
                       <img src={Standard} alt="Standard" className="max-w-[100%]" />
                     </div>
                   </div>
-                  <div className="group-hover:opacity-100 group-hover:visible opacity-0 flex items-center justify-center w-full bg-[#fff] text-center flex-col flex-wrap absolute top-0 left-0 h-[350px] border-[1px] border-[#000] min-w-[280px] rounded-[10px] z-[99]">
+                  <div className="group-hover:opacity-100 group-hover:visible opacity-0 flex items-center justify-center w-full bg-[#fff] text-center flex-col flex-wrap absolute top-0 left-0 h-[380px] border-[1px] border-[#000] min-w-[280px] rounded-[10px] z-[99]">
                     <div className="text-[15px] text-[#000] font-poppins w-full">
                       Standard Certification
                       <div className="text-[13px] text-[#000] font-poppins hidden p-[10px]">

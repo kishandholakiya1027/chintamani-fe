@@ -23,7 +23,7 @@ const ProductList = ({ products = [],loader,width="25%"}: any) => {
   console.log("cartProducts", cartProducts);
   const [productLoading, setProductLoading] = useState<string[]>([]);
 
-  const { apiAction ,loader:loading} = useApi();
+  const { apiAction, loader: loading } = useApi();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -127,8 +127,6 @@ const ProductList = ({ products = [],loader,width="25%"}: any) => {
     }
   };
 
- 
-
   const setMenu = async (productName: string, productid: string) => {
     dispatch(
       setCategory([...category, { path: productName, name: productName }])
@@ -137,7 +135,7 @@ const ProductList = ({ products = [],loader,width="25%"}: any) => {
   };
 
   return (
-    <ul className="p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3rem] cursor-pointer mb-[75px]">
+    <ul className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer mb-[75px]">
       {products?.length ? (
         products?.map((product: productType) => {
           return (
@@ -158,8 +156,8 @@ const ProductList = ({ products = [],loader,width="25%"}: any) => {
                 </div>
               </div>
               <div className="mb-3 mx-3 flex items-center justify-between">
-                {!wishlist?.includes(product?.id||"") ? (
-                  <div onClick={() => addToWishList(product?.id||"")}>
+                {!wishlist?.includes(product?.id || "") ? (
+                  <div onClick={() => addToWishList(product?.id || "")}>
                     <svg
                       width="15"
                       height="15"
@@ -176,7 +174,7 @@ const ProductList = ({ products = [],loader,width="25%"}: any) => {
                     </svg>
                   </div>
                 ) : (
-                  <div onClick={() => removeFromWishList(product?.id||"")}>
+                  <div onClick={() => removeFromWishList(product?.id || "")}>
                     <svg
                       width="15"
                       height="15"
@@ -195,20 +193,19 @@ const ProductList = ({ products = [],loader,width="25%"}: any) => {
                 )}
                 {/* <FontAwesomeIcon icon={faHeart} onClick={() => addToWishList(product?.id)} />
                     <FontAwesomeIcon icon={regular("heart")} /> */}
-                {cartProducts?.includes(product?.id||"") ? (
+                {cartProducts?.includes(product?.id || "") ? (
                   <button onClick={() => dispatch(setOpenCart())}>
                     Go to Cart
                   </button>
                 ) : (
                   <button
-                    onClick={() => addToCart(product?.id||"")}
-                    className={` ${
-                      productLoading.includes(product?.id||"")
-                        ? "cursor-not-allowed opacity-50"
-                        : ""
-                    }`}
+                    onClick={() => addToCart(product?.id || "")}
+                    className={` ${productLoading.includes(product?.id || "")
+                      ? "cursor-not-allowed opacity-50"
+                      : ""
+                      }`}
                   >
-                    {productLoading.includes(product?.id||"")
+                    {productLoading.includes(product?.id || "")
                       ? "Adding to Cart..."
                       : "Add to Cart"}
                   </button>
@@ -219,7 +216,7 @@ const ProductList = ({ products = [],loader,width="25%"}: any) => {
         })
       ) : (
         <div className="flex justify-center w-full mt-14">
-        {(loader  || loading)? "": " No Products Found"}
+          {(loader || loading) ? "" : " No Products Found"}
         </div>
       )}
     </ul>

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
 import { Button } from '../ui/button';
 import { diamondProperty } from '@/lib/interfaces/category';
@@ -36,7 +36,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
       setFilter({ ...filter, [name]: [...filter?.Color || [], value] })
   }
 
-  return (<div className="w-[20%] px-[0] border-r-[1px] border-[#eee] py-[20px] flex flex-col flex-nowrap items-start">
+  return (<div className="lg:w-[20%] md:w-[30%] w-[100%] px-[0] border-r-[1px] border-[#eee] py-[20px] flex flex-col flex-nowrap items-start">
     <div className="w-full mt-[0]">
       <div>
         <div className="py-[15px]  border-t-[1px] border-[#eee]">
@@ -44,14 +44,16 @@ const Sidebar = ({ setFilter, filter }: any) => {
             <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
               Price
             </div>
-            <MultiRangeSlider min={0} max={13060} step={1} subSteps={true} minValue={filter?.minPrice} maxValue={filter?.maxPrice||13060} onInput={() => {
-              // props.setMinValue(e.minValue);
-              // props.setMaxValue(e.maxValue);
-            }} onChange={(e: ChangeResult) => {
-              setFilter({ ...filter, minPrice: e.minValue, maxPrice: e.maxValue })
-              // props.setMinValue2(e.minValue);
-              // props.setMaxValue2(e.maxValue);
-            }} />
+            <div className='pr-4'>
+              <MultiRangeSlider min={0} max={13060} step={1} subSteps={true} minValue={filter?.minPrice} maxValue={filter?.maxPrice || 13060} onInput={() => {
+                // props.setMinValue(e.minValue);
+                // props.setMaxValue(e.maxValue);
+              }} onChange={(e: ChangeResult) => {
+                setFilter({ ...filter, minPrice: e.minValue, maxPrice: e.maxValue })
+                // props.setMinValue2(e.minValue);
+                // props.setMaxValue2(e.maxValue);
+              }} />
+            </div>
             {/* <MultiRangeSlider min={filter?.minPrice} max={filter?.maxPrice} step={1} subSteps={true} minValue={0} maxValue={13060} onInput={() => {
               // props.setMinValue(e.minValue);
               // props.setMaxValue(e.maxValue);
@@ -67,18 +69,20 @@ const Sidebar = ({ setFilter, filter }: any) => {
             <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
               Cart
             </div>
-            <MultiRangeSlider min={0} max={100} step={5} subSteps={true} minValue={filter?.mincarat} maxValue={filter?.maxcarat||100} onInput={() => {
-              // props.setMinValue(e.minValue);
-              // props.setMaxValue(e.maxValue);
-            }} onChange={(e: ChangeResult) => {
-              if (Object.keys(filter)?.length)
-                setFilter({ ...filter, mincarat: e.minValue, maxcarat: e.maxValue })
+            <div className='pr-4'>
+              <MultiRangeSlider min={0} max={100} step={5} subSteps={true} minValue={filter?.mincarat} maxValue={filter?.maxcarat || 100} onInput={() => {
+                // props.setMinValue(e.minValue);
+                // props.setMaxValue(e.maxValue);
+              }} onChange={(e: ChangeResult) => {
+                if (Object.keys(filter)?.length)
+                  setFilter({ ...filter, mincarat: e.minValue, maxcarat: e.maxValue })
 
 
 
-              // props.setMinValue2(e.minValue);
-              // props.setMaxValue2(e.maxValue);
-            }} />
+                // props.setMinValue2(e.minValue);
+                // props.setMaxValue2(e.maxValue);
+              }} />
+            </div>
           </div>
         </div>
         <div className="py-[15px] border-b-[1px] border-[#eee]">
@@ -86,14 +90,15 @@ const Sidebar = ({ setFilter, filter }: any) => {
             <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
               CLARITY
             </div>
-            <div className="grid grid-cols-3 gap-[5px]">
+            <div className="grid grid-cols-3 gap-[5px] pr-4">
               {clarities?.map((clarity: diamondProperty) => {
+                const extractedString = clarity?.name?.substring(0, 5);
                 return <Button
                   onClick={() => changeFilter("Clarity", clarity?.name)}
                   variant={"outline"}
-                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[58px] py-[8px] px-[2px]"
+                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-full py-[8px] px-[2px] break-words break-all whitespace-normal"
                 >
-                  {clarity?.name}
+                  {extractedString}
                 </Button>
               })}
 
@@ -134,17 +139,16 @@ const Sidebar = ({ setFilter, filter }: any) => {
             </div>
             <div className="grid grid-cols-3 gap-[5px]">
               {cuts?.map((cut: diamondProperty) => {
+                const extractedString = cut?.name?.substring(0, 5);
                 return <Button
                   onClick={() => changeFilter("Cut", cut?.name)}
                   variant={"outline"}
-                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[58px] py-[8px] px-[2px]"
+                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-full py-[8px] px-[2px] break-words break-all whitespace-normal"
                 >
-                  {cut?.name}
+                  {extractedString}
                 </Button>
               })}
-
             </div>
-
           </div>
         </div>
         <div className="py-[15px] border-b-[1px] border-[#eee]">
@@ -152,21 +156,18 @@ const Sidebar = ({ setFilter, filter }: any) => {
             <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
               COLOR
             </div>
-            <div className="grid grid-cols-4 gap-[5px]">
-
+            <div className="grid grid-cols-4 gap-[5px] pr-4">
               {colors?.map((color: diamondProperty) => {
+                const extractedString = color?.name?.substring(0, 5);
                 return <Button
                   onClick={() => changeFilter("Color", color?.name)}
-
                   variant={"outline"}
-                  className={`border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[50px] py-[8px] px-[2px]`}
+                  className={`border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-full py-[8px] px-[2px] break-words break-all whitespace-normal`}
                 >
-                  {color?.name}
-
+                  {extractedString}
                 </Button>
               })}
             </div>
-
           </div>
         </div>
       </div>

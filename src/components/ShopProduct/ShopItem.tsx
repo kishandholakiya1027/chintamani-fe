@@ -1,14 +1,15 @@
 import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RoundedDiamond from "../../../public/assests/Images/roundedDiamon.png";
-import MultiRangeSlider  from "multi-range-slider-react";
+import MultiRangeSlider from "multi-range-slider-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../ui/button";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import api from "@/services/api";
 import { apiPath } from "@/lib/api-path";
 import { breadCrumbType, diamondProperty } from "@/lib/interfaces/category";
+import ReactPaginate from "react-paginate";
 
 const ShopItem: FC = (props) => {
   console.log("🚀 ~ props:", props)
@@ -55,29 +56,28 @@ const ShopItem: FC = (props) => {
   useEffect(() => {
     if (category?.length) {
       let currCategory = category?.[category?.length - 1]
-      setFilter({[`${currCategory?.name?.toLowerCase()}`]:currCategory?.id})
+      setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id })
       fetchProducts(currCategory?.id, currCategory?.name)
-
     }
   }, [category])
 
   const submitHandler = async (item: breadCrumbType) => {
-  
+
     fetchProducts(item?.id, item?.name)
 
   }
   return (
     <>
       <section className="w-full">
-        <div className="flex flex-col items-start">
-          <div className="flex flex-wrap w-full items-stretch justify-center">
-            <div className="p-[20px] flex flex-nowrap flex-col items-start">
-              <div>
+        <div className="lg:flex md:flex block flex-col items-start">
+          <div className="lg:flex md:flex block flex-wrap w-full items-stretch justify-center">
+            <div className="lg:flex md:flex block flex-nowrap flex-col items-start">
+              <div className="p-[20px]">
                 <div className="px-0 py-[75px] flex w-full flex-row items-stretch flex-wrap border-b-[1px]">
                   <button className="text-sm font-poppins text-[#767676] font-semibold mr-1">
                     <Link to={"/"}>Home</Link>
                   </button>{" "}
-                  {category?.map((item: breadCrumbType ) => {
+                  {category?.map((item: breadCrumbType) => {
                     return (
                       <>
                         <span className="text-sm text-[#767676]">/</span>{" "}
@@ -152,14 +152,14 @@ const ShopItem: FC = (props) => {
                       subSteps={true}
                       minValue={690}
                       maxValue={13060}
-                      // onInput={(e: ChangeResult) => {
-                      //   setMinValue(e.minValue);
-                      //   setMaxValue(e.maxValue);
-                      // }}
-                      // onChange={(e: ChangeResult) => {
-                      //   setMinValue2(e.minValue);
-                      //   setMaxValue2(e.maxValue);
-                      // }}
+                    // onInput={(e: ChangeResult) => {
+                    //   setMinValue(e.minValue);
+                    //   setMaxValue(e.maxValue);
+                    // }}
+                    // onChange={(e: ChangeResult) => {
+                    //   setMinValue2(e.minValue);
+                    //   setMaxValue2(e.maxValue);
+                    // }}
                     />
                   </div>
                 </div>
@@ -170,15 +170,15 @@ const ShopItem: FC = (props) => {
                     </div>
                     <div className="grid grid-cols-3 gap-[5px]">
                       {clarities?.map((clarity: diamondProperty) => {
+                        const extractedString = clarity?.name?.substring(0, 5);
                         return <Button
-                        onClick={()=>setFilter({...filter,Clarity:[...filter?.Clarity||[],clarity?.id]})}
+                          onClick={() => setFilter({ ...filter, Clarity: [...filter?.Clarity || [], clarity?.id] })}
                           variant={"outline"}
                           className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[97px] py-[8px] px-[16px]"
                         >
-                          {clarity?.name}
+                          {extractedString}
                         </Button>
                       })}
-
                     </div>
                     {/* <div className="flex gap-[5px] mt-[10px]">
                       <Button
@@ -217,15 +217,15 @@ const ShopItem: FC = (props) => {
                     </div>
                     <div className="grid grid-cols-3 gap-[5px]">
                       {cuts?.map((cut: diamondProperty) => {
+                        const extractedString = cut?.name?.substring(0, 5);
                         return <Button
-                        onClick={()=>setFilter({...filter,Cuts:[...filter?.Cuts||[],cut?.id]})}
+                          onClick={() => setFilter({ ...filter, Cuts: [...filter?.Cuts || [], cut?.id] })}
                           variant={"outline"}
                           className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[97px] py-[8px] px-[16px]"
                         >
-                          {cut?.name}
+                          {extractedString}
                         </Button>
                       })}
-
                     </div>
                   </div>
                 </div>
@@ -236,18 +236,15 @@ const ShopItem: FC = (props) => {
                     </div>
                     <div className="grid grid-cols-4 gap-[5px]">
                       {colors?.map((color: diamondProperty) => {
+                        const extractedString = color?.name?.substring(0, 5);
                         return <Button
                           variant={"outline"}
                           className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[58px] py-[8px] px-[16px]"
                         >
-                          {color?.name}
-
+                          {extractedString}
                         </Button>
                       })}
-                     
                     </div>
-                  
-
                   </div>
                 </div>
               </div>
@@ -257,7 +254,7 @@ const ShopItem: FC = (props) => {
         <div className="container w-full">
           <div className="w-full sm:mb-0 mb-3">
             <div className="mt-[48px] sm:flex"></div>
-            <div className="w-full ml-5">
+            <div className="w-full">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h1 className="font-poppins font-semibold text-[#000] text-2xl mb-2">
@@ -285,10 +282,10 @@ const ShopItem: FC = (props) => {
               </div>
 
               <div className="">
-                <ul className="p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer mb-[75px]">
+                <ul className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer mb-[75px]">
                   {
                     products?.map((product: any) => {
-                      return <li className="max-w-full sm:max-w-[20%] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]">
+                      return <li className="float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]">
                         <div className="flex text-center items-center flex-col relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
                           <img
                             src={RoundedDiamond}
@@ -454,95 +451,22 @@ const ShopItem: FC = (props) => {
                   className="flex justify-center items-center mb-[75px]"
                 >
                   <ul className="flex items-center -space-x-px h-8 text-sm">
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        1
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        2
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        aria-current="page"
-                        className="z-10 flex items-center justify-center px-3 h-8 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                      >
-                        3
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        4
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        ...
-                      </a>
-                    </li>
+                    <ReactPaginate
+                      previousLabel={"<"}
+                      nextLabel={">"}
+                      breakLabel={"..."}
+                      breakClassName={"break-me"}
+                      pageCount={Math.ceil(totalRecords / limit)}
+                      marginPagesDisplayed={2}
+                      pageRangeDisplayed={4}
+                      onPageChange={(val) => {
+                        setFilter({ ...filter, page: val?.selected + 1 })
+                      }}
+                      containerClassName={"pagination"}
+                      activeClassName={"active"}
+                    // forcePage={offset - 1}
+                    />
 
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        10
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        11
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        12
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                      >
-                        <span className="sr-only">Next</span>
-                        <svg
-                          className="w-2.5 h-2.5 rtl:rotate-180"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 6 10"
-                        >
-                          <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="m1 9 4-4-4-4"
-                          />
-                        </svg>
-                      </a>
-                    </li>
                   </ul>
                 </nav>
               </div>
