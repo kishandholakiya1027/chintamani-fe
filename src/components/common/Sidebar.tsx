@@ -96,7 +96,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
                 return <Button
                   onClick={() => changeFilter("Clarity", clarity?.name)}
                   variant={"outline"}
-                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[58px] py-[8px] px-[2px]"
+                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-full py-[8px] px-[2px] break-words break-all whitespace-normal"
                 >
                   {extractedString}
                 </Button>
@@ -143,7 +143,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
                 return <Button
                   onClick={() => changeFilter("Cut", cut?.name)}
                   variant={"outline"}
-                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[58px] py-[8px] px-[2px]"
+                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-full py-[8px] px-[2px] break-words break-all whitespace-normal"
                 >
                   {extractedString}
                 </Button>
@@ -156,13 +156,13 @@ const Sidebar = ({ setFilter, filter }: any) => {
             <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
               COLOR
             </div>
-            <div className="grid grid-cols-4 gap-4 pr-4">
+            <div className="grid grid-cols-4 gap-[5px] pr-4">
               {colors?.map((color: diamondProperty) => {
                 const extractedString = color?.name?.substring(0, 5);
                 return <Button
                   onClick={() => changeFilter("Color", color?.name)}
                   variant={"outline"}
-                  className={`border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[50px] py-[8px] px-[2px]`}
+                  className={`border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-full py-[8px] px-[2px] break-words break-all whitespace-normal`}
                 >
                   {extractedString}
                 </Button>
