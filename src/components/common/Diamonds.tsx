@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import ProductHeader from "./ProductHeader";
 import { convertObjectToURL } from "@/lib/utils";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ReactPaginate from 'react-paginate';
 import ProductList from "./ProductList";
 import { apiPath } from "@/lib/api-path";
 import useApi from "@/hooks/useApi";
+import Loader from "./Loader";
 
 const Diamonds = () => {
   const [totalRecords, setTotalRecords] = useState(0);
@@ -16,7 +17,7 @@ const Diamonds = () => {
   const [products, setProducts] = useState([]);
   const { category: { category } } = useSelector((state: any) => state)
   // const { token, user } = useCheckPermission()
-  const { apiAction } = useApi()
+  const { loader, apiAction } = useApi()
 
   useEffect(() => {
   }, [])
@@ -28,7 +29,7 @@ const Diamonds = () => {
       let currCategory = category?.[category?.length - 1]
       if (currCategory?.id)
         setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id, page: 1, pageSize: limit })
-      else{
+      else {
         setFilter({ page: 1, pageSize: limit })
       }
       // setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id,mincarat:1,maxcarat:100 })
@@ -42,7 +43,7 @@ const Diamonds = () => {
     if (Object.keys(filter)?.length) {
       fetchProducts()
     }
-  }, [filter?.mincarat,filter?.maxcarat,filter?.maxprice,filter?.minprice,filter?.Color,filter?.Clarity,filter?.Cuts,filter?.page,filter?.pageSize])
+  }, [filter?.mincarat, filter?.maxcarat, filter?.maxprice, filter?.minprice, filter?.Color, filter?.Clarity, filter?.Cuts, filter?.page, filter?.pageSize,filter])
 
 
 
@@ -61,11 +62,13 @@ const Diamonds = () => {
       <div className="pt-[35px] pb-[20px] flex flex-col items-start px-[20px] container">
         <ProductHeader submitHandler={() => { }} />
         <div className="flex w-full items-stretch justify-center flex-wrap">
-          <Sidebar  setFilter={setFilter} filter={filter}></Sidebar>
+          <Sidebar setFilter={setFilter} filter={filter}></Sidebar>
           <div className="w-[80%] flex flex-col flex-nowrap items-start p-[20px] pr-[0]">
+        
             <div className="w-full">
+            {/* <Loader />  */}
               <p className="py-[8px] text-base font-poppins font-normal text-[#404040] mb-[16px] float-left">
-                showing {totalRecords ?  (filter?.page||1)  : 0}-{(Math.ceil(totalRecords / limit)) ?? 0} of {totalRecords ?? 0} results
+                showing {totalRecords ? (filter?.page || 1) : 0}-{(Math.ceil(totalRecords / limit)) ?? 0} of {totalRecords ?? 0} results
 
               </p>
               <form action="" className="float-right mb-[16px] relative">
@@ -91,7 +94,9 @@ const Diamonds = () => {
                   <option value={2}>Sort by price: high to low</option>
                 </select>
               </form>
-              <ProductList products={products} fetchProducts={fetchProducts} />
+            {loader ? <div className="mt-32 flex justify-center items-center"> <Loader /></div> : null}
+
+              <ProductList products={products} fetchProducts={fetchProducts} loader={loader} />
 
               <nav
                 aria-label="Page navigation"

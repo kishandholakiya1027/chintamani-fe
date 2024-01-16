@@ -78,7 +78,7 @@ const router = createBrowserRouter([
         path: "blog",
         element: <Blogs />,
       },
-   
+
       {
         path: "faq",
         element: <Faqs />,
@@ -182,12 +182,14 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      <div className="absolute h-screen  w-full flex justify-center loader hidden">
-        <div className="animate-spin absolute top-1/2 left-1/2 inline-block w-10 h-10 border-[3px] border-current border-t-transparent text-gray-800 rounded-full dark:text-white" role="status" aria-label="loading">
-          <span className="sr-only">Loading...</span>
+      {/* <div className="absolute h-screen  w-full flex justify-center loader hidden">
+        <div className=" top-1/2 absolute left-1/2 flex items-center justify-center h-16">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-500"></div>
+          <span className="ml-2">Loading...</span>
         </div>
+      
 
-      </div>
+      </div> */}
       <Provider store={store} >
         <PersistGate loading={null} persistor={persistor}>
           <RouterProvider router={router} />

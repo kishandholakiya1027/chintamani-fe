@@ -17,11 +17,15 @@ const authSlice = createSlice({
     handleLogout: (state) => {
       state.token = ""
       state.user = {}
+    },
+    setUser(state, action) {
+      state.user = action.payload
     }
+
   },
   
 });
 // eslint-disable-next-line no-empty-pattern
-export const { handleLogin, handleLogout } = authSlice.actions;
+export const { handleLogin, handleLogout,setUser } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -32,17 +32,17 @@ const useApi = () => {
     //       return Promise.reject(err);
     //     }
     //   );
-    useEffect(() => {
-        let ele:any = document.getElementsByClassName("loader")[0]
-        console.log("🚀 ~ useEffect ~ ele:", ele, ele.getAttribute("class"), typeof ele.getAttribute("class"))
+    // useEffect(() => {
+    //     let ele:any = document.getElementsByClassName("loader")[0]
+    //     console.log("🚀 ~ useEffect ~ ele:", ele, ele.getAttribute("class"), typeof ele.getAttribute("class"))
 
-        if (loader) {
-            ele.setAttribute("class", ele.getAttribute("class")?.replace(/hidden/g, ""))
-        }else {
-            ele.setAttribute("class", ele.getAttribute("class")?.concat(" hidden"))
-        }
+    //     if (loader) {
+    //         ele.setAttribute("class", ele.getAttribute("class")?.replace(/hidden/g, ""))
+    //     }else {
+    //         ele.setAttribute("class", ele.getAttribute("class")?.concat(" hidden"))
+    //     }
 
-    }, [loader])
+    // }, [loader])
 
     const apiAction = ({
         baseURL = BASE_URL,

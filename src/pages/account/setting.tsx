@@ -21,7 +21,7 @@ const Setting = () => {
 
   const [formData, setFormData] = useState<IForm>({});
   const [error, setError] = useState<IError>({});
-  const { apiAction } = useApi();
+  const { apiAction,loader } = useApi();
 
   const handleSubmit = async () => {
     let err: IError = {};
@@ -107,6 +107,7 @@ const Setting = () => {
           <button
             onClick={handleSubmit}
             type="button"
+            disabled={loader}
             className="text-center w-full py-4 bg-[#605b98] hover:bg-[#211c50] rounded-md text-white"
           >
             UPDATE PASSWORD

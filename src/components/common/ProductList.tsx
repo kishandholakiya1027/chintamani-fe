@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { setCategory } from "@/redux/reducer/category";
 import { toast } from "react-toastify";
 
-const ProductList = ({ products = []}: any) => {
+const ProductList = ({ products = [],loader}: any) => {
   const { user, token } = useSelector((state: { auth: any }) => state.auth);
   const { category } = useSelector((state: any) => state?.category);
 
@@ -23,7 +23,7 @@ const ProductList = ({ products = []}: any) => {
   console.log("cartProducts", cartProducts);
   const [productLoading, setProductLoading] = useState<string[]>([]);
 
-  const { apiAction } = useApi();
+  const { apiAction ,loader:loading} = useApi();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -219,7 +219,7 @@ const ProductList = ({ products = []}: any) => {
         })
       ) : (
         <div className="flex justify-center w-full mt-14">
-          No Products Found
+        {(loader  || loading)? "": " No Products Found"}
         </div>
       )}
     </ul>

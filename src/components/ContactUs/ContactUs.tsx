@@ -4,6 +4,7 @@ import { EMAIL_REGEX, PHONE_REGEX } from "@/lib/constant";
 import { showToast } from "@/lib/utils";
 import {  useState } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../common/Loader";
 
 interface IError {
   name?: string
@@ -15,7 +16,7 @@ interface IError {
 
 
 const ContactUs = () => {
-  const { apiAction } = useApi()
+  const { loader,apiAction } = useApi()
   const [params, setParams] = useState({
     name: "",
     email: "",
@@ -133,16 +134,21 @@ const ContactUs = () => {
               </h3>
               <div className="flex flex-nowrap flex-col items-start">
                 <div>
-                  <div>
+              {/* <Loader/> */}
+                  <div className="relative">
                     <div className="absolute overflow-hidden h-[1px] w-[1px] m-[-1px] clip-[1px] clip-path-inset-[50%]">
                       <p
                         role="status"
                         aria-live="polite"
                         aria-atomic="true"
-                      ></p>
+                        ></p>
                       <ul></ul>
                     </div>
                     <form action="" onSubmit={(e) => handleSubmit(e)}>
+                   {loader ?  <div className="flex absolute mt-32 left-1/2 flex-nowrap flex-col items-center h-full">
+                     {   <Loader/>}
+
+                    </div>:null}
                       <div>
                         <p className="py-[16px]">
                           <label

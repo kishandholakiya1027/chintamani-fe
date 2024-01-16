@@ -1,16 +1,17 @@
 import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
 import { addCartProduct, addQuantity, setOpenCart } from '@/redux/reducer/cart'
-import  { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import RemovePopup from '../alert/RemovePopup'
 import { useNavigate } from 'react-router'
+import Loader from '../common/Loader'
 
 const Index = () => {
   const { cart: { cartProduct, openCart }, auth: { token, user } } = useSelector((state: { cart: any, auth: any }) => state)
   // console.log("🚀 ~ cartProduct:", cartProduct)
   const dispatch = useDispatch()
-  const { apiAction } = useApi()
+  const { loader, apiAction } = useApi()
   const [openPopup, setOpenPopup] = useState('')
 
   const navigate = useNavigate()
@@ -69,6 +70,7 @@ const Index = () => {
         <div className="mx-auto max-w-5xl justify-center px-6 h-[100vh] md:space-x-6 xl:px-0 overflow-y-auto">
           <div className="px-6 py-4">
             <div className="rounded-lg md:w-full">
+              {loader ? <Loader /> : null}
               {cartProduct?.length ? cartProduct?.map((products: any) => {
                 let product = products?.product || products
                 let qty = products?.quantity
@@ -118,7 +120,7 @@ const Index = () => {
                   <p className="mb-1 text-lg font-bold">${handleTotalAmount()} USD</p>
                 </div>
               </div>
-              <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={() => {navigate("/checkout"), dispatch(setOpenCart())}}>Check out</button>
+              <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={() => { navigate("/checkout"), dispatch(setOpenCart()) }}>Check out</button>
             </div> : null}
           </div>
 

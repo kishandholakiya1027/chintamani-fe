@@ -1,3 +1,4 @@
+import Loader from "@/components/common/Loader";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { setOrder } from "@/redux/reducer/order";
@@ -173,8 +174,7 @@ const Order: React.FC = () => {
     <>
       {loading ? (
         <div className="flex items-center justify-center h-16">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-500"></div>
-          <span className="ml-2">Loading...</span>
+          <Loader />
         </div>
       ) : (
         <div className="">

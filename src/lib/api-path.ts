@@ -41,6 +41,7 @@ export const apiPath = {
         emailVerification:"user/verification",
         resendOTP:"user/resendotp",
         register:"user/create",
+        updateUser: "user/update",
         forgotPassword:"user/forgetpassword",
         verifyOTP:"user/verification/forgetpassword",
         createPassword:"user/create_password",
@@ -55,6 +56,9 @@ export const apiPath = {
     },
     order: {
       getOrder: "order/user_order"
+    },
+    image:{
+      uploadImage:"product/updatefile"
     }
    
   }

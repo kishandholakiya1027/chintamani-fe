@@ -379,9 +379,10 @@ const headerMenu = (
               <div className="flex flex-nowrap flex-col  relative" onClick={() => user?.id ? setMenu(!menu) : navigate("/login")}>
           <div className=" justify-center flex flex-row w-full  items-center flex-wrap">
                   <div className="w-[23.33%] py-0 pl-3 flex-col flex text-center items-center cursor-pointer">
-                    <FontAwesomeIcon icon={faUser} size="lg" />
+                    {user?.image ? <img src={user?.image} className="w-8 h-8 rounded-full object-cover" /> : <FontAwesomeIcon icon={faUser} size="lg" />}
+                    {/* <FontAwesomeIcon icon={faUser} size="lg" /> */}
                   </div>
-                  <div className="w-[73.33%] py-0 px-3 flex-col flex text-center items-center">
+                  <div className="w-[73.33%] py-0 px-3 flex-col flex text-center items-start">
                     <Link to={""}>{user?.id ? `${user?.firstname} ${user?.lastname}` : "Login"}</Link>
                   </div>
                   <div className=" py-0 px-5 flex-col flex text-center items-center"></div>
@@ -398,11 +399,29 @@ const headerMenu = (
 
             <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="relative grid gap-6 bg-white px-5 py-4 sm:gap-8 sm:py-4" onClick={()=>{
+              setMenu(false)
+              navigate("/account")
+            }}>
+                <a href="#" className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+
+                {/* <svg className="h-6 w-6 flex-shrink-0 text-template-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />
+                </svg> */}
+                
+                <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-900">Account</p>
+                </div>
+                </a>
+            </div>
+            <div className="relative grid gap-6 bg-white px-5 py-4 sm:gap-8 sm:py-4" onClick={()=>{
               dispatch(handleLogout())
               setMenu(false)
               // navigate("/")
             }}>
-                <a href="#" className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
+                <a href="#" className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50">
                 <svg className="h-5 w-5 flex-shrink-0 text-template-secondary" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 1C2.44771 1 2 1.44772 2 2V13C2 13.5523 2.44772 14 3 14H10.5C10.7761 14 11 13.7761 11 13.5C11 13.2239 10.7761 13 10.5 13H3V2L10.5 2C10.7761 2 11 1.77614 11 1.5C11 1.22386 10.7761 1 10.5 1H3ZM12.6036 4.89645C12.4083 4.70118 12.0917 4.70118 11.8964 4.89645C11.7012 5.09171 11.7012 5.40829 11.8964 5.60355L13.2929 7H6.5C6.22386 7 6 7.22386 6 7.5C6 7.77614 6.22386 8 6.5 8H13.2929L11.8964 9.39645C11.7012 9.59171 11.7012 9.90829 11.8964 10.1036C12.0917 10.2988 12.4083 10.2988 12.6036 10.1036L14.8536 7.85355C15.0488 7.65829 15.0488 7.34171 14.8536 7.14645L12.6036 4.89645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                 {/* <svg className="h-6 w-6 flex-shrink-0 text-template-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />

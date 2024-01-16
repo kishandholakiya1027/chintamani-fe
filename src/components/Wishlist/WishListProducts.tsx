@@ -3,12 +3,14 @@ import { apiPath } from '@/lib/api-path'
 import { addWishLishProduct } from '@/redux/reducer/cart'
 import  { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Loader from '../common/Loader'
 
 const WishListProducts = () => {
   const [openPopup, setOpenPopup] = useState<string | undefined>('')
   const { cart: { wishListProduct }, auth: { token, user } } = useSelector((state: { cart: any, auth: any }) => state)
-  console.log("🚀 ~ wishListProduct:", wishListProduct)
-  const { apiAction } = useApi()
+
+  const { apiAction ,loader} = useApi()
+
   const dispatch = useDispatch()
   const removeFromWishList = async (id: string) => {
     const data = await apiAction({ method: "post", url: `${apiPath?.product?.removeWishlist}`, data: { userid: user?.id, productid: id }, headers: { "Authorization": `Bearer ${token}` } })
@@ -26,6 +28,7 @@ const WishListProducts = () => {
       <div className='my-8'>
         <p className=' text-[30px] text-[#404040] font-bold line-height-[20px]'>My wishlist</p>
       </div>
+      {loader   ? <Loader/>:null}
       <div className="rounded-lg md:w-full rounded-[10px]   border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] ">
         {wishListProduct?.length ? wishListProduct?.map((products: any) => {
           let product = products?.product || products
@@ -61,8 +64,8 @@ const WishListProducts = () => {
           </div>
 
         }) :
-          <div className='flex justify-center items-center mb-10'>
-            <h2 >No products added to the wishlist</h2>
+          <div className='flex justify-center items-center my-10'>
+          {!loader ?   <h2 >No products added to the wishlist</h2>:null}
           </div>
         }
 
