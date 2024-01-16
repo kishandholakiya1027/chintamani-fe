@@ -2,13 +2,19 @@ import Loader from "@/components/common/Loader";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { setOrder } from "@/redux/reducer/order";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import useRazorpay from "react-razorpay";
 import { useDispatch, useSelector } from "react-redux";
+
+const VITE_RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID;
+const VITE_RAZORPAY_KEY_SECRET = import.meta.env.VITE_RAZORPAY_KEY_SECRET;
 
 const Order: React.FC = () => {
   const { apiAction } = useApi();
   const dispatch = useDispatch();
+
+  const [Razorpay] = useRazorpay();
 
   const {
     auth: { user, token },
@@ -45,6 +51,61 @@ const Order: React.FC = () => {
     fetchData();
   }, [currentPage]);
 
+  const updateOrder = async (orderid :number) => {
+    apiAction({
+      method: "patch",
+      url: `${apiPath?.checkOut?.updateOrder}`,
+      data: { payment: 2, orderid},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
+  const updatePaymentOrder = async (orderid :number) => {
+    return await apiAction({
+      method: "patch",
+      url: `${apiPath?.order?.updatePaymentOrder}`,
+      data: { orderid},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  const handlePayment = useCallback(async (order :any) => {
+    setLoading(true);
+    try {
+      const orderData = await updatePaymentOrder(order.id);
+      console.log(orderData, "orderData");
+      const options = {
+        key: VITE_RAZORPAY_KEY_ID,
+        secret: VITE_RAZORPAY_KEY_SECRET,
+        amount: orderData?.data?.orderDetails?.amount_due,
+        currency: orderData?.data?.orderDetails?.currency,
+        name: "Acme Corp",
+        description: "Test Transaction",
+        order_id: orderData?.data?.orderDetails?.id,
+        handler: (res: Object) => {
+          console.log(res, "ress++");
+          updateOrder(orderData?.id);
+        },
+        prefill: {
+          name: `${user?.firstname} ${user?.lastname}`,
+          email: user?.email,
+          contact: user?.mobile,
+          // method: "netbanking"
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzpay = new Razorpay(options);
+      rzpay.open();
+    } catch (error) {
+      console.error("Error handling payment:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [ user]);
   const handlePageClick = (data: { selected: number }) => {
     setCurrentPage(data.selected);
   };
@@ -77,11 +138,12 @@ const Order: React.FC = () => {
   };
   
   const displayedFields = {
-    Id: "id",
+    Title: "productResponse_0_product_title",
     Price: "totalprice",
     OrderStatus: "orderstatus",
     Payment: "payment",
     Currency: "orderDetails_currency",
+    Action: "payment"
   };
 
 
@@ -162,12 +224,22 @@ const Order: React.FC = () => {
               typeof order[value] === "number" ? getColorClass(order[value]) : ""
             }`}
           >
-            {statusText(value, order[value])}
+            {key === "Action" && order[value] === 0 ? (
+              <button
+                className="bg-blue-500 text-white px-2 py-1 rounded"
+                onClick={() => handlePayment(order)}
+              >
+                Pay now
+              </button>
+            ) : (
+              statusText(value, order[value])
+            )}
           </td>
         ))}
       </tr>
     ));
   };
+  
   
 
   return (

@@ -52,10 +52,11 @@ export const apiPath = {
     },
     checkOut: {
       createOrder: "order/create",
-      updateOrder: "order/update"
+      updateOrder: "order/update",
     },
     order: {
-      getOrder: "order/user_order"
+      getOrder: "order/user_order",
+      updatePaymentOrder: "order/update_order",
     },
     image:{
       uploadImage:"product/updatefile"

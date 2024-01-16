@@ -98,7 +98,7 @@ const CheckoutComponent = () => {
         name: "Acme Corp",
         description: "Test Transaction",
         order_id: order.data.orderDetails.id,
-        handler: (res:any) => {
+        handler: (res : Object) => {
           console.log(res, "ress++");
           updateOrder(order?.data?.id);
         },
@@ -125,7 +125,7 @@ const CheckoutComponent = () => {
     }
   }, [createOrder, handleTotalAmount, user, setIsLoading]);
 
-  const updateOrder = async (orderid: any) => {
+  const updateOrder = async (orderid: number) => {
     apiAction({
       method: "patch",
       url: `${apiPath?.checkOut?.updateOrder}`,
@@ -238,7 +238,7 @@ const CheckoutComponent = () => {
               </div>
             </div>
             <div className="px-3 md:w-7/12 lg:pr-10">
-              {cartProduct?.map((prod:any) => {
+              {cartProduct?.map((prod : any) => {
                 let product = prod?.product || prod;
                 let qty = prod?.quantity || 1;
                 console.log("🚀 ~ CheckoutComponent ~ product:", product);
