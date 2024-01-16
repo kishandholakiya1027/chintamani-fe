@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Index = () => {
+    const navigate = useNavigate()
     const [open, setOpen] = useState([1])
 
     const faqsArray = [
@@ -23,7 +25,7 @@ const Index = () => {
 
             <span className="self-center flex w-full max-w-[1454px] flex-col items-center my-20 max-md:max-w-full max-md:mt-10">
                 <div className="justify-center text-neutral-700 text-base font-semibold leading-6 whitespace-nowrap">
-                    Home<span className=" text-neutral-500"> / FAQ</span>
+                    <span className="cursor-pointer" onClick={() => navigate('/')}>Home</span><span className=" text-neutral-500"> / FAQ</span>
                 </div>
                 <div className="justify-center text-neutral-700 text-2xl font-bold leading-10 whitespace-nowrap mt-32 max-md:mt-10">
                     Table of Contents
@@ -31,10 +33,10 @@ const Index = () => {
                 <div className="justify-center text-black text-base font-semibold leading-7 mt-4">
                     General Options
                     <br />
-                   <a href="#question-1" onClick={() => setOpen([...open, 2])}>
-                    User Account
+                    <a href="#question-1" onClick={() => setOpen([...open, 2])}>
+                        User Account
 
-                   </a>
+                    </a>
                     <br />
                     Shipping Methods
                     <br />
@@ -46,18 +48,18 @@ const Index = () => {
                 {faqsArray?.map(({ question, answer }, i) => (
                     <div id={`question-${i + 1}`} className="justify-center items-stretch border-t-neutral-200 self-stretch flex flex-col  py-7 border-t border-solid max-md:max-w-full">
                         <span className="flex items-stretch justify-between gap-5 max-md:max-w-full max-md:flex-wrap">
-                            <div className="justify-center text-neutral-700 text-2xl font-bold leading-6 grow shrink basis-auto max-md:max-w-full">
+                            <div className="justify-start flex items-center text-neutral-700 lg:text-2xl md:text-xl text-lg font-bold leading-6 grow shrink basis-auto max-md:max-w-full">
                                 {question}
                             </div>
                             {open?.includes(i + 1) ? <div className="stroke-[1px] stroke-indigo-950 flex aspect-square flex-col justify-center items-stretch px-1.5 py-2.5 self-start" onClick={() => setOpen(open?.filter((item: any) => item !== i + 1))}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                    </svg>
-                            </div> : 
-                                <div className="stroke-[1px] stroke-indigo-950 flex aspect-square flex-col justify-center items-stretch px-1.5 py-2.5 self-start" onClick={() => setOpen([...open, i + 1])}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
+                            </div> :
+                                <div className="stroke-[1px] stroke-indigo-950 flex aspect-square flex-col justify-center items-stretch px-1.5 py-2.5 self-start" onClick={() => setOpen([...open, i + 1])}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
 
                                 </div>}
                         </span>
@@ -71,7 +73,7 @@ const Index = () => {
                     </div>
 
                 ))}
-            
+
             </span>
         </div>
 

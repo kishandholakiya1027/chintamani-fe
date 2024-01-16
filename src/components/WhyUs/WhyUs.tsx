@@ -155,7 +155,7 @@ const WhyUs = () => {
               </p>
             </div>
           </div>
-          <div className="mt-[125px] mb-[70px] flex gap-[20px] md:gap-[40px] items-center justify-center">
+          <div className="mt-[125px] mb-[70px] flex flex-wrap gap-[20px] md:gap-[40px] items-center justify-center">
             <img
               src={IgiLogo}
               alt="IgiLogo"

@@ -30,7 +30,7 @@ const DiamondsShapes = () => {
           <div className="flex w-full items-stretch justify-center flex-wrap">
             <div className="flex flex-col flex-nowrap items-start p-[20px]">
               <img src={DimondShape} alt="DimondShape" />
-              <h2 className="text-[30px] font-bold font-poppins text-[#404040]">
+              <h2 className="font-bold font-poppins text-[#404040] lg:text-[30px] md:text-[24px] text-[20px] mt-4">
                 Diamond Shape
               </h2>
               <div>
@@ -49,7 +49,7 @@ const DiamondsShapes = () => {
                   engagement rings. Learn more about each shape below.
                 </p>
               </div>
-              <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+              <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                 About Diamond Shapes
               </h3>
               <div className="text-base font-normal font-poppins text-[#404040]">
@@ -83,7 +83,7 @@ const DiamondsShapes = () => {
                   showcase the sparkle of the diamond.
                 </p>
               </div>
-              <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+              <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                 Diamonds Shapes by Popularity
               </h3>
               <img src={PopularDimondShape} alt={"PopularDimondShape"} />
@@ -119,7 +119,7 @@ const DiamondsShapes = () => {
                   trending.{" "}
                 </p>
               </div>
-              <h2 className="text-[30px] font-bold font-poppins text-[#404040]">
+              <h2 className="font-bold font-poppins text-[#404040] lg:text-[30px] md:text-[24px] text-[20px] mt-4">
                 Shapes
               </h2>
             </div>
@@ -128,7 +128,7 @@ const DiamondsShapes = () => {
                 <img src={ShapesRound1} alt="ShapesRound1" />
               </div>
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Round: STYLE: classic, elegant, sparkling <br />
                 </h3>
                 <div className="text-base font-normal font-poppins text-[#404040]">
@@ -187,7 +187,7 @@ const DiamondsShapes = () => {
             </div>
             <div className="flex flex-wrap items-stretch justify-center w-full">
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Princess : STYLE: classic, elegant, sparkling
                   <br />
                 </h3>
@@ -291,7 +291,7 @@ const DiamondsShapes = () => {
             </div>
             <div className="flex flex-wrap items-stretch justify-center w-full">
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Emerald: STYLE: modern, bold, glamorous
                   <br />
                 </h3>
@@ -341,7 +341,7 @@ const DiamondsShapes = () => {
                 <img src={Shapes_Cushion1} alt="Shapes_Cushion1" />
               </div>
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Cushion: STYLE: romantic, graceful, sophisticated
                   <br />
                 </h3>
@@ -390,7 +390,7 @@ const DiamondsShapes = () => {
             </div>
             <div className="flex flex-wrap items-stretch justify-center w-full">
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Emerald: STYLE: modern, bold, glamorous
                   <br />
                 </h3>
@@ -437,7 +437,7 @@ const DiamondsShapes = () => {
             </div>
             <div className="flex flex-wrap items-stretch justify-center w-full">
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Oval: STYLE: trendy, elegant, delicate
                   <br />
                 </h3>
@@ -487,7 +487,7 @@ const DiamondsShapes = () => {
             </div>
             <div className="flex flex-wrap items-stretch justify-center w-full">
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Pear: STYLE: contemporary, unique, gentle
                   <br />
                 </h3>
@@ -540,7 +540,7 @@ const DiamondsShapes = () => {
             </div>
             <div className="flex flex-wrap items-stretch justify-center w-full">
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Asscher: STYLE: balanced, vintage, creative
                   <br />
                 </h3>
@@ -593,7 +593,7 @@ const DiamondsShapes = () => {
                 <img src={Shapes_Marquise1} alt="Shapes_Marquise1" />
               </div>
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Marquise: STYLE: dramatic, moving, joyful
                   <br />
                 </h3>
@@ -640,7 +640,7 @@ const DiamondsShapes = () => {
                 <img src={RadiantShape} alt="RadiantShape" />
               </div>
               <div className="flex flex-col flex-nowrap items-start p-[20px]">
-                <h3 className="text-[24px] font-bold font-poppins text-[#404040]">
+                <h3 className="lg:text-[24px] md:text-[20px] text-[20px] mt-4 pb-3 font-bold font-poppins text-[#404040]">
                   Radiant : STYLE: dramatic, moving, joyful
                   <br />
                 </h3>

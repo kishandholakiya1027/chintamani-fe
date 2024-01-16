@@ -43,7 +43,7 @@ const Diamonds = () => {
     if (Object.keys(filter)?.length) {
       fetchProducts()
     }
-  }, [filter?.mincarat, filter?.maxcarat, filter?.maxprice, filter?.minprice, filter?.Color, filter?.Clarity, filter?.Cuts, filter?.page, filter?.pageSize,filter])
+  }, [filter?.mincarat, filter?.maxcarat, filter?.maxprice, filter?.minprice, filter?.Color, filter?.Clarity, filter?.Cuts, filter?.page, filter?.pageSize, filter])
 
 
 
@@ -63,13 +63,11 @@ const Diamonds = () => {
         <ProductHeader submitHandler={() => { }} />
         <div className="flex w-full items-stretch justify-center flex-wrap">
           <Sidebar setFilter={setFilter} filter={filter}></Sidebar>
-          <div className="w-[80%] flex flex-col flex-nowrap items-start p-[20px] pr-[0]">
-        
+          <div className="lg:w-[80%] md:w-[70%] w-[100%] flex flex-col flex-nowrap items-start p-[20px] pr-[0]">
             <div className="w-full">
-            {/* <Loader />  */}
+              {/* <Loader />  */}
               <p className="py-[8px] text-base font-poppins font-normal text-[#404040] mb-[16px] float-left">
                 showing {totalRecords ? (filter?.page || 1) : 0}-{(Math.ceil(totalRecords / limit)) ?? 0} of {totalRecords ?? 0} results
-
               </p>
               <form action="" className="float-right mb-[16px] relative">
                 <select
@@ -94,7 +92,7 @@ const Diamonds = () => {
                   <option value={2}>Sort by price: high to low</option>
                 </select>
               </form>
-            {loader ? <div className="mt-32 flex justify-center items-center"> <Loader /></div> : null}
+              {loader ? <div className="mt-32 flex justify-center items-center"> <Loader /></div> : null}
 
               <ProductList products={products} fetchProducts={fetchProducts} loader={loader} />
 

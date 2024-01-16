@@ -36,11 +36,11 @@ const Index = () => {
                     <span className="justify-center text-indigo-950 text-base font-semibold leading-6 items-stretch self-stretch py-6 border-b-zinc-300 border-b border-solid max-md:max-w-full">
                         Home<span className="font-medium"> / Blog</span>
                     </span>
-                    <div className="self-stretch mt-10 max-md:max-w-full max-md:mt-10 max-md:pr-5">
-                        <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0 flex-wrap">
+                    <div className="self-stretch mt-10 max-md:max-w-full max-md:mt-10">
+                        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
                             {blogs?.map((blog: blogType) => {
                                 return (
-                                    <Link to={`/blog-details/${blog?.id}`} className="flex flex-col mt-5 items-stretch w-[32%] max-md:w-full max-md:ml-0">
+                                    <Link to={`/blog-details/${blog?.id}`} className="">
                                         <div className="shadow-lg bg-white flex grow flex-col items-stretch w-full pb-8 max-md:mt-3.5">
                                             <div className="flex flex-col justify-center items-stretch">
                                                 <div className="flex-col overflow-hidden relative flex aspect-[1.5333333333333334] w-full pl-16 pr-3 pt-3 pb-12 items-end max-md:pl-5">

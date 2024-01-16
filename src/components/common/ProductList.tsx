@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { setCategory } from "@/redux/reducer/category";
 import { toast } from "react-toastify";
 
-const ProductList = ({ products = [],loader}: any) => {
+const ProductList = ({ products = [], loader }: any) => {
   const { user, token } = useSelector((state: { auth: any }) => state.auth);
   const { category } = useSelector((state: any) => state?.category);
 
@@ -23,7 +23,7 @@ const ProductList = ({ products = [],loader}: any) => {
   console.log("cartProducts", cartProducts);
   const [productLoading, setProductLoading] = useState<string[]>([]);
 
-  const { apiAction ,loader:loading} = useApi();
+  const { apiAction, loader: loading } = useApi();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -127,8 +127,6 @@ const ProductList = ({ products = [],loader}: any) => {
     }
   };
 
- 
-
   const setMenu = async (productName: string, productid: string) => {
     dispatch(
       setCategory([...category, { path: productName, name: productName }])
@@ -137,12 +135,12 @@ const ProductList = ({ products = [],loader}: any) => {
   };
 
   return (
-    <ul className="p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer mb-[75px]">
+    <ul className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer mb-[75px]">
       {products?.length ? (
         products?.map((product: productType) => {
           return (
-            <li className="max-w-full sm:max-w-[30%] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]">
-              <div onClick={() => setMenu(product?.title||"", product?.id||"")}>
+            <li className="float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]">
+              <div onClick={() => setMenu(product?.title || "", product?.id || "")}>
                 <div className="flex text-center items-center flex-col relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
                   <img
                     src={RoundedDiamond}
@@ -158,8 +156,8 @@ const ProductList = ({ products = [],loader}: any) => {
                 </div>
               </div>
               <div className="mb-3 mx-3 flex items-center justify-between">
-                {!wishlist?.includes(product?.id||"") ? (
-                  <div onClick={() => addToWishList(product?.id||"")}>
+                {!wishlist?.includes(product?.id || "") ? (
+                  <div onClick={() => addToWishList(product?.id || "")}>
                     <svg
                       width="15"
                       height="15"
@@ -176,7 +174,7 @@ const ProductList = ({ products = [],loader}: any) => {
                     </svg>
                   </div>
                 ) : (
-                  <div onClick={() => removeFromWishList(product?.id||"")}>
+                  <div onClick={() => removeFromWishList(product?.id || "")}>
                     <svg
                       width="15"
                       height="15"
@@ -195,20 +193,19 @@ const ProductList = ({ products = [],loader}: any) => {
                 )}
                 {/* <FontAwesomeIcon icon={faHeart} onClick={() => addToWishList(product?.id)} />
                     <FontAwesomeIcon icon={regular("heart")} /> */}
-                {cartProducts?.includes(product?.id||"") ? (
+                {cartProducts?.includes(product?.id || "") ? (
                   <button onClick={() => dispatch(setOpenCart())}>
                     Go to Cart
                   </button>
                 ) : (
                   <button
-                    onClick={() => addToCart(product?.id||"")}
-                    className={` ${
-                      productLoading.includes(product?.id||"")
-                        ? "cursor-not-allowed opacity-50"
-                        : ""
-                    }`}
+                    onClick={() => addToCart(product?.id || "")}
+                    className={` ${productLoading.includes(product?.id || "")
+                      ? "cursor-not-allowed opacity-50"
+                      : ""
+                      }`}
                   >
-                    {productLoading.includes(product?.id||"")
+                    {productLoading.includes(product?.id || "")
                       ? "Adding to Cart..."
                       : "Add to Cart"}
                   </button>
@@ -219,7 +216,7 @@ const ProductList = ({ products = [],loader}: any) => {
         })
       ) : (
         <div className="flex justify-center w-full mt-14">
-        {(loader  || loading)? "": " No Products Found"}
+          {(loader || loading) ? "" : " No Products Found"}
         </div>
       )}
     </ul>

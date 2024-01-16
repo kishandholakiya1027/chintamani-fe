@@ -7,14 +7,14 @@ const Index = () => {
             <div className="flex flex-col mb-10">
 
                 <span className="self-center flex w-full max-w-[1490px] flex-col mt-24 max-md:max-w-full max-md:mt-10">
-                    <div className="justify-center text-neutral-700 text-base font-semibold leading-6 self-center whitespace-nowrap">
+                    <div className="justify-center text-neutral-700 text-base font-semibold leading-6 self-center">
                         Home<span className=" text-neutral-700"> / Terms & Conditions</span>
                     </div>
                     <span className="flex w-[1150px] max-w-full flex-col items-stretch justify-center gap-5 mt-5 self-end max-md:flex-wrap">
                         <div className="flex flex-col justify-center text-neutral-700 text-base leading-7 grow shrink basis-auto">
-                        <div className="justify-center mb-4 text-neutral-700 text-3xl font-bold leading-10 whitespace-nowrap  mt-32  max-md:mt-10">
-                            Terms & conditions
-                        </div>
+                            <div className="justify-center mb-4 text-neutral-700 text-3xl font-bold leading-10  mt-32  max-md:mt-10">
+                                Terms & conditions
+                            </div>
                             1. Preface
                             <br />
                             2. Our Guarantees
@@ -125,7 +125,7 @@ const Index = () => {
                     <div className="justify-center text-neutral-700 text-xl font-semibold leading-8 self-stretch mt-6 max-md:max-w-full">
                         1. Ordering and purchasing process
                     </div>
-                    <div className="justify-center text-neutral-700 text-base leading-6 whitespace-nowrap ml-4 mt-5 self-start ">
+                    <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-5 self-start ">
                         1. Put your item(s) in the shopping cart
                     </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
@@ -199,7 +199,7 @@ const Index = () => {
                         <br />
                         Email: admin@chintamanigems.com
                     </div>
-                    <div className="justify-center text-neutral-700 text-base font-semibold leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base font-semibold leading-6 ml-4 mt-6 self-start ">
                         2. - Availability and replacement delivery
                     </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1047px] ml-4 mt-6 self-start max-md:max-w-full">
@@ -212,7 +212,7 @@ const Index = () => {
                         accepting the replacement or receiving a full refund of any amounts
                         already paid for goods that cannot be delivered.
                     </div>
-                    <div className="justify-center text-neutral-700 text-base font-semibold leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base font-semibold leading-6 ml-4 mt-6 self-start ">
                         3. - Pricing determination errors
                     </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1053px] ml-3.5 mt-6 self-start max-md:max-w-full">
@@ -385,7 +385,7 @@ const Index = () => {
                         <br />
                         the withdrawal period has expired.
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base font-semibold leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base font-semibold leading-6 ml-4 mt-6 self-start ">
                         Consequences of withdrawal
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1051px] ml-4 mt-7 self-start max-md:max-w-full">
@@ -454,30 +454,30 @@ const Index = () => {
                         (If you wish to withdraw from the contract, please fill in and return
                         this form.)
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start ">
                         1. To; admin@chintamanigems.com
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         2. Hereby I/we (*) withdraw from the contract concluded by me/us (*)
                         for the purchase of the following goods (*)
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start ">
                         3. Ordered on (*)/received on (*)
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start ">
                         4. Name of consumer(s)
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start ">
                         5. Address of consumer(s)
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         6. Signature of consumer(s) (only for paper notification)
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base leading-6 whitespace-nowrap ml-4 mt-7 self-start ">
+                    <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-7 self-start ">
                         Date
                     </div>{" "}
                     <div className="border border-neutral-700 flex w-[150px] shrink-0 h-0.5 flex-col ml-4 mt-14 border-solid self-start  max-md:mt-10" />{" "}
-                    <div className="justify-center text-neutral-700 text-base leading-6 whitespace-nowrap ml-4 mt-5 self-start ">
+                    <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-5 self-start ">
                         (*) Delete as applicable.
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
@@ -624,7 +624,7 @@ const Index = () => {
                             outside the aforementioned 30 days
                         </span>
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Engagement Rings:
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1045px] ml-4 mt-6 self-start max-md:max-w-full">
@@ -646,7 +646,7 @@ const Index = () => {
                         <br />
                         team at admn@chintamanigems.com
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Eternity Rings:
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 ml-4 self-stretch mt-6 max-md:max-w-full">
@@ -666,7 +666,7 @@ const Index = () => {
                         <br />
                         admin@chintamanigems.com
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Wedding Rings:
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1052px] ml-4 mt-5 self-start max-md:max-w-full">
@@ -678,7 +678,7 @@ const Index = () => {
                         <br />
                         allows a resizing.
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Cocktail Rings:
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1054px] ml-4 mt-6 self-start max-md:max-w-full">
@@ -687,7 +687,7 @@ const Index = () => {
                         <br />
                         possible.
                     </div>{" "}
-                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 whitespace-nowrap ml-4 mt-6 self-start ">
+                    <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Custom-made rings:
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1060px] ml-4 mt-5 self-start max-md:max-w-full">
@@ -1084,7 +1084,7 @@ const Index = () => {
                         Indian jurisdiction.
                     </div>
                 </span>{" "}
-              
+
             </div>
         </div>
     )

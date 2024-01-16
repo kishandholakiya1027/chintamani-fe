@@ -15,7 +15,7 @@ const DiamondPrice = () => {
       </div>
       <div className="py-[95px]">
         <div>
-          <h3 className="font-poppins text-[30px] font-[700] text-[#404040] ">
+          <h3 className="font-poppins lg:text-[30px] md:text-[24px] text-[20px] mt-4 font-[700] text-[#404040] ">
             Diamond Price & Value Per Carat List
           </h3>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
@@ -32,7 +32,7 @@ const DiamondPrice = () => {
           </p>
         </div>
         <div>
-          <h3 className="font-poppins text-[30px] font-[700] text-[#404040] ">
+          <h3 className="font-poppins lg:text-[30px] md:text-[24px] text-[20px] mt-4 font-[700] text-[#404040] ">
             How is Diamond Value Calculated in Trade?
           </h3>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
@@ -67,7 +67,7 @@ const DiamondPrice = () => {
           </p>
         </div>
         <div>
-          <h3 className="font-poppins text-[30px] font-[700] text-[#404040] ">
+          <h3 className="font-poppins lg:text-[30px] md:text-[24px] text-[20px] mt-4 font-[700] text-[#404040] ">
             Who set these “Price Per Carat” values?
           </h3>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
@@ -119,7 +119,7 @@ const DiamondPrice = () => {
           </div>
         </div>
         <div>
-          <h3 className="font-poppins text-[30px] font-[700] text-[#404040] ">
+          <h3 className="font-poppins lg:text-[30px] md:text-[24px] text-[20px] mt-4 font-[700] text-[#404040] ">
             How To Read Diamond Price List?
           </h3>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
@@ -153,7 +153,7 @@ const DiamondPrice = () => {
           </p>
         </div>
         <div>
-          <h3 className="font-poppins text-[30px] font-[700] text-[#404040] ">
+          <h3 className="font-poppins lg:text-[30px] md:text-[24px] text-[20px] mt-4 font-[700] text-[#404040] ">
             Get Latest Diamond Prices
           </h3>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
@@ -172,7 +172,7 @@ const DiamondPrice = () => {
           </p>
         </div>
         <div>
-          <h3 className="font-poppins text-[30px] font-[700] text-[#404040] ">
+          <h3 className="font-poppins lg:text-[30px] md:text-[24px] text-[20px] mt-4 font-[700] text-[#404040] ">
             What is Back/Discount & Premium from Rapaport Diamond Pricelist?
           </h3>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
@@ -223,7 +223,7 @@ const DiamondPrice = () => {
           </p>
         </div>
         <div>
-          <h3 className="font-poppins text-[30px] font-[700] text-[#404040] ">
+          <h3 className="font-poppins lg:text-[30px] md:text-[24px] text-[20px] mt-4 font-[700] text-[#404040] ">
             Understanding Diamond Price & Find Real Value.
           </h3>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
@@ -234,7 +234,7 @@ const DiamondPrice = () => {
           </p>
         </div>
         <div>
-          <h3 className="font-poppins text-[30px] font-[700] text-[#404040] ">
+          <h3 className="font-poppins lg:text-[30px] md:text-[24px] text-[20px] mt-4 font-[700] text-[#404040] ">
             What makes such a huge difference in pricing with similar certified
             diamonds?
           </h3>
