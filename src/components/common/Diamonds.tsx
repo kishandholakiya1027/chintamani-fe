@@ -63,7 +63,7 @@ const Diamonds = () => {
         <ProductHeader submitHandler={() => { }} />
         <div className="flex w-full items-stretch justify-center flex-wrap">
           <Sidebar setFilter={setFilter} filter={filter}></Sidebar>
-          <div className="lg:w-[80%] md:w-[70%] w-[100%] flex flex-col flex-nowrap items-start p-[20px] pr-[0]">
+          <div className="lg:w-[80%] md:w-[70%] w-[100%] flex flex-col flex-nowrap items-start p-[20px] lg:pl-[20px] md:pl-[20px] sm:pl-0 pl-0 pr-[0]">
             <div className="w-full">
               {/* <Loader />  */}
               <p className="py-[8px] text-base font-poppins font-normal text-[#404040] mb-[16px] float-left">
