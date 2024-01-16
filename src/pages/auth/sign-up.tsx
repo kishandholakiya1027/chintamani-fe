@@ -86,10 +86,9 @@ const SignUp = () => {
 
     const sendOtp = async () => {
         if (handleEmailValidation())
-            await apiAction({ method: "post", url: `${apiPath?.auth?.emailVerification}`, data: { email: formData?.email } }).then(async (data) => {
-                console.log("🚀 ~ awaitapiAction ~ data:", data)
+            await apiAction({ method: "post", url: `${apiPath?.auth?.emailVerification}`, data: { email: formData?.email } }).then(async ({data}) => {
                 if (data?.Otp && !data?.error) {
-                    showToast("OTP sent successfully !.Please check your mail")
+                    showToast("OTP sent successfully .Please check your mail")
 
 
                 } else {
