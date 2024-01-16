@@ -1,77 +1,74 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { Link } from "react-router-dom";
 import J1 from "../../../public/assests/Images/j-1.jpg";
 import J2 from "../../../public/assests/Images/j-2.jpg";
 import J3 from "../../../public/assests/Images/j-3.jpg";
 import Crown from "../../../public/assests/Images/crown.png";
-import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
+import MultiRangeSlider from "multi-range-slider-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { apiPath } from "@/lib/api-path";
 import api from "@/services/api";
-import { breadCrumbType } from "@/lib/interfaces/category";
-import { setCategory } from "@/redux/reducer/category";
+// import { setCategory } from "@/redux/reducer/category";
 
 const JewelleryProduct: FC = () => {
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(0);
-  const [minValue2, setMinValue2] = useState(0);
-  const [maxValue2, setMaxValue2] = useState(0);
+  // const [minValue, setMinValue] = useState(0);
+  // const [maxValue, setMaxValue] = useState(0);
+  // const [minValue2, setMinValue2] = useState(0);
+  // const [maxValue2, setMaxValue2] = useState(0);
 
 
 
-  const [filter, setFilter] = useState<any>({});
-  const [products, setProducts] = useState([]);
-  const [colors, setColors] = useState([]);
-  const [cuts, setCuts] = useState([]);
-  const [clarities, setClarities] = useState([]);
-  const [totalRecords, setTotalRecords] = useState(0);
-  const [limit, setLimit] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [filter, setFilter] = useState<any>({});
+  // const [products, setProducts] = useState([]);
+  // const [colors, setColors] = useState([]);
+  // const [cuts, setCuts] = useState([]);
+  // const [clarities, setClarities] = useState([]);
+  // const [totalRecords, setTotalRecords] = useState(0);
 
   const { category } = useSelector((state: any) => state?.category)
-  const dispatch = useDispatch()
-
+  
   const fetchProducts = async (id: string, name: string) => {
     const data = await api({ method: "get", url: `${apiPath?.categories?.product}?${name?.toLowerCase()}=${id}` })
-    setProducts(data?.data?.product)
-    setTotalRecords(data?.data?.total)
+    // setTotalRecords(data?.data?.total)
+    console.log("🚀 ~ fetchProducts ~ data:", data)
+    // setProducts(data?.data?.product)
   }
 
-  useEffect(() => {
-    getColors()
-    getCuts()
-    getClarity()
-  }, [])
+  // useEffect(() => {
+  //   getColors()
+  //   getCuts()
+  //   getClarity()
+  // }, [])
 
-  const getColors = async () => {
-    const data = await api({ method: "get", url: `${apiPath?.color?.all}` })
-    setColors(data?.data?.Colordata)
-  }
-  const getCuts = async () => {
-    const data = await api({ method: "get", url: `${apiPath?.cuts?.all}` })
-    setCuts(data?.data?.Cutdata)
-  }
-  const getClarity = async () => {
-    const data = await api({ method: "get", url: `${apiPath?.clarity?.all}` })
-    setClarities(data?.data?.Claritydata)
-  }
+  // const getColors = async () => {
+  //   const data = await api({ method: "get", url: `${apiPath?.color?.all}` })
+  //   setColors(data?.data?.Colordata)
+  // }
+  // const getCuts = async () => {
+  //   const data = await api({ method: "get", url: `${apiPath?.cuts?.all}` })
+  //   setCuts(data?.data?.Cutdata)
+  // }
+  // const getClarity = async () => {
+  //   const data = await api({ method: "get", url: `${apiPath?.clarity?.all}` })
+  //   setClarities(data?.data?.Claritydata)
+  // }
 
   useEffect(() => {
     if (category?.length) {
       let currCategory = category?.[category?.length - 1]
-      setFilter({[`${currCategory?.name?.toLowerCase()}`]:currCategory?.id})
+      // setFilter({[`${currCategory?.name?.toLowerCase()}`]:currCategory?.id})
       fetchProducts(currCategory?.id, currCategory?.name)
 
     }
   }, [category])
 
-  const submitHandler = async (item: breadCrumbType, index: number) => {
-    dispatch(setCategory(category?.filter((_: any, i: number) => i <= index)))
-    fetchProducts(item?.id, item?.name)
+  // const submitHandler = async (item: breadCrumbType, index: number) => {
+  //   dispatch(setCategory(category?.filter((_: any, i: number) => i <= index)))
+  //   fetchProducts(item?.id, item?.name)
 
-  }
+  // }
 
   return (
     <section className="w-full">
@@ -100,14 +97,14 @@ const JewelleryProduct: FC = () => {
                     subSteps={true}
                     minValue={690}
                     maxValue={13060}
-                    onInput={(e: ChangeResult) => {
-                      setMinValue(e.minValue);
-                      setMaxValue(e.maxValue);
-                    }}
-                    onChange={(e: ChangeResult) => {
-                      setMinValue2(e.minValue);
-                      setMaxValue2(e.maxValue);
-                    }}
+                    // onInput={(e: ChangeResult) => {
+                    //   setMinValue(e.minValue);
+                    //   setMaxValue(e.maxValue);
+                    // }}
+                    // onChange={(e: ChangeResult) => {
+                    //   setMinValue2(e.minValue);
+                    //   setMaxValue2(e.maxValue);
+                    // }}
                   />
                 </div>
               </div>

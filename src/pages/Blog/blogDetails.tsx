@@ -2,7 +2,7 @@ import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
 import { blogType } from '@/lib/interfaces/category'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 const BlogDetails = () => {

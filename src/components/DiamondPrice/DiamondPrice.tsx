@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import diamondReport from "../../../public/assests/Images/rapaport_diamond_report.png";
 import RightArrowIcon from "../../../public/assests/Icons/RightArrowIcon.svg";

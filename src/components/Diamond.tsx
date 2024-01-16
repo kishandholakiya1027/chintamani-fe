@@ -3,11 +3,11 @@ import Slider from "react-slick";
 import { Button } from './ui/button';
 import useApi from '@/hooks/useApi';
 import { apiPath } from '@/lib/api-path';
+import { bannerType } from '@/lib/interfaces/category';
 
 const Diamond: FC = () => {
-    const { apiAction } = useApi()
-    const [banners, setBanners] = useState([])
-    console.log("🚀 ~ banners:", banners)
+    const {apiAction} = useApi()
+    const [ banners, setBanners ] = useState([])
     const settings = {
         dots: false,
         infinite: true,
@@ -32,7 +32,7 @@ const Diamond: FC = () => {
     return (
         <div className='w-full diamond-sec'>
             <Slider {...settings}>
-                {banners?.map((banner) => {
+                {banners?.map((banner:bannerType)=>{
                     return (
                         <div>
                             <div className={` h-[631px] bg-no-repeat bg-cover !flex flex-col justify-center bg-center`} style={{ backgroundImage: `url('${banner?.image}')` }}>

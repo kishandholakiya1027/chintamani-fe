@@ -3,7 +3,7 @@ import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
 import { EMAIL_REGEX } from '@/lib/constant'
 import { showToast } from '@/lib/utils'
-import React, { ChangeEvent, useState } from 'react'
+import  { ChangeEvent, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 

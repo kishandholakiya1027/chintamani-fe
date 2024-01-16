@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import Arrive from "../../../public/assests/Images/arrive1.png";
@@ -6,15 +5,15 @@ import Yellow from "../../../public/assests/Images/yellow.png";
 import WhiteDiamond from "../../../public/assests/Images/whitediamond.png";
 import RoundedDiamond from "../../../public/assests/Images/roundedDiamon.png";
 import Crown from "../../../public/assests/Images/crown.png";
-import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
+// import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const HeartShape = () => {
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(0);
-  const [minValue2, setMinValue2] = useState(0);
-  const [maxValue2, setMaxValue2] = useState(0);
+  // const [minValue, setMinValue] = useState(0);
+  // const [maxValue, setMaxValue] = useState(0);
+  // const [minValue2, setMinValue2] = useState(0);
+  // const [maxValue2, setMaxValue2] = useState(0);
 
   return (
     <section className="w-full">
@@ -38,7 +37,7 @@ const HeartShape = () => {
                     <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
                       Price
                     </div>
-                    <MultiRangeSlider
+                    {/* <MultiRangeSlider
                       min={690}
                       max={13060}
                       step={1}
@@ -53,7 +52,7 @@ const HeartShape = () => {
                         setMinValue2(e.minValue);
                         setMaxValue2(e.maxValue);
                       }}
-                    />
+                    /> */}
                   </div>
                 </div>
                 <div className="py-[15px] border-t-[1px] border-b-[1px] border-[#eee]">
@@ -61,7 +60,7 @@ const HeartShape = () => {
                     <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
                       Cart
                     </div>
-                    <MultiRangeSlider
+                    {/* <MultiRangeSlider
                       min={690}
                       max={13060}
                       step={1}
@@ -76,7 +75,7 @@ const HeartShape = () => {
                         setMinValue2(e.minValue);
                         setMaxValue2(e.maxValue);
                       }}
-                    />
+                    /> */}
                   </div>
                 </div>
                 <div className="py-[15px] border-b-[1px] border-[#eee]">

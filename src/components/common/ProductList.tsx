@@ -1,7 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RoundedDiamond from "../../../public/assests/Images/roundedDiamon.png";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import api from "@/services/api";
 import { apiPath } from "@/lib/api-path";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -17,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { setCategory } from "@/redux/reducer/category";
 import { toast } from "react-toastify";
 
-const ProductList = ({ products = [], fetchProducts }: any) => {
+const ProductList = ({ products = []}: any) => {
   const { user, token } = useSelector((state: { auth: any }) => state.auth);
   const { category } = useSelector((state: any) => state?.category);
 
@@ -53,7 +50,7 @@ const ProductList = ({ products = [], fetchProducts }: any) => {
     if (data) {
       setCartProducts(
         data?.data?.products?.map(
-          (product: productType) => product?.product?.id
+          (product: any) => product?.product?.id
         )
       );
     }
@@ -130,16 +127,7 @@ const ProductList = ({ products = [], fetchProducts }: any) => {
     }
   };
 
-  const removeFromCart = async (id: string) => {
-    const data = await apiAction({
-      method: "post",
-      url: `${apiPath?.product?.removeFromCart}`,
-      data: { userid: user?.id, productid: id },
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (!data?.data?.error)
-      setCartProducts(cartProducts?.filter((item: string) => item !== id));
-  };
+ 
 
   const setMenu = async (productName: string, productid: string) => {
     dispatch(
@@ -154,7 +142,7 @@ const ProductList = ({ products = [], fetchProducts }: any) => {
         products?.map((product: productType) => {
           return (
             <li className="max-w-full sm:max-w-[30%] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]">
-              <div onClick={() => setMenu(product?.title, product?.id)}>
+              <div onClick={() => setMenu(product?.title||"", product?.id||"")}>
                 <div className="flex text-center items-center flex-col relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
                   <img
                     src={RoundedDiamond}
@@ -170,8 +158,8 @@ const ProductList = ({ products = [], fetchProducts }: any) => {
                 </div>
               </div>
               <div className="mb-3 mx-3 flex items-center justify-between">
-                {!wishlist?.includes(product?.id) ? (
-                  <div onClick={() => addToWishList(product?.id)}>
+                {!wishlist?.includes(product?.id||"") ? (
+                  <div onClick={() => addToWishList(product?.id||"")}>
                     <svg
                       width="15"
                       height="15"
@@ -188,7 +176,7 @@ const ProductList = ({ products = [], fetchProducts }: any) => {
                     </svg>
                   </div>
                 ) : (
-                  <div onClick={() => removeFromWishList(product?.id)}>
+                  <div onClick={() => removeFromWishList(product?.id||"")}>
                     <svg
                       width="15"
                       height="15"
@@ -207,20 +195,20 @@ const ProductList = ({ products = [], fetchProducts }: any) => {
                 )}
                 {/* <FontAwesomeIcon icon={faHeart} onClick={() => addToWishList(product?.id)} />
                     <FontAwesomeIcon icon={regular("heart")} /> */}
-                {cartProducts?.includes(product?.id) ? (
+                {cartProducts?.includes(product?.id||"") ? (
                   <button onClick={() => dispatch(setOpenCart())}>
                     Go to Cart
                   </button>
                 ) : (
                   <button
-                    onClick={() => addToCart(product?.id)}
+                    onClick={() => addToCart(product?.id||"")}
                     className={` ${
-                      productLoading.includes(product?.id)
+                      productLoading.includes(product?.id||"")
                         ? "cursor-not-allowed opacity-50"
                         : ""
                     }`}
                   >
-                    {productLoading.includes(product?.id)
+                    {productLoading.includes(product?.id||"")
                       ? "Adding to Cart..."
                       : "Add to Cart"}
                   </button>

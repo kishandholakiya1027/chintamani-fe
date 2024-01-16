@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import MainLogo from "../../public/assests/Images/main-logo.png";
 import LogoShape from "../../public/assests/Images/logo-shape.png";
 
@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { faBars, faCartShopping, faClose, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-import api from "@/services/api";
 import { apiPath } from "@/lib/api-path";
 import { Category, subCategory } from "@/lib/interfaces/category";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,8 +30,8 @@ const Header = ({}:Props) => {
   const { auth:{user ,token},cart:{cartCount,wishListCount}} = useSelector((state: { auth: any,cart:any }) => state)
   const modalRef = useRef();
 
-  const handleOutsideClick = (e) => {
-    if (modalRef.current && !modalRef.current.contains(e.target)) {
+  const handleOutsideClick = (e:any) => {
+    if (modalRef.current && !modalRef?.current?.contains(e.target)) {
       setMenuOpen(false)
     }
   };

@@ -13,9 +13,7 @@ const categorySlice = createSlice({
       state.category = action.payload
     },
 },
-    extraReducers: (builder) => {
-      
-    }
+  
   });
   // eslint-disable-next-line no-empty-pattern
   export const {setCategory } = categorySlice.actions;

@@ -111,3 +111,9 @@ export interface blogType {
   updatedAt?: string;
   
 }
+
+export interface bannerType {
+  image?: string;
+  title?: string;
+  description?: string;
+}

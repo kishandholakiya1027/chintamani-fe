@@ -2,7 +2,7 @@ import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { EMAIL_REGEX, PHONE_REGEX } from "@/lib/constant";
 import { showToast } from "@/lib/utils";
-import { ReactEventHandler, useState } from "react";
+import {  useState } from "react";
 import { Link } from "react-router-dom";
 
 interface IError {

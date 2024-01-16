@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 
@@ -9,13 +9,13 @@ const renderCountView = (val: number) => {
     </div>
 }
 
-const SideComponent = ({address, setAddress, contact, setContact, setIsSave}) => {
+const SideComponent = ({address, setAddress, contact, setContact, setIsSave}:any) => {
     const [open, setOpen] = useState(1)
     const {auth:{user}} = useSelector((state: any) => state)
     console.log("🚀 ~ SideComponent ~ user:", user)
     
     console.log("+++++", address, contact)
-    const [error, setError] = useState({})
+    const [error, setError] = useState<any>({})
     const handleChange = (name: string, value: string) => {
         setAddress({ ...address, [name]: value })
         setError({ ...error, [name]: "" })

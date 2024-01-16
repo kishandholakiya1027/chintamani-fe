@@ -1,10 +1,9 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import SideComponent from "./SideComponent";
 import useRazorpay from "react-razorpay";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { useDispatch, useSelector } from "react-redux";
-import { showToast } from "@/lib/utils";
 import { addCartProduct } from "@/redux/reducer/cart";
 
 const VITE_RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID;
@@ -25,7 +24,6 @@ const CheckoutComponent = () => {
   const handleTotalAmount = () => {
     const totalAmount = cartProduct?.reduce((prev: number, products: any) => {
       let product = products?.product || products;
-      let qty = products?.quantity;
       return (
         prev +
         (products?.quantity || 1) * (product?.disccount_price || product?.price)
@@ -100,7 +98,7 @@ const CheckoutComponent = () => {
         name: "Acme Corp",
         description: "Test Transaction",
         order_id: order.data.orderDetails.id,
-        handler: (res) => {
+        handler: (res:any) => {
           console.log(res, "ress++");
           updateOrder(order?.data?.id);
         },
@@ -127,7 +125,7 @@ const CheckoutComponent = () => {
     }
   }, [createOrder, handleTotalAmount, user, setIsLoading]);
 
-  const updateOrder = async (orderid) => {
+  const updateOrder = async (orderid: any) => {
     apiAction({
       method: "patch",
       url: `${apiPath?.checkOut?.updateOrder}`,
@@ -240,7 +238,7 @@ const CheckoutComponent = () => {
               </div>
             </div>
             <div className="px-3 md:w-7/12 lg:pr-10">
-              {cartProduct?.map((prod) => {
+              {cartProduct?.map((prod:any) => {
                 let product = prod?.product || prod;
                 let qty = prod?.quantity || 1;
                 console.log("🚀 ~ CheckoutComponent ~ product:", product);

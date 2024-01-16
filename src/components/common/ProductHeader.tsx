@@ -1,19 +1,8 @@
-import { breadCrumbType } from '@/lib/interfaces/category';
-import { setCategory } from '@/redux/reducer/category';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {  useSelector } from 'react-redux';
 import BreadCrumb from './BreadCrumb';
-
-
-
-
 
 const ProductHeader = ({ submitHandler }: any) => {
     const { category } = useSelector((state: any) => state?.category)
-    console.log("🚀 ~ file: ProductHeader.tsx:8 ~ ProductHeader ~ category:", category)
-    const dispatch = useDispatch()
- 
-
     return (
         <>
             <div className="pl-0 w-full border-b-[1px] border-[#eee] flex items-stretch justify-center flex-wrap mb-[80px]">

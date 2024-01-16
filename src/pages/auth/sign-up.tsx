@@ -2,10 +2,9 @@ import AuthWrapper from '@/components/auth/AuthWrapper'
 import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
 import { EMAIL_REGEX } from '@/lib/constant'
-import { showErrorToast, showToast } from '@/lib/utils'
+import { showToast } from '@/lib/utils'
 import { handleLogin } from '@/redux/reducer/auth'
-import api from '@/services/api'
-import React, { ChangeEvent, useState } from 'react'
+import{ ChangeEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
@@ -30,7 +29,6 @@ interface IForm {
 const SignUp = () => {
     const [formData, setFormData] = useState<IForm>({})
     const [error, setError] = useState<IError>({})
-    const [showOTPField, setShowOTPField] = useState<boolean>(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { apiAction } = useApi()
@@ -92,14 +90,12 @@ const SignUp = () => {
                 console.log("🚀 ~ awaitapiAction ~ data:", data)
                 if (data?.Otp && !data?.error) {
                     showToast("OTP sent successfully !.Please check your mail")
-                    setShowOTPField(true)
 
 
                 } else {
                     let resendData = await apiAction({ method: "post", url: `${apiPath?.auth?.resendOTP}`, data: { email: formData?.email } })
                     if (resendData && !data?.error) {
                         showToast("OTP sent successfully .Please check your mail !")
-                        setShowOTPField(true)
                     }
                     // showErrorToast(data?.message)
                 }

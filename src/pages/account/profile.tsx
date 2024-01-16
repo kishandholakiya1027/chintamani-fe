@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const Profile = () => {
-    const [formData, setFormData] = useState({})
-    const [error, setError] = useState({})
-    const { user, token } = useSelector((state: any) => state.auth)
+    const [formData, setFormData] = useState<any>({})
+    const [error, setError] = useState<any>({})
+    const { user } = useSelector((state: any) => state.auth)
 
     useEffect(() => {
         setFormData(user)
@@ -15,6 +15,10 @@ const Profile = () => {
         setFormData({ ...formData, [name]: value })
         setError({ ...error, [name]: "" })
     }
+const onAddress = () => {
+    
+}
+
     return (
         <div>
             <div className="px-5 pb-5">

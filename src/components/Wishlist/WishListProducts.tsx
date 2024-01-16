@@ -1,7 +1,7 @@
 import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
 import { addWishLishProduct } from '@/redux/reducer/cart'
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const WishListProducts = () => {

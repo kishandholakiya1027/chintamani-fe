@@ -1,6 +1,6 @@
 import { showErrorToast, showToast } from "@/lib/utils";
 import { handleLogout } from "@/redux/reducer/auth";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 
 export const BASE_URL = import.meta.env.VITE_API_BASE_URL

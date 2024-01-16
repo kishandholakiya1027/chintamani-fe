@@ -1,6 +1,6 @@
 import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import moment from 'moment'
 import { Link } from 'react-router-dom'

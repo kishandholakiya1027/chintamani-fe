@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
 import { Button } from '../ui/button';
 import { diamondProperty } from '@/lib/interfaces/category';
@@ -44,7 +44,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
             <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
               Price
             </div>
-            <MultiRangeSlider min={filter?.minPrice} max={filter?.maxPrice} step={1} subSteps={true} minValue={0} maxValue={13060} onInput={(e: ChangeResult) => {
+            <MultiRangeSlider min={0} max={13060} step={1} subSteps={true} minValue={filter?.minPrice} maxValue={filter?.maxPrice||13060} onInput={() => {
               // props.setMinValue(e.minValue);
               // props.setMaxValue(e.maxValue);
             }} onChange={(e: ChangeResult) => {
@@ -52,6 +52,14 @@ const Sidebar = ({ setFilter, filter }: any) => {
               // props.setMinValue2(e.minValue);
               // props.setMaxValue2(e.maxValue);
             }} />
+            {/* <MultiRangeSlider min={filter?.minPrice} max={filter?.maxPrice} step={1} subSteps={true} minValue={0} maxValue={13060} onInput={() => {
+              // props.setMinValue(e.minValue);
+              // props.setMaxValue(e.maxValue);
+            }} onChange={(e: ChangeResult) => {
+              setFilter({ ...filter, minPrice: e.minValue, maxPrice: e.maxValue })
+              // props.setMinValue2(e.minValue);
+              // props.setMaxValue2(e.maxValue);
+            }} /> */}
           </div>
         </div>
         <div className="py-[15px] border-t-[1px] border-b-[1px] border-[#eee]">
@@ -59,7 +67,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
             <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
               Cart
             </div>
-            <MultiRangeSlider min={filter?.mincarat} max={filter?.mincarat} step={1} subSteps={true} minValue={0} maxValue={100} onInput={(e: ChangeResult) => {
+            <MultiRangeSlider min={0} max={100} step={5} subSteps={true} minValue={filter?.mincarat} maxValue={filter?.maxcarat||100} onInput={() => {
               // props.setMinValue(e.minValue);
               // props.setMaxValue(e.maxValue);
             }} onChange={(e: ChangeResult) => {

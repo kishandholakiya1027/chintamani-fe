@@ -1,7 +1,7 @@
 
 import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import BreadCrumb from '../common/BreadCrumb'
 import { useDispatch, useSelector } from 'react-redux'
@@ -84,7 +84,7 @@ const ProductDetailsComponent = () => {
                             return <div className='border  border-[#211c50] w-[80px]  '>
                                 <img
                                     loading="lazy"
-                                    src={currentImage}
+                                    src={image}
                                     className="aspect-square object-cover object-center w-[80px] h-[42px] shadow-sm overflow-hidden max-w-full  self-end max-md:mt-10"
                                 />
                             </div>

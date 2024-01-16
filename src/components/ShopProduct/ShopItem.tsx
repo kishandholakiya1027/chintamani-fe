@@ -1,37 +1,31 @@
 import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Arrive from "../../../public/assests/Images/arrive1.png";
-import Yellow from "../../../public/assests/Images/yellow.png";
-import WhiteDiamond from "../../../public/assests/Images/whitediamond.png";
 import RoundedDiamond from "../../../public/assests/Images/roundedDiamon.png";
-import Crown from "../../../public/assests/Images/crown.png";
-import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
+import MultiRangeSlider  from "multi-range-slider-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../ui/button";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import api from "@/services/api";
 import { apiPath } from "@/lib/api-path";
 import { breadCrumbType, diamondProperty } from "@/lib/interfaces/category";
-import { setCategory } from "@/redux/reducer/category";
 
 const ShopItem: FC = (props) => {
   console.log("🚀 ~ props:", props)
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(0);
-  const [minValue2, setMinValue2] = useState(0);
-  const [maxValue2, setMaxValue2] = useState(0);
+  // const [ setMinValue] = useState(0);
+  // const [ setMaxValue] = useState(0);
+  // const [ setMinValue2] = useState(0);
+  // const [ setMaxValue2] = useState(0);
   const [filter, setFilter] = useState<any>({});
   const [products, setProducts] = useState([]);
   const [colors, setColors] = useState([]);
   const [cuts, setCuts] = useState([]);
   const [clarities, setClarities] = useState([]);
   const [totalRecords, setTotalRecords] = useState(0);
-  const [limit, setLimit] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [limit] = useState(10);
+  const [currentPage] = useState(1);
 
   const { category } = useSelector((state: any) => state?.category)
-  const dispatch = useDispatch()
 
   const fetchProducts = async (id: string, name: string) => {
     const data = await api({ method: "get", url: `${apiPath?.categories?.product}?${name?.toLowerCase()}=${id}` })
@@ -67,7 +61,7 @@ const ShopItem: FC = (props) => {
     }
   }, [category])
 
-  const submitHandler = async (item: breadCrumbType, index: number) => {
+  const submitHandler = async (item: breadCrumbType) => {
   
     fetchProducts(item?.id, item?.name)
 
@@ -83,11 +77,11 @@ const ShopItem: FC = (props) => {
                   <button className="text-sm font-poppins text-[#767676] font-semibold mr-1">
                     <Link to={"/"}>Home</Link>
                   </button>{" "}
-                  {category?.map((item: breadCrumbType, index: number) => {
+                  {category?.map((item: breadCrumbType ) => {
                     return (
                       <>
                         <span className="text-sm text-[#767676]">/</span>{" "}
-                        <button className="text-sm font-poppins text-[#767676] font-normal mr-1" onClick={() => submitHandler(item, index)}>
+                        <button className="text-sm font-poppins text-[#767676] font-normal mr-1" onClick={() => submitHandler(item)}>
                           {/* <Link to={category?.path1 ? "/" : ""}> */}
                           {item?.path}
 
@@ -135,13 +129,13 @@ const ShopItem: FC = (props) => {
                       subSteps={true}
                       minValue={690}
                       maxValue={13060}
-                      onInput={(e: ChangeResult) => {
-                        setMinValue(e.minValue);
-                        setMaxValue(e.maxValue);
+                      onInput={() => {
+                        // setMinValue(e.minValue);
+                        // setMaxValue(e.maxValue);
                       }}
-                      onChange={(e: ChangeResult) => {
-                        setMinValue2(e.minValue);
-                        setMaxValue2(e.maxValue);
+                      onChange={() => {
+                        // setMinValue2(e.minValue);
+                        // setMaxValue2(e.maxValue);
                       }}
                     />
                   </div>
@@ -158,14 +152,14 @@ const ShopItem: FC = (props) => {
                       subSteps={true}
                       minValue={690}
                       maxValue={13060}
-                      onInput={(e: ChangeResult) => {
-                        setMinValue(e.minValue);
-                        setMaxValue(e.maxValue);
-                      }}
-                      onChange={(e: ChangeResult) => {
-                        setMinValue2(e.minValue);
-                        setMaxValue2(e.maxValue);
-                      }}
+                      // onInput={(e: ChangeResult) => {
+                      //   setMinValue(e.minValue);
+                      //   setMaxValue(e.maxValue);
+                      // }}
+                      // onChange={(e: ChangeResult) => {
+                      //   setMinValue2(e.minValue);
+                      //   setMaxValue2(e.maxValue);
+                      // }}
                     />
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ShopItem from "./components/ShopProduct/ShopItem";
 import RootLayout from "./components/layout/RootLayout";
 import Home from "./components/Home";
@@ -22,43 +22,25 @@ import PearShape from "./components/diamondshape/PearShape";
 import MarquiseShape from "./components/diamondshape/MarquiseShape";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Provider, useSelector } from 'react-redux'
+import { Provider } from 'react-redux'
 import { persistor, store } from "./redux/store";
 import { PersistGate } from 'redux-persist/integration/react'
 import Diamonds from "./components/common/Diamonds";
-import { showErrorToast, showToast } from "./lib/utils";
-import { FC, ReactNode, useEffect } from "react";
 import Login from "./pages/auth/login";
 import WishList from "./pages/wishlist";
 import SignUp from "./pages/auth/sign-up";
-import UserVerification from "./pages/auth/UserVerification";
 import Forgotpassword from "./pages/auth/forgot-password";
 import ProductDetails from "./pages/Product/ProductDetails";
 import Checkout from "./pages/checkout";
 import Blogs from "./pages/Blog";
+import Faqs from "./pages/Faq";
 import Account from "./pages/account";
 import BlogDetails from "./pages/Blog/blogDetails";
+import TermsCondition from "./pages/terms-conditions";
 
 
 
-interface ProtectedRouteProps {
-  children: ReactNode;
-  errorMessage?: string;
-}
 
-const ProtectedRoute: FC<ProtectedRouteProps> = ({
-  children,
-  errorMessage,
-}) => {
-  const { token } = useSelector((state: { auth: any; }) => state.auth);
-
-  if (!token) {
-    // setOpenSignin(true);
-    showErrorToast("Unauthorized");
-    return <Navigate to={"/login"} />;
-  }
-  return <>{children}</>;
-};
 
 
 const router = createBrowserRouter([
@@ -96,6 +78,15 @@ const router = createBrowserRouter([
         path: "blog",
         element: <Blogs />,
       },
+   
+      {
+        path: "faq",
+        element: <Faqs />,
+      },
+      {
+        path: "terms-condition",
+        element: <TermsCondition />,
+      },
       {
         path: "account",
         element: <Account />,
@@ -106,7 +97,7 @@ const router = createBrowserRouter([
       },
       {
         path: "checkout",
-        element: <Checkout/>,
+        element: <Checkout />,
       },
       {
         path: "product/:id",
@@ -187,10 +178,16 @@ const router = createBrowserRouter([
 
 const App = () => {
 
-  
+
   return (
     <>
       <ToastContainer />
+      <div className="absolute h-screen  w-full flex justify-center loader hidden">
+        <div className="animate-spin absolute top-1/2 left-1/2 inline-block w-10 h-10 border-[3px] border-current border-t-transparent text-gray-800 rounded-full dark:text-white" role="status" aria-label="loading">
+          <span className="sr-only">Loading...</span>
+        </div>
+
+      </div>
       <Provider store={store} >
         <PersistGate loading={null} persistor={persistor}>
           <RouterProvider router={router} />

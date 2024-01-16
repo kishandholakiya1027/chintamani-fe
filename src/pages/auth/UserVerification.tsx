@@ -3,8 +3,7 @@ import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
 import { EMAIL_REGEX } from '@/lib/constant'
 import { handleLogin } from '@/redux/reducer/auth'
-import api from '@/services/api'
-import React, { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,7 +14,6 @@ interface IError {
 }
 const UserVerification = () => {
     const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
     const [error, setError] = useState<IError>({})
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -25,9 +23,7 @@ const UserVerification = () => {
         if (!email) {
             err = { ...err, email: "Email is required" }
         }
-        if (!password) {
-            err = { ...err, password: "Password is required" }
-        }
+      
         if (email && !EMAIL_REGEX.test(email)) {
             err = { ...err, email: "Email is not valid" }
         }
@@ -36,7 +32,7 @@ const UserVerification = () => {
             setError(err)
             return
         }
-        const data = await apiAction({ method: "post", url: `${apiPath?.auth?.login}`, data: { email, password } })
+        const data = await apiAction({ method: "post", url: `${apiPath?.auth?.login}`, data: { email } })
         if (data) {
             dispatch(handleLogin(data?.data))
             navigate("/")

@@ -1,9 +1,36 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import footerLogo from "../../public/assests/Images/LogoFooter.png";
 import Payment from "../../public/assests/Images/Payment.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { setCategory } from "@/redux/reducer/category";
+import { useDispatch} from "react-redux";
+import useApi from "@/hooks/useApi";
+import { apiPath } from "@/lib/api-path";
 
 const Footer: FC = () => {
+  // const { category } = useSelector((state: any) => state?.category)
+  const dispatch = useDispatch()
+  const [categories, setCategories] = useState([]);
+
+  const { apiAction } = useApi()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+
+    getCategories()
+
+  }, []);
+
+  const getCategories = async () => {
+    let data = await apiAction({ method: "get", url: `${apiPath?.categories?.all}?page=1&pageSize=100` })
+    setCategories(data?.data?.filter((category: any) => (category?.name === "Diamonds" || category?.name === "Diamond")))
+  }
+  const handleRoute = (category:any) => {
+
+    dispatch(setCategory(category))
+    navigate("/product-category")
+  }
+
   return (
     <>
       <div className="w-full flex items-center text-center flex-nowrap flex-col bg-[#211c50] p-7">
@@ -40,8 +67,25 @@ const Footer: FC = () => {
               </Link>
             </div>
             <div className="sm:mb-0 mb-[10px] text-[#fff] lg:pb-[0] md:pb-[40px] pb-[40px]">
-              <h3 className="text-xl font-medium mb-4">Diamonds</h3>
-              <ul className="text-[15px] flex flex-col gap-1">
+
+              {categories?.map((category: any) => {
+                return (
+                  <div>
+                    <h3 className="text-xl font-medium mb-4" onClick={() => handleRoute([{ path: category?.name, id: category?.id, name: "categoryid" }])}>Diamonds</h3>
+                    <ul className="text-[15px] flex flex-col gap-1">
+                      {category?.subCategories.map((subCategory: any) => {
+                        return (
+                          <li onClick={() => handleRoute([{ path: category?.name, id: category?.id, name: "categoryid" }, { description: subCategory?.description, path: subCategory?.name, id: subCategory?.id, name: "subCategoryid" }])}>
+                            <Link to={""}>{subCategory?.name}</Link>
+                          </li>
+
+                        )
+                      })}
+                    </ul>
+                  </div>
+                )
+              })}
+              {/* <ul className="text-[15px] flex flex-col gap-1">
                 <li>
                   <Link to={""}>Natural Diamonds</Link>
                 </li>
@@ -57,25 +101,25 @@ const Footer: FC = () => {
                 <li>
                   <Link to={""}>Black Diamonds</Link>
                 </li>
-              </ul>
+              </ul> */}
             </div>
             <div className="text-[#fff] lg:pb-[0] md:pb-[40px] pb-[40px]">
               <h3 className="text-xl font-medium mb-4">Others</h3>
               <ul className="text-[15px] flex flex-col gap-1">
                 <li>
-                  <Link to={""}>Home</Link>
+                  <Link to={"/"}>Home</Link>
                 </li>
                 <li>
-                  <Link to={""}>FAQ</Link>
+                  <Link to={"/faq"}>FAQ</Link>
                 </li>
                 <li>
-                  <Link to={""}>Blog</Link>
+                  <Link to={"/blog"}>Blog</Link>
                 </li>
                 <li>
-                  <Link to={""}>Contact Us</Link>
+                  <Link to={"/contact"}>Contact Us</Link>
                 </li>
                 <li>
-                  <Link to={""}>Terms Conditions</Link>
+                  <Link to={"/terms-condition"}>Terms Conditions</Link>
                 </li>
               </ul>
             </div>
