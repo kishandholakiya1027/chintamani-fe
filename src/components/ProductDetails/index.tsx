@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { showToast } from '@/lib/utils'
 import { addCartProduct, setOpenCart } from '@/redux/reducer/cart'
 import { productType } from '@/lib/interfaces/category'
+import TrendingDiamond from '../TrendingDiamond'
 
 const ProductDetailsComponent = () => {
     const { apiAction } = useApi()
@@ -76,7 +77,8 @@ const ProductDetailsComponent = () => {
                         <img
                             loading="lazy"
                             src={currentImage}
-                            className="aspect-square object-cover object-center w-full shadow-sm overflow-hidden max-w-full  self-end max-md:mt-10"
+                            className="aspect-square object-cover  object-center w-full shadow-sm overflow-hidden max-w-full  self-end max-md:mt-10"
+                            style={{ height: "-webkit-fill-available" }}
                         />
                     </div>
                     <div className='my-4'>
@@ -85,7 +87,7 @@ const ProductDetailsComponent = () => {
                                 <img
                                     loading="lazy"
                                     src={image}
-                                    className="aspect-square object-cover object-center w-[80px] h-[42px] shadow-sm overflow-hidden max-w-full  self-end max-md:mt-10"
+                                    className="aspect-square object-fill object-center w-[80px] h-[42px] shadow-sm overflow-hidden max-w-full  self-end max-md:mt-10"
                                 />
                             </div>
                         })}
@@ -265,7 +267,7 @@ const ProductDetailsComponent = () => {
                         srcSet={product?.diamond_size?.sizeimages}
                         className="aspect-[0.96] object-contain object-center w-[182px] overflow-hidden max-w-full mt-1 self-start"
                     />{" "}
-                    <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 self-stretch w-full mt-3 max-md:max-w-full">
+                    <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 self-stretch w-full mt-6 max-md:max-w-full">
                         Color
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 self-stretch mt-5 max-md:max-w-full">
@@ -276,7 +278,7 @@ const ProductDetailsComponent = () => {
                         srcSet={product?.diamond_color?.colorimage}
                         className="aspect-[1.82] object-contain object-center w-full overflow-hidden self-center max-w-[760px] max-md:max-w-full"
                     />{" "}
-                    <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 self-stretch w-full mt-3 max-md:max-w-full">
+                    <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 self-stretch w-full mt-6 max-md:max-w-full">
                         Clarity
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 self-stretch mt-2 max-md:max-w-full">
@@ -287,7 +289,7 @@ const ProductDetailsComponent = () => {
                         srcSet={product?.diamond_clarity?.clarityimage}
                         className="aspect-[5.67] object-contain object-center w-[391px] overflow-hidden max-w-full self-start"
                     />{" "}
-                    <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 self-stretch w-full mt-3.5 max-md:max-w-full">
+                    <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 self-stretch w-full mt-6 max-md:max-w-full">
                         Cut
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 self-stretch w-full mt-5 max-md:max-w-full">
@@ -299,15 +301,18 @@ const ProductDetailsComponent = () => {
                         className="aspect-[3.3] object-contain object-center w-full overflow-hidden self-stretch mt-1 max-md:max-w-full"
                     />
                 </span>
-                <span className="flex flex-col items-stretch px-5">
+                <TrendingDiamond/>
+                {/* <span className="flex flex-col items-stretch mt-28 px-5">
                     <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 w-full max-md:max-w-full">
                         Trending Diamonds
                     </div>
                     <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 w-full mt-4 max-md:max-w-full">
                         Related products
                     </div>
+
                     <div className="w-full mt-4 max-md:max-w-full max-md:pr-5">
                         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+                            <TrendingDiamond/>
                             <div className="flex flex-col items-stretch w-3/12 max-md:w-full max-md:ml-0">
                                 <span className="shadow-sm bg-white bg-opacity-0 flex grow flex-col items-center w-full pb-6 rounded-3xl max-md:mt-10">
                                     <img
@@ -487,7 +492,7 @@ const ProductDetailsComponent = () => {
                             />
                         </div>
                     </div>
-                </span>
+                </span> */}
                 {/* <div className=' max-w-[1120px] mx-auto flex flex-col flex-nowrap items-center'>
                     <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 whitespace-nowrap ml-5 mt-20 self-start max-md:ml-2.5 max-md:mt-10">
                         Diamond Size

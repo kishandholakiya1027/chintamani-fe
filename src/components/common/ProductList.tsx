@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { setCategory } from "@/redux/reducer/category";
 import { toast } from "react-toastify";
 
-const ProductList = ({ products = [],loader}: any) => {
+const ProductList = ({ products = [],loader,width="25%"}: any) => {
   const { user, token } = useSelector((state: { auth: any }) => state.auth);
   const { category } = useSelector((state: any) => state?.category);
 
@@ -137,22 +137,22 @@ const ProductList = ({ products = [],loader}: any) => {
   };
 
   return (
-    <ul className="p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer mb-[75px]">
+    <ul className="p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3rem] cursor-pointer mb-[75px]">
       {products?.length ? (
         products?.map((product: productType) => {
           return (
-            <li className="max-w-full sm:max-w-[30%] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]">
+            <li className={`max-w-full sm:max-w-[${width}] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]`}>
               <div onClick={() => setMenu(product?.title||"", product?.id||"")}>
-                <div className="flex text-center items-center flex-col relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
+                <div className="flex text-center items-center flex-col  relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
                   <img
-                    src={RoundedDiamond}
+                    src={product?.productimage?.[0]}
                     alt="RoundedDiamond"
-                    className=" block shadow-none min-w-[250px]  h-[250px]"
+                    className=" block shadow-none  min-h-[250px]"
                   />
                 </div>
                 <div className="my-3 ml-3 border-b-[1px]">
                   <div className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[16px] font-bold text-[#211c50]">
-                    {product?.title}
+                    {product?.maintitle}
                   </div>
                   <div className="text-yellow-800">${product?.price}</div>
                 </div>

@@ -2,7 +2,7 @@ import Loader from '@/components/common/Loader'
 import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
 import { setUser } from '@/redux/reducer/auth'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 

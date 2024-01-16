@@ -29,7 +29,8 @@ export const apiPath = {
       addToCart:"cart/create",
       removeFromCart:"cart/remove",
       updateCart:"/cart/update",
-      product:"product/single/product"
+      product:"product/single/product",
+      trendingProduct:"product/trending/diamonds"
     },
     user:{
         allWishlist:"whishlist/fetch",

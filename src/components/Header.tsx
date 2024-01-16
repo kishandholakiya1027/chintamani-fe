@@ -22,13 +22,14 @@ interface Props {
 
 const Header = ({}:Props) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  console.log("🚀 ~ Header ~ isScrolled:", isScrolled)
   const [categories, setCategories] = useState([]);
   const [menu, setMenu] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false)
   const dispatch = useDispatch()
   const { apiAction } = useApi()
   const { auth:{user ,token},cart:{cartCount,wishListCount}} = useSelector((state: { auth: any,cart:any }) => state)
-  const modalRef = useRef();
+  const modalRef:any = useRef(null);
 
   const handleOutsideClick = (e:any) => {
     if (modalRef.current && !modalRef?.current?.contains(e.target)) {
@@ -116,18 +117,32 @@ const headerMenu = (
     {categories?.map((category: Category) => {
       return (
         <li className="relative group list-none flex flex-col" onClick={() => category?.subCategories?.length ? {} : dispatch(setCategory([{ path: category?.name, id: category?.id, name: "categoryid" }]))}>
-          <Link
-            to={category?.subCategories?.length ? "" : "/product-category"}
+          
+
+          {category?.subCategories?.length ? 
+          <>
+          <div
+            // to={category?.subCategories?.length ? "" : "/product-category"}
             className={`group-hover:bg-[#eee] group-hover:border-t-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-t-[3px] border-transparent ${category?.subCategories?.length && "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"}  flex items-center `}
           >
             {category?.name}
-          </Link>
-
-          {category?.subCategories?.length ? <ul className="group-hover:visible group-hover:opacity-[1] bg-[#eee] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%]">
+          </div>
+          <ul className="group-hover:visible group-hover:opacity-[1] bg-[#eee] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%]">
 
             {category?.subCategories?.map((subCategory: subCategory) => {
               return (
                 <li className="flex flex-col list-none relative sub-group" onClick={() => subCategory?.innerCategories?.length ? {} : dispatch(setCategory([{ path: category?.name, id: category?.id, name: "categoryid" }, { description: subCategory?.description, path: subCategory?.name, id: subCategory?.id, name: "subCategoryid" }]))}>
+                  {subCategory?.innerCategories?.length ?    <div
+                    className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${subCategory?.innerCategories?.length && "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"}  font-semibold`}
+                  >
+                    <img
+                      src={subCategory?.image?.[0] || CVD}
+                      alt="CVD"
+                      className="w-6 mr-[10px] align-middle"
+                    />{" "}
+                    {subCategory?.name}
+                  </div>:
+                  
                   <Link
                     to={subCategory?.innerCategories?.length ? "" : "/product-category"}
                     className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${subCategory?.innerCategories?.length && "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"}  font-semibold`}
@@ -139,6 +154,7 @@ const headerMenu = (
                     />{" "}
                     {subCategory?.name}
                   </Link>
+                  }
                   <ul className={`sub-group-hover:visible sub-group-hover:opacity-[1] bg-[#eee] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[0] left-[100%]`}>
                     {subCategory?.innerCategories?.map((innerCategory: subCategory) => {
                       return (
@@ -158,7 +174,14 @@ const headerMenu = (
               )
             })}
 
-          </ul> : null}
+          </ul>
+          </>
+           : <Link
+           to={ "/product-category"}
+           className={`group-hover:bg-[#eee] group-hover:border-t-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-t-[3px] border-transparent ${category?.subCategories?.length && "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"}  flex items-center `}
+         >
+           {category?.name}
+         </Link>}
         </li>
       )
     })}
@@ -225,7 +248,8 @@ const headerMenu = (
     </li>
     <li className="relative diamond list-none flex flex-col">
       <Link
-        to={"/shop"}
+        to={"/product-category"}
+        onClick={() => dispatch(setCategory([{name:"Shop",path:"Shop",id:"Shop"}]))}
         className="py-5 px-[15px] text-sm border-t-[3px] border-transparent font-normal text-[#211c50] hover:bg-[#eee] hover:border-t-[3px] hover:border-[#211c50] flex items-center"
       >
         Shop
@@ -403,7 +427,7 @@ const headerMenu = (
               navigate("/account")
             }}>
                 <a href="#" className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                 </svg>
 
