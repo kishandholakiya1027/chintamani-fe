@@ -115,24 +115,28 @@ const ProductDetailsComponent = () => {
                 <div className="justify-center text-neutral-500 text-base font-semibold leading-6 self-center max-md:max-w-full">
                     <BreadCrumb submitHandler={() => navigate("/product-category")} />
                 </div>
-                <div className=' mt-20 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:mt-10'>
-                    <div className='border border-[#211c50] rounded-md'>
-                        <img
-                            loading="lazy"
-                            src={currentImage || ""}
-                            className="aspect-square lg:h-[500px] md:h-[500px] h-[300px] w-full shadow-sm overflow-hidden max-w-full  self-end"
-                        />
-                    </div>
-                    <div className='my-4 flex gap-4'>
-                        {product?.productimage && product?.productimage?.map((image: string) => {
-                            return <div className='border border-[#211c50] w-[80px] rounded-md' onClick={() => setCurrentImage(image)}>
-                                <img
-                                    loading="lazy"
-                                    src={image}
-                                    className="aspect-square object-fill object-center w-[80px] h-[80px] shadow-sm overflow-hidden max-w-full self-end"
-                                />
-                            </div>
-                        })}
+                <div className='lg:w-[500px] md:w-[500px] w-full'>
+                    <div className='mt-8 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:mt-4'>
+                        <div className='border border-[#211c50] rounded-md'>
+                            <img
+                                loading="lazy"
+                                src={currentImage || ""}
+                                className="aspect-square lg:h-[500px] md:h-[500px] h-[300px] w-full shadow-sm overflow-hidden max-w-full  self-end"
+                            />
+                        </div>
+                        <div className='my-4 flex gap-4 overflow-auto max-w-full'>
+                            {product?.productimage && product?.productimage?.map((image: string, index: number) => {
+                                return (
+                                    <div key={index} className='border border-[#211c50] w-[80px] rounded-md' onClick={() => setCurrentImage(image)}>
+                                        <img
+                                            loading="lazy"
+                                            src={image}
+                                            className="aspect-square object-fill object-center w-[80px] h-[80px] shadow-sm overflow-hidden max-w-full self-end"
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
                 <div className="text-neutral-700 lg:text-3xl md:text-4xl text-2xl font-bold lg:leading-10 md:leading-10 leading-8 font-bold leading-10  mt-10 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:mt-10">
@@ -172,10 +176,8 @@ const ProductDetailsComponent = () => {
                                 key={index}
                                 loading="lazy"
                                 src={elm?.img}
-
                                 className="aspect-square object-contain object-center w-full justify-center items-center overflow-hidden shrink-0 flex-1"
                             />
-
                         </div>
                     })}
                 </div>
