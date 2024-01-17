@@ -208,6 +208,7 @@ const MiningMap: FC = () => {
         <div className="w-full pt-[7px] pl-[20px] container mb-[0]">
           <div className="flex w-full justify-center items-stretch flex-wrap">
             <div className="w-full items-center text-center flex p-[20px] flex-col flex-nowrap">
+              <img src={Mining} alt="Mining" className="mb-[20px]" />
               <h3 className="font-poppins text-[#211c50] text-[20px] font-semibold mb-[9px]">
                 1. Mining
               </h3>

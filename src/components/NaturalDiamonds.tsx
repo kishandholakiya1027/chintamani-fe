@@ -4,6 +4,8 @@ import { Button } from './ui/button';
 import useApi from "@/hooks/useApi";
 import { apiPath } from '@/lib/api-path';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { setCategory } from "@/redux/reducer/category";
 
 interface Category {
     id: string,
@@ -16,6 +18,7 @@ const NaturalDiamonds: FC = () => {
     const navigate = useNavigate()
     const { apiAction } = useApi()
     const [categories, setCategories] = useState<Category[]>([]);
+    const dispatch = useDispatch()
 
     useEffect(() => {
         getCategories()
@@ -35,7 +38,7 @@ const NaturalDiamonds: FC = () => {
                             key={index}
                             className={`lg:pt-0 md:pt-0 lg:pb-[54px] md:pb-[54px] pb-[10px] flex flex-col items-start px-0 w-full`}
                         >
-                            <div className={`w-full flex lg:flex-row md:flex-row sm:flex-col-reverse flex-col-reverse items-center justify-center flex-wrap ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                            <div className={`w-full flex lg:flex-row md:flex-row sm:flex-col-reverse flex-col-reverse items-center justify-center flex-wrap ${index % 2 === 1 ? 'lg:flex-row-reverse md:flex-row-reverse' : ''
                                 }`}>
                                 <div className={`lg:w-[50%] md:w-[50%] w-full p-5 flex flex-nowrap flex-col items-start`}>
                                     <h4 className='text-[22px] font-poppins text-[#211c50] font-semibold mb-[30px]'>{elm.name}</h4>
@@ -43,7 +46,10 @@ const NaturalDiamonds: FC = () => {
                                     <Button
                                         variant={'secondary'}
                                         className='mt-[25px] font-poppins text-[17px] font-medium rounded-[10px] py-2 px-[25px] text-[#ffff] bg-[#211c50] border-[1px] border-[#fff] outline-none hover:text-[#211c50] hover:border-[#211c50]'
-                                        onClick={() => navigate(`/product-category`)}
+                                        onClick={() => {
+                                            navigate(`/product-category`);
+                                            dispatch(setCategory([{ path: elm?.name, id: elm?.id, name: "categoryid" }]))
+                                        }}
                                     >
                                         Purchase Now
                                     </Button>
