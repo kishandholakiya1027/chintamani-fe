@@ -215,7 +215,7 @@ const ProductDetailsComponent = () => {
                 <div className="justify-center text-neutral-700 text-2xl font-bold leading-10 self-center mt-20 max-md:mt-10">
                     Want Customize Diamonds?
                 </div>
-                <span className="justify-center text-white text-center text-base font-semibold leading-6 items-stretch border bg-sky-600 ml-96 my-3 px-5 py-2 rounded border-solid border-sky-600 self-start max-md:ml-2.5">
+                <span className="justify-center text-white text-center text-base font-semibold leading-6 items-stretch border bg-sky-600 my-3 px-5 py-2 rounded border-solid border-sky-600 self-center">
                     Contact Us
                 </span>
             </span>

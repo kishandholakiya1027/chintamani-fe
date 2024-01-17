@@ -97,7 +97,7 @@ const Index = () => {
     </label> */}
       {openPopup ? <RemovePopup open={openPopup} setOpen={(val: string) => setOpenPopup(val)} onSubmit={removeFromCart} /> : null}
       {ShowCart ? <div className="fixed top-0 right-0 z-20 h-full shadow-lg bg-white lg:min-w-[400px] md:min-w-[400px] min-w-full z-[99999]" ref={modalRef}>
-        <div className='flex mt-4 mx-5 items-end justify-start' onClick={() => dispatch(setOpenCart())}>
+        <div className='flex mt-4 mx-5 items-end justify-start w-fit' onClick={() => dispatch(setOpenCart())}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" className="h-7 w-7 cursor-pointer duration-150 hover:text-red-500">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
