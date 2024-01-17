@@ -485,7 +485,7 @@ const headerMenu = (
       )}
       {isScrolled && (
         <header className="fixed top-0 left-0 right-0 z-[999] bg-[#fff]">
-          <div className="block w-full">
+          <div className="block w-full" style={{ boxShadow: "0 3px 5px 0 rgba(0,0,0,.15)" }}>
             <div className="container h-full flex flex-nowrap justify-between items-stretch">
               <div className="flex items-center justify-start">
                 <div className="flex flex-nowrap flex-col items-start">

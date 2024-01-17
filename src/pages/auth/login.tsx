@@ -40,7 +40,7 @@ const Login = () => {
             return
         }
         const data = await apiAction({ method: "post", url: `${apiPath?.auth?.login}`, data: { email, password } })
-        if (data?.data?.qurey?.role === 1) {
+        if (data?.data?.qurey?.role === 1 || data?.data?.qurey?.role === 2) {
             console.log("🚀 ~ handleSubmit ~ data:", data)
             showToast("Login  successfully!")
 

@@ -28,9 +28,9 @@ const TrendingDiamond = () => {
                 Related products
             </div> */}
 
-            <div className="w-full mt-10 max-md:max-w-full max-md:pr-5">
+            <div className="w-full mt-10 max-md:max-w-full">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                    <ProductList products={products} width="21%"/>
+                    <ProductList products={products} width="21%" />
                     {/* {products?.map((product: productType) => {
                         return (
 

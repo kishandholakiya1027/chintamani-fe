@@ -1,13 +1,15 @@
 import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
 import { addCartProduct, addQuantity, setOpenCart } from '@/redux/reducer/cart'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import RemovePopup from '../alert/RemovePopup'
 import { useNavigate } from 'react-router'
 import Loader from '../common/Loader'
 
 const Index = () => {
+  const modalRef: any = useRef(null);
+  const [ShowCart, setShowCart] = useState(false)
   const { cart: { cartProduct, openCart }, auth: { token, user } } = useSelector((state: { cart: any, auth: any }) => state)
   // console.log("🚀 ~ cartProduct:", cartProduct)
   const dispatch = useDispatch()
@@ -52,6 +54,39 @@ const Index = () => {
     // setCartProducts(cartProducts?.filter((item: string) => item !== id))
   }
 
+  const handleOutsideClick = (e: any) => {
+    if (modalRef.current && !modalRef?.current?.contains(e.target)) {
+      setShowCart(false)
+    }
+  };
+
+  useEffect(() => {
+    setShowCart(openCart)
+  }, [openCart])
+
+  useEffect(() => {
+    if (ShowCart) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [ShowCart]);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setShowCart(false);
+    };
+    if (ShowCart) {
+      document.body.classList.add('modal-open');
+      window.addEventListener('popstate', handleRouteChange);
+    }
+    return () => {
+      document.body.classList.remove('modal-open');
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, [ShowCart]);
+
   return (
     <div className="min:w-[200px] relative ">
       {/* <label htmlFor="drawer-toggle" className="absolute top-0 left-0 inline-block p-4 transition-all duration-500 bg-indigo-500 rounded-lg peer-checked:rotate-180 peer-checked:left-64">
@@ -61,7 +96,7 @@ const Index = () => {
     
     </label> */}
       {openPopup ? <RemovePopup open={openPopup} setOpen={(val: string) => setOpenPopup(val)} onSubmit={removeFromCart} /> : null}
-      {openCart ? <div className="fixed top-0 right-0  z-20  h-full shadow-lg bg-white min-w-[400px]">
+      {ShowCart ? <div className="fixed top-0 right-0 z-20 h-full shadow-lg bg-white lg:min-w-[400px] md:min-w-[400px] min-w-full z-[99999]" ref={modalRef}>
         <div className='flex mt-4 mx-5 items-end justify-start' onClick={() => dispatch(setOpenCart())}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" className="h-7 w-7 cursor-pointer duration-150 hover:text-red-500">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -99,7 +134,7 @@ const Index = () => {
               }) :
                 <div className='flex flex-col items-center justify-center my-6'>
                   <p className='text-[16px]'>You have no items in your shopping cart</p>
-                  <button className='bg-[#e9e6ed] text-[#515151] rounded-[3px] my-6 px-3 py-1 font-bold'>Return to Shop</button>
+                  <button className='bg-[#e9e6ed] text-[#515151] rounded-[3px] my-6 px-3 py-1 font-bold' onClick={() => { setShowCart(false); navigate('/'); }}>Return to Shop</button>
                 </div>
               }
 
