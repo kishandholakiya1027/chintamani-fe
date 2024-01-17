@@ -31,9 +31,16 @@ const Sidebar = ({ setFilter, filter }: any) => {
 
   const changeFilter = (name: string, value: string) => {
     if (filter?.[name]?.includes(value)) {
-      setFilter({ ...filter, [name]: filter?.[name]?.filter((item: string) => item !== value) })
+      let data = filter?.[name]?.filter((item: string) => item !== value)
+      if(data?.length){
+        setFilter({ ...filter, [name]: filter?.[name]?.filter((item: string) => item !== value) })
+
+      }else {
+        delete filter[name]
+        setFilter({...filter})
+      }
     } else
-      setFilter({ ...filter, [name]: [...filter?.Color || [], value] })
+      setFilter({ ...filter, [name]: [...filter?.[name]|| [], value] })
   }
 
   return (<div className="lg:w-[20%] md:w-[30%] w-[100%] px-[0] border-r-[1px] border-[#eee] py-[20px] flex flex-col flex-nowrap items-start">
@@ -45,7 +52,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
               Price
             </div>
             <div className='pr-4'>
-              <MultiRangeSlider min={0} max={13060} step={1} subSteps={true} minValue={filter?.minPrice} maxValue={filter?.maxPrice || 13060} onInput={() => {
+              <MultiRangeSlider min={0} max={13060} step={50} subSteps={true} minValue={filter?.minPrice} maxValue={filter?.maxPrice || 13060} onInput={() => {
                 // props.setMinValue(e.minValue);
                 // props.setMaxValue(e.maxValue);
               }} onChange={(e: ChangeResult) => {
@@ -70,7 +77,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
               Cart
             </div>
             <div className='pr-4'>
-              <MultiRangeSlider min={0} max={100} step={5} subSteps={true} minValue={filter?.mincarat} maxValue={filter?.maxcarat || 100} onInput={() => {
+              <MultiRangeSlider min={0} max={100} step={5} subSteps={true} minValue={filter?.mincarat||0} maxValue={filter?.maxcarat || 100} onInput={() => {
                 // props.setMinValue(e.minValue);
                 // props.setMaxValue(e.maxValue);
               }} onChange={(e: ChangeResult) => {
@@ -96,7 +103,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
                 return <Button
                   onClick={() => changeFilter("Clarity", clarity?.name)}
                   variant={"outline"}
-                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-full py-[8px] px-[2px] break-words break-all whitespace-normal"
+                  className={`border-[#211c50]  ${filter?.Clarity && filter?.Clarity?.includes(clarity?.name) ? "bg-[#211c50] text-[#fff]" : "text-[#211c50]"}  hover:bg-[#211c50] hover:text-[#fff]  w-full py-[8px] px-[2px] break-words break-all whitespace-normal`}
                 >
                   {extractedString}
                 </Button>
@@ -143,7 +150,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
                 return <Button
                   onClick={() => changeFilter("Cut", cut?.name)}
                   variant={"outline"}
-                  className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-full py-[8px] px-[2px] break-words break-all whitespace-normal"
+                  className={`border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] ${filter?.Cut && filter?.Cut?.includes(cut?.name) ? "bg-[#211c50] text-[#fff]" : "text-[#211c50]"}  w-full py-[8px] px-[2px] break-words break-all whitespace-normal`}
                 >
                   {extractedString}
                 </Button>
@@ -162,7 +169,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
                 return <Button
                   onClick={() => changeFilter("Color", color?.name)}
                   variant={"outline"}
-                  className={`border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-full py-[8px] px-[2px] break-words break-all whitespace-normal`}
+                  className={`border-[#211c50] hover:bg-[#211c50] ${filter?.Color && filter?.Color?.includes(color?.name) ? "bg-[#211c50] text-[#fff]" : "text-[#211c50]"} hover:text-[#fff]  w-full py-[8px] px-[2px] break-words break-all whitespace-normal`}
                 >
                   {extractedString}
                 </Button>

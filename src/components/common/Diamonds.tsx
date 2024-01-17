@@ -13,14 +13,16 @@ const Diamonds = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [limit] = useState(10);
   const [filter, setFilter] = useState<any>({});
-  console.log("🚀 ~ Diamonds ~ filter:", filter)
+  
   const [products, setProducts] = useState([]);
-  const { category: { category } } = useSelector((state: any) => state)
+  const { category: { category, filterProduct={} } } = useSelector((state: any) => state)
   // const { token, user } = useCheckPermission()
   const { loader, apiAction } = useApi()
 
-  useEffect(() => {
-  }, [])
+  // useEffect(() => {
+  //   if (Object.keys(filterProduct)?.length)
+  //     setFilter(filterProduct)
+  // }, [filterProduct])
 
 
   useEffect(() => {
@@ -28,9 +30,9 @@ const Diamonds = () => {
       window.scrollTo(0, 0)
       let currCategory = category?.[category?.length - 1]
       if (currCategory?.id)
-        setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id, page: 1, pageSize: limit })
+        setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id, page: 1, pageSize: limit,...filterProduct })
       else {
-        setFilter({ page: 1, pageSize: limit })
+        setFilter({ page: 1, pageSize: limit,...filterProduct })
       }
       // setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id,mincarat:1,maxcarat:100 })
 
@@ -73,6 +75,7 @@ const Diamonds = () => {
                 <select
                   name="orderby"
                   id="orderby"
+                  value={filter?.sort}
                   onChange={(e) => {
                     if (!e?.target?.value) {
                       delete filter?.sort

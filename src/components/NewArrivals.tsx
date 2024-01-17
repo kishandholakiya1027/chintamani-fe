@@ -4,10 +4,18 @@ import { Button } from "./ui/button";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { productType } from "@/lib/interfaces/category";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory, setFilterProduct } from "@/redux/reducer/category";
+import { useNavigate } from "react-router-dom";
 
 const NewArrivals: FC = () => {
   const [latestProducts, setLatestProducts] = useState([]);
   const { apiAction } = useApi();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  // const { user, token } = useSelector((state: { auth: any }) => state.auth);
+  const { category } = useSelector((state: any) => state?.category);
+  // const {} = useSelector((state: { auth: any }) => state?.auth);
 
   useEffect(() => {
     getLatestProduct();
@@ -17,6 +25,21 @@ const NewArrivals: FC = () => {
     const data = await apiAction({ method: "get", url: `${apiPath?.categories?.product}?sort=3` });
     setLatestProducts(data?.data?.product);
   };
+
+  const setMenu = async (productName: string, productid: string) => {
+    dispatch(
+      setCategory([...category, { path: productName, name: productName }])
+    );
+    navigate(`/product/${productid}`);
+  };
+
+
+const showMore = async() => {
+  dispatch(setCategory([...category, { path: "Shop", name: "Shop" }]))
+  dispatch(setFilterProduct({sort:3}))
+  navigate("/product-category")
+}
+
 
   return (
     <section className="w-full">
@@ -34,8 +57,8 @@ const NewArrivals: FC = () => {
             Shop
           </h1>
           <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}>
-            {latestProducts?.map((product: productType) => (
-              <div key={product?.id} className="mb-5 rounded-3xl overflow-hidden shadow">
+            {latestProducts?.slice(0,4).map((product: productType) => (
+              <div key={product?.id} className="mb-5 rounded-3xl overflow-hidden shadow" onClick={() => setMenu(product?.title||"", product?.id||"")}>
                 <div className="mx-auto w-full">
                   <img
                     src={product?.productimage?.[0] || ''}
@@ -55,6 +78,7 @@ const NewArrivals: FC = () => {
         </div>
         <div className="flex items-center justify-center text-sm md:text-base font-medium font-poppins">
           <Button
+            onClick={() => showMore()}
             variant="outline"
             className="border border-[#211c50] py-2 px-6 hover:text-white hover:bg-[#211c50]"
           >

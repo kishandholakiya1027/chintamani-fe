@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { setCategory } from "@/redux/reducer/category";
 import { toast } from "react-toastify";
 
-const ProductList = ({ products = [],loader,width="25%"}: any) => {
+const ProductList = ({ products = [], loader, width = "25%" }: any) => {
   const { user, token } = useSelector((state: { auth: any }) => state.auth);
   const { category } = useSelector((state: any) => state?.category);
 
@@ -135,12 +135,12 @@ const ProductList = ({ products = [],loader,width="25%"}: any) => {
   };
 
   return (
-    <ul className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer mb-[75px]">
-      {products?.length ? (
-        products?.map((product: productType) => {
+    products?.length ? (
+      <ul className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer mb-[75px]">
+        {products?.map((product: productType) => {
           return (
             <li className={`max-w-full sm:max-w-[${width}] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]`}>
-              <div onClick={() => setMenu(product?.title||"", product?.id||"")}>
+              <div onClick={() => setMenu(product?.title || "", product?.id || "")}>
                 <div className="flex text-center items-center flex-col  relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
                   <img
                     src={product?.productimage?.[0]}
@@ -214,12 +214,14 @@ const ProductList = ({ products = [],loader,width="25%"}: any) => {
             </li>
           );
         })
-      ) : (
-        <div className="flex justify-center w-full mt-14">
+        }
+      </ul>)
+
+      : (
+        <div className="flex justify-center w-full  h-32 items-center">
           {(loader || loading) ? "" : " No Products Found"}
         </div>
-      )}
-    </ul>
+      )
   );
 };
 

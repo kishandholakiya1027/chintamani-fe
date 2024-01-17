@@ -16,7 +16,7 @@ const ProductDetailsComponent = () => {
     const { cart: { cartProduct }, auth: { user, token } } = useSelector((state: any) => state)
     let cartProductIds = cartProduct?.map((product: any) => product?.product?.id || product?.id)
     const [product, setProduct] = useState<productType>({})
-    const [currentImage, setCurrentImage] = useState()
+    const [currentImage, setCurrentImage] = useState<any>("")
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -106,7 +106,7 @@ const ProductDetailsComponent = () => {
         onclick: () => window.open('https://wa.me/1234567890', '_blank')
     }, {
         img: "https://cdn.builder.io/api/v1/image/assets/TEMP/a92925048654b5dceaed239e42b7fcf2f7410185e697411358fb1d569b3ba81b?apiKey=d15e42286684479bbc853a10c1e3f3db&",
-        onclick: ""
+        onclick: () => { }
     }]
 
     return (
@@ -119,13 +119,13 @@ const ProductDetailsComponent = () => {
                     <div className='border border-[#211c50] rounded-md'>
                         <img
                             loading="lazy"
-                            src={currentImage}
+                            src={currentImage || ""}
                             className="aspect-square lg:h-[500px] md:h-[500px] h-[300px] w-full shadow-sm overflow-hidden max-w-full  self-end"
                         />
                     </div>
-                    <div className='my-4'>
+                    <div className='my-4 flex gap-4'>
                         {product?.productimage && product?.productimage?.map((image: string) => {
-                            return <div className='border border-[#211c50] w-[80px] rounded-md'>
+                            return <div className='border border-[#211c50] w-[80px] rounded-md' onClick={() => setCurrentImage(image)}>
                                 <img
                                     loading="lazy"
                                     src={image}
@@ -167,13 +167,16 @@ const ProductDetailsComponent = () => {
                 </div>
                 <div className="flex w-[201px] max-w-full items-stretch gap-1  mt-2 self-start lg:ml-2.5 md:ml-2.5 ml-0">
                     {shareProducts.map((elm, index) => {
-                        return <img
-                            key={index}
-                            loading="lazy"
-                            src={elm?.img}
-                            onClick={elm?.onclick}
-                            className="aspect-square object-contain object-center w-full justify-center items-center overflow-hidden shrink-0 flex-1"
-                        />
+                        return <div onClick={() => elm?.onclick()}>
+                            <img
+                                key={index}
+                                loading="lazy"
+                                src={elm?.img}
+
+                                className="aspect-square object-contain object-center w-full justify-center items-center overflow-hidden shrink-0 flex-1"
+                            />
+
+                        </div>
                     })}
                 </div>
                 <div className="text-center">
