@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { apiPath } from "@/lib/api-path";
 import { Category, subCategory } from "@/lib/interfaces/category";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory } from "@/redux/reducer/category";
+import { setCategory, setFilterProduct } from "@/redux/reducer/category";
 import useApi from "@/hooks/useApi";
 import { handleLogout } from "@/redux/reducer/auth";
 import { addCartProduct, addWishLishProduct, setOpenCart } from "@/redux/reducer/cart";
@@ -26,9 +26,11 @@ const Header = ({}:Props) => {
   const [categories, setCategories] = useState([]);
   const [menu, setMenu] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false)
+  const [search, setSearch] = useState("")
   const dispatch = useDispatch()
   const { apiAction } = useApi()
-  const { auth:{user ,token},cart:{cartCount,wishListCount}} = useSelector((state: { auth: any,cart:any }) => state)
+  const { auth:{user ,token},cart:{cartCount,wishListCount} } = useSelector((state: { auth: any,cart:any }) => state)
+  const { category } = useSelector((state: any) => state?.category);
   const modalRef:any = useRef(null);
 
   const handleOutsideClick = (e:any) => {
@@ -102,6 +104,14 @@ const fetchWishlistData = async () => {
     // console.log("🚀 ~ file: Diamonds.tsx:60 ~ fetchWishlistData ~ data:", data?.data?.whishlist_products_id, data?.data?.whishlist_products_id?.map((id: string) => id))
     if (data)
         dispatch(addWishLishProduct(data?.data))
+}
+
+const handleSearch = async ()=>{
+  if(Boolean(search)){
+    navigate("/product-category")
+    dispatch(setCategory([...category, { path: "Shop", name: "Shop" }]))
+    dispatch(setFilterProduct({search:search}))
+  }
 }
 
 const headerMenu = (
@@ -363,10 +373,12 @@ const headerMenu = (
                     type="search"
                     name="search"
                     placeholder="Search Product"
+                    onChange={(e) => setSearch(e.target.value)}
                   />
                   <button
                     type="submit"
                     className="absolute right-0 top-0 mt-5 mr-4"
+                    onClick={handleSearch}
                   >
                     <FontAwesomeIcon
                       icon={faSearch}

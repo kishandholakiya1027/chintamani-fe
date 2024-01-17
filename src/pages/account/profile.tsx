@@ -52,7 +52,7 @@ const Profile = () => {
             }
         }
 
-        debugger
+        // debugger
         // urlencoded.append('image', formData?.image);
         // urlencoded.append('firstname', updatedFormData.firstname);
         // urlencoded.append('lastname', updatedFormData.lastname);
