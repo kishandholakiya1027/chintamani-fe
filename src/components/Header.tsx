@@ -109,7 +109,7 @@ const fetchWishlistData = async () => {
 const handleSearch = async ()=>{
   if(Boolean(search)){
     navigate("/product-category")
-    dispatch(setCategory([...category, { path: "Shop", name: "Shop" }]))
+    dispatch(setCategory([{ path: "Shop", name: "Shop" }]))
     dispatch(setFilterProduct({search:search}))
   }
 }
