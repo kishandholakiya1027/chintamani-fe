@@ -58,7 +58,7 @@ const SideComponent = ({address, setAddress, contact, setContact, setIsSave}:any
                         </summary>
                         {open === 1 ? <div className='mt-2'>
                             <div className="px-5 pb-5">
-                                <input placeholder="Contact No" type  ="tel"  maxLength={13} value={contact} onChange={(e) =>{
+                                <input placeholder="Contact No" type  = "number"  maxLength={13} value={contact} onChange={(e) =>{
                                     setContact(e.target.value)
                                     setError({...error,contact:""})
                                 }} className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400" />

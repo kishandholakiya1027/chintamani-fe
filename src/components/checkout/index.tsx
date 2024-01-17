@@ -93,18 +93,18 @@ const CheckoutComponent = () => {
       const options = {
         key: VITE_RAZORPAY_KEY_ID,
         secret: VITE_RAZORPAY_KEY_SECRET,
-        amount: order.data.orderDetails.amount_due,
+        amount: order?.data?.orderDetails?.amount_due,
         currency: "USD",
         name: "Acme Corp",
         description: "Test Transaction",
-        order_id: order.data.orderDetails.id,
+        order_id: order?.data?.orderDetails?.id,
         handler: (res : Object) => {
           console.log(res, "ress++");
           updateOrder(order?.data?.id);
         },
         prefill: {
-          name: `${user.firstname} ${user.lastname}`,
-          email: user.email,
+          name: `${user?.firstname} ${user?.lastname}`,
+          email: user?.email,
           contact: contact,
           // method: "netbanking"
         },

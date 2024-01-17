@@ -26,6 +26,7 @@ const Order: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [limit] = useState(6);
   const [loading, setLoading] = useState(false);
+  const [rerenderFlag, setRerenderFlag] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,15 +50,16 @@ const Order: React.FC = () => {
       }
     };
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, rerenderFlag]);
 
   const updateOrder = async (orderid :number) => {
-    apiAction({
+    await apiAction({
       method: "patch",
       url: `${apiPath?.checkOut?.updateOrder}`,
       data: { payment: 2, orderid},
       headers: { Authorization: `Bearer ${token}` },
     });
+    setRerenderFlag(prevFlag => !prevFlag);
   };
   const updatePaymentOrder = async (orderid :number) => {
     return await apiAction({
@@ -82,7 +84,7 @@ const Order: React.FC = () => {
         order_id: orderData?.data?.orderDetails?.id,
         handler: (res: Object) => {
           console.log(res, "ress++");
-          updateOrder(orderData?.id);
+          updateOrder(orderData?.data?.id);
         },
         prefill: {
           name: `${user?.firstname} ${user?.lastname}`,
