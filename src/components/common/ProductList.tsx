@@ -243,7 +243,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
       {slider ? <ul className="grid lg:grid-cols-1 md:grid-cols-1 grid-cols-1 gap-5 cursor-pointer lg:mb-[75px] md:mb-[75px] mb-0">
         <Slider {...settings}>
           {products?.length ? (
-            products?.map((product: productType, index: number) => (
+            products?.map((product: productType) => (
               <li key={product.id} className={`max-w-full relative ml-0 bg-[#f1f1f1] rounded-[20px]`}>
                 {fetchProducts(product)}
               </li>

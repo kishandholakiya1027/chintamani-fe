@@ -121,12 +121,12 @@
 .slick-slider .slick-arrow::before{
   color: #211c50;
 }
-.slick-slider .slick-track .slick-slide {
+.trending-diamonds .slick-slider .slick-track .slick-slide {
   padding-right: 20px;
   padding-left: 20px;
 }
 @media (max-width: 575px) {
-  .slick-slider .slick-track .slick-slide {
+  .trending-diamonds .slick-slider .slick-track .slick-slide {
     padding-left: 0;
     padding-right: 0;
   }

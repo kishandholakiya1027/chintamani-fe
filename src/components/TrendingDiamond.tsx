@@ -20,7 +20,7 @@ const TrendingDiamond = () => {
     }
 
     return (
-        <span className="flex flex-col items-stretch mt-28">
+        <span className="flex flex-col items-stretch mt-28 trending-diamonds">
             <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 w-full max-md:max-w-full">
                 Trending Diamonds
             </div>
