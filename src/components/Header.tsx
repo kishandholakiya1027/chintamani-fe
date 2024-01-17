@@ -334,7 +334,7 @@ const headerMenu = (
                 <div className="flex flex-wrapflex-col">
                   <div className="relative">
                     <div className="flex items-center justify-center">
-                      <div className="font-arial text-xs text-left cursor-pointer overflow-hidden w-[120px] leading-0 mr-3">
+                      <div className="font-arial text-xs text-left cursor-pointer overflow-hidden w-[120px] leading-0 mr-3 rounded-lg">
                         <select
                           id="countries"
                           className="text-sm rounded-lg block w-full p-2.5 dark:placeholder-gray-400 dark:text-white"
@@ -346,7 +346,7 @@ const headerMenu = (
                           <option value="DE">Germany</option>
                         </select>
                       </div>
-                      <div className="font-arial text-xs text-left cursor-pointer overflow-hidden w-[70px] leading-0">
+                      <div className="font-arial text-xs text-left cursor-pointer overflow-hidden w-[70px] leading-0 rounded-lg">
                         <select
                           id="countries"
                           className="text-sm rounded-lg block w-full p-2.5 dark:placeholder-gray-400 dark:text-white"

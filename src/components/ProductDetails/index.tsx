@@ -196,10 +196,10 @@ const ProductDetailsComponent = () => {
                     {diamondsDetails?.map((item, index) => {
                         return (
                             <div key={index} className='pb-4'>
-                                <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 self-stretch w-full max-md:max-w-full">
+                                <div className="justify-center text-neutral-700 lg:text-3xl md:text-3xl text-xl font-bold leading-10 self-stretch w-full max-md:max-w-full">
                                     {item.title}
                                 </div>
-                                <div className="justify-center text-neutral-700 text-base leading-7 self-stretch mr-3.5 mt-4 max-md:max-w-full max-md:mr-2.5">
+                                <div className="justify-center text-neutral-700 text-base leading-7 self-stretch lg:mt-4 md:mt-4 mt-0 max-md:max-w-full">
                                     {item.description}
                                 </div>{" "}
                                 <img
