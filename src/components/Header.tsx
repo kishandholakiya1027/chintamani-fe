@@ -410,7 +410,7 @@ const Header = ({ }: Props) => {
                 </Link>
               </div>
             </div>
-            <div className="flex items-center justify-start lg:order-2 md:order-1 sm:order-1 order-1">
+            <div className="flex items-center lg:justify-end md:justify-start justify-start lg:order-2 md:order-1 sm:order-1 order-1">
             <div className="lg:mx-3 md:mx-0 mx-0 relative" onClick={()=>navigate("/wishlist")}>
                 {wishListCount ? <div className="t-0 absolute lg:left-[17px] md:left-[10px] left-[10px] lg:bottom-[18px] md:bottom-[16px] bottom-[16px]">
                   <p className="flex h-2 w-2 items-center justify-center rounded-full bg-[#211c50] p-2 text-[10px] text-white">{wishListCount}</p>
