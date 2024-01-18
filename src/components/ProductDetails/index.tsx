@@ -22,7 +22,7 @@ const ProductDetailsComponent = () => {
     const { id } = useParams()
     const { cart: { cartProduct }, auth: { user, token } } = useSelector((state: any) => state)
     let cartProductIds = cartProduct?.map((product: any) => product?.product?.id || product?.id)
-    
+
     const [product, setProduct] = useState<productType>({})
     const [currentImage, setCurrentImage] = useState<any>("")
     const navigate = useNavigate()
@@ -110,7 +110,7 @@ const ProductDetailsComponent = () => {
                 </div>
                 <div className='lg:w-[500px] md:w-[500px] w-full'>
                     <div className='mt-8 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:mt-4'>
-                        <div className='border border-[#211c50] rounded-md'>
+                        <div className='border border-[#211c50] rounded-md overflow-hidden'>
                             <img
                                 loading="lazy"
                                 src={currentImage || ""}
@@ -120,7 +120,7 @@ const ProductDetailsComponent = () => {
                         <div className='my-4 flex gap-4 overflow-auto max-w-full'>
                             {product?.productimage && product?.productimage?.map((image: string, index: number) => {
                                 return (
-                                    <div key={index} className='border border-[#211c50] w-[80px] rounded-md' onClick={() => setCurrentImage(image)}>
+                                    <div key={index} className='border border-[#211c50] w-[80px] rounded-md  overflow-hidden' onClick={() => setCurrentImage(image)}>
                                         <img
                                             loading="lazy"
                                             src={image}
