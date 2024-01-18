@@ -5,6 +5,10 @@ import { setUser } from "@/redux/reducer/auth";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import 'react-phone-input-2/lib/style.css';
+import PhoneInput from 'react-phone-input-2';
+import { formatPhoneNumber } from "@/lib/utils";
+import { PHONE_CODE_REGEX } from "@/lib/constant";
 
 const Profile = () => {
   const { loader, apiAction } = useApi();
@@ -12,16 +16,10 @@ const Profile = () => {
   const [error, setError] = useState<any>({});
   const { user, token } = useSelector((state: any) => state.auth);
   const [imageFile, setImageFile] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
 
   const dispatch = useDispatch();
   useEffect(() => {
     setFormData(user);
-    if (user?.mobile?.split(" ")?.length === 2) {
-      const [countryCode, remainingMobile] = user.mobile.split(" ");
-      setSelectedCountry(countryCode);
-      setFormData({ ...user, mobile: remainingMobile });
-    }
   }, [user]);
 
   const handleImageChange = (file: any) => {
@@ -34,11 +32,7 @@ const Profile = () => {
       firstname: formData.firstname,
       lastname: formData.lastname,
       email: formData.email,
-      mobile: selectedCountry
-        ? `${selectedCountry === "+1c" ? "+1" : selectedCountry} ${
-            formData?.mobile
-          }`
-        : formData?.mobile,
+      mobile: formData.mobile,
       Address: formData.Address,
       userid: user.id,
     };
@@ -91,6 +85,14 @@ const Profile = () => {
   };
 
   const OnSubmit = () => {
+    let err = {};
+    if (!PHONE_CODE_REGEX.test(formData?.mobile)) {
+      err = { ...err, mobile: "Phone number is not valid" };
+    }
+    if (Object.keys(err).length > 0) {
+      setError(err);
+      return
+    }
     updateUser();
   };
 
@@ -99,9 +101,10 @@ const Profile = () => {
     setError({ ...error, [name]: "" });
   };
 
-  const handleCountryChange = (selectedOption: any) => {
-    setSelectedCountry(selectedOption.value);
-  };
+  const handleCountryChange = (value:any, data:any) => {
+    const formattedPhoneNumber = formatPhoneNumber(value, data);
+    handleChange("mobile", formattedPhoneNumber);
+  }
 
   return (
     <div>
@@ -176,30 +179,29 @@ const Profile = () => {
         )}
 
         <div className="flex">
-          <div className="w-1/6 pr-2">
-            <select
-              id="countries"
-              className="appearance-none text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-              onChange={(e) => handleCountryChange(e.target)}
-              value={selectedCountry || ""}
-            >
-              <option disabled selected value="">
-                Select Country code
-              </option>
-              <option value="+1">United States (+1)</option>
-              <option value="+1c">Canada (+1)</option>
-              <option value="+33">France (+33)</option>
-              <option value="+49">Germany (+49)</option>
-            </select>
-          </div>
-          <div className="flex-grow">
-            <input
-              placeholder="Mobile"
-              type="tel"
-              maxLength={13}
-              value={formData?.mobile}
-              onChange={(e) => handleChange("mobile", e.target.value)}
-              className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+          <div className="w-full mt-2">
+            <PhoneInput
+              placeholder="Enter phone number"
+              value={formData?.mobile?.replace(/\D/g, "") || null}
+              countryCodeEditable={false}
+              onChange={(value: any, data: any) =>
+                handleCountryChange(value, data)
+              }
+              country="us"
+              inputStyle={{
+                width: "100%",
+                fontSize: "1rem",
+                border: "none",
+                borderRadius: "0.5rem",
+                backgroundColor: "rgb(229 231 235)",
+                height: "44px",
+                paddingTop: "0.5rem",
+                paddingBottom: "0.5rem",
+              }}
+              buttonStyle={{
+                borderRadius: "0.5rem",
+              }}
+              inputClass="text-black placeholder-gray-600 w-full px-4 py-2.5text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
             />
             {error?.mobile && (
               <p className="text-red-500 text-xs mt-2">{error?.mobile}</p>

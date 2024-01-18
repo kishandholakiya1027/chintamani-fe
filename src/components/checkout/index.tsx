@@ -59,7 +59,7 @@ const CheckoutComponent = () => {
       const data = await apiAction({
         method: "post",
         url: `${apiPath?.checkOut?.createOrder}`,
-        data: { userid: params?.userid, totalprice: params?.totalprice },
+        data: { userid: params?.userid, totalprice: params?.totalprice, mobile: contact, address: JSON.stringify(address) },
         headers: { Authorization: `Bearer ${token}` },
       });
 

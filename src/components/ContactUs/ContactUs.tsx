@@ -1,73 +1,79 @@
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
-import { EMAIL_REGEX, PHONE_REGEX } from "@/lib/constant";
-import { showToast } from "@/lib/utils";
-import {  useState } from "react";
+import { EMAIL_REGEX, PHONE_CODE_REGEX } from "@/lib/constant";
+import { formatPhoneNumber, showToast } from "@/lib/utils";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../common/Loader";
+import { useSelector } from "react-redux";
+import PhoneInput from "react-phone-input-2";
 
 interface IError {
-  name?: string
-  email?: string
-  phone_number?: string
-  comment?: string
-
+  name?: string;
+  email?: string;
+  phone_number?: string;
+  comment?: string;
 }
 
-
 const ContactUs = () => {
-  const { loader,apiAction } = useApi()
+  const { loader, apiAction } = useApi();
   const [params, setParams] = useState({
     name: "",
     email: "",
     phone_number: "",
     comment: "",
-  })
-
-  const [error, setError] = useState<IError>({})
+  });
+  const {
+    auth: { token },
+  } = useSelector((state: { auth: any }) => state);
+  const [error, setError] = useState<IError>({});
 
   const handleSubmit = async (e: any) => {
-    e?.preventDefault()
-    let err: IError = {}
+    e?.preventDefault();
+    let err: IError = {};
     if (!params.name) {
-      err = { ...err, name: "Name is required" }
-
+      err = { ...err, name: "Name is required" };
     }
     if (!params.email) {
-      err = { ...err, email: "Email is required" }
-
+      err = { ...err, email: "Email is required" };
     }
     if (!params.phone_number) {
-      err = { ...err, phone_number: "Phone number is required" }
-
+      err = { ...err, phone_number: "Phone number is required" };
     }
     if (!params.comment) {
-      err = { ...err, comment: "Comment is required" }
-
+      err = { ...err, comment: "Comment is required" };
     }
     if (!EMAIL_REGEX.test(params.email)) {
-      err = { ...err, email: "Email is not valid" }
-
+      err = { ...err, email: "Email is not valid" };
     }
-    if (!PHONE_REGEX.test(params.phone_number)) {
-      err = { ...err, phone_number: "Phone number is not valid" }
-
+    if (!PHONE_CODE_REGEX.test(params.phone_number)) {
+      err = { ...err, phone_number: "Phone number is not valid" };
     }
     if (Object.keys(err).length > 0) {
-      setError(err)
-      return
+      setError(err);
+      return;
     }
 
-    const data = await apiAction({ method: "post", url: `${apiPath?.contactUs?.create}`, data: params })
+    const data = await apiAction({
+      method: "post",
+      url: `${apiPath?.contactUs?.create}`,
+      data: params,
+      headers: { Authorization: `Bearer ${token}` },
+    });
     if (data) {
-      showToast("Thank you for contacting us!")
+      showToast("Thank you for contacting us!");
     }
-  }
-
+  };
+  
   const handleChange = (name: string, value: string) => {
-    setParams({ ...params, [name]: value })
-    setError({ ...error, [name]: "" })
-  }
+    setParams({ ...params, [name]: value });
+    setError({ ...error, [name]: "" });
+  };
+
+  const handlePhoneChange = (value: string, data: any) => {
+    setParams({ ...params, phone_number: formatPhoneNumber(value, data) });
+    setError({ ...error, phone_number: "" });
+  };
 
   return (
     <section className="w-full">
@@ -134,21 +140,22 @@ const ContactUs = () => {
               </h3>
               <div className="flex flex-nowrap flex-col items-start">
                 <div>
-              {/* <Loader/> */}
+                  {/* <Loader/> */}
                   <div className="relative">
                     <div className="absolute overflow-hidden h-[1px] w-[1px] m-[-1px] clip-[1px] clip-path-inset-[50%]">
                       <p
                         role="status"
                         aria-live="polite"
                         aria-atomic="true"
-                        ></p>
+                      ></p>
                       <ul></ul>
                     </div>
                     <form action="" onSubmit={(e) => handleSubmit(e)}>
-                   {loader ?  <div className="flex absolute mt-32 left-1/2 flex-nowrap flex-col items-center h-full">
-                     {   <Loader/>}
-
-                    </div>:null}
+                      {loader ? (
+                        <div className="flex absolute mt-32 left-1/2 flex-nowrap flex-col items-center h-full">
+                          {<Loader />}
+                        </div>
+                      ) : null}
                       <div>
                         <p className="py-[16px]">
                           <label
@@ -162,11 +169,16 @@ const ContactUs = () => {
                             <input
                               type="text"
                               name="your-name"
-
-                              onChange={(e) => handleChange("name", e.target.value)}
+                              onChange={(e) =>
+                                handleChange("name", e.target.value)
+                              }
                               className="bg-[#fff] border-[1px] h-[38px] border-[#ccc] rounded-[19px] text-[#777] w-full mt-[8px] outline-none px-[12px]"
                             />
-                            {error?.name && <p className="text-xs mt-2 text-red-500">{error?.name}</p>}
+                            {error?.name && (
+                              <p className="text-xs mt-2 text-red-500">
+                                {error?.name}
+                              </p>
+                            )}
                           </span>
                         </p>
                         <p className="py-[16px]">
@@ -182,12 +194,16 @@ const ContactUs = () => {
                             <input
                               type="email"
                               name="your-email"
-
-                              onChange={(e) => handleChange("email", e.target.value)}
+                              onChange={(e) =>
+                                handleChange("email", e.target.value)
+                              }
                               className="bg-[#fff] border-[1px] h-[38px] border-[#ccc] rounded-[19px] text-[#777] w-full mt-[8px] outline-none px-[12px]"
                             />
-                            {error?.email && <p className="text-xs mt-2 text-red-500">{error?.email}</p>}
-
+                            {error?.email && (
+                              <p className="text-xs mt-2 text-red-500">
+                                {error?.email}
+                              </p>
+                            )}
                           </span>
                         </p>
                         <p className="py-[16px]">
@@ -199,18 +215,32 @@ const ContactUs = () => {
                             Phone Number:
                             <br />
                           </label>
-                          <span className="relative">
-                            <input
-                              type="tel"
-                              maxLength={13}
-                              name="your-phone"
-
-                              onChange={(e) => handleChange("phone_number", e.target.value)}
-                              className="bg-[#fff] border-[1px] h-[38px] border-[#ccc] rounded-[19px] text-[#777] w-full mt-[8px] outline-none px-[12px]"
+                          <span className="relative flex flex-nowrap mt-[8px]">
+                            <PhoneInput
+                              country="us"
+                              value={params.phone_number}
+                              onChange={handlePhoneChange}
+                              countryCodeEditable={false}
+                              inputStyle={{
+                                width: "100%",
+                                fontSize: "1rem",
+                                border: "1px solid #ccc",
+                                borderRadius: "19px",
+                                height: "38px",
+                                color: "#777",
+                              }}
+                              buttonStyle={{
+                                borderEndStartRadius: "19px",
+                                borderStartStartRadius: "19px",
+                              }}
                             />
-                            {error?.phone_number && <p className="text-xs mt-2 text-red-500">{error?.phone_number}</p>}
-
                           </span>
+
+                          {error?.phone_number && (
+                            <p className="text-xs mt-2 text-red-500">
+                              {error?.phone_number}
+                            </p>
+                          )}
                         </p>
                         <p className="py-[16px]">
                           <label
@@ -223,23 +253,28 @@ const ContactUs = () => {
                           </label>
                           <span className="relative">
                             <textarea
-                              onChange={(e) => handleChange("comment", e.target.value)}
+                              onChange={(e) =>
+                                handleChange("comment", e.target.value)
+                              }
                               aria-rowspan={10}
                               aria-colspan={40}
                               name="your-comment"
-
                               className="bg-[#fff] shadow-none border-[1px] border-[#ddd] text-[13px] text-[#666] overflow-auto rounded-[19px] outline-none px-[10px] py-[5px] h-[109px] mt-[8px] w-full mb-[5px] "
                             />
-                            {error?.comment && <p className="text-xs text-red-500">{error?.comment}</p>}
-
+                            {error?.comment && (
+                              <p className="text-xs text-red-500">
+                                {error?.comment}
+                              </p>
+                            )}
                           </span>
                         </p>
                         <p className="py-[16px]">
                           <button
-
                             onSubmit={handleSubmit}
                             className="bg-[#211c50] text-[#fff] cursor-pointer block font-bold text-[13px] h-[38px] uppercase rounded-[19px] text-center px-[20px]"
-                          >Submit</button>
+                          >
+                            Submit
+                          </button>
                         </p>
                       </div>
                     </form>
