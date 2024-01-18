@@ -1,10 +1,9 @@
 import useApi from '@/hooks/useApi'
 import { apiPath } from '@/lib/api-path'
-import { productType } from '@/lib/interfaces/category'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProductList from './common/ProductList'
 
-const TrendingDiamond = () => {
+const TrendingDiamond = ({ product }: { product: any }) => {
     const { apiAction } = useApi()
     const [products, setProducts] = useState([])
     console.log("🚀 ~ TrendingDiamond ~ products:", products)
@@ -14,9 +13,20 @@ const TrendingDiamond = () => {
 
 
     const getTrendingProducts = async () => {
-        let data = await apiAction({ method: "get", url: `${apiPath?.product?.trendingProduct}` })
+        let params:any = {}
+
+        if(product?.colour ||  product?.shape){
+            params = {
+                Color : JSON.stringify([product?.colour || ""]),
+                shape: product?.shape
+            }
+        }else {
+            params = {
+                categoryid: product?.categoryid?.id
+            }
+        }
+        let data = await apiAction({ method: "get", url: `${apiPath?.product?.trendingProduct}` , params })
         setProducts(data?.data?.[0])
-        console.log("🚀 ~ getTrendingProducts ~ data:", data)
     }
 
     return (

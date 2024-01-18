@@ -28,7 +28,6 @@ const Index = () => {
   }
 
   const handleProductQuantity = (id: string, quantity: number) => {
-    console.log("🚀 ~ handleProductQuantity ~ quantity:", quantity)
     addToCart(id, quantity)
     // dispatch(addQuantity({ id, quantity: quantity || '' }))
 

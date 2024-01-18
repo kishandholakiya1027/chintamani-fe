@@ -1,186 +1,235 @@
-import Loader from '@/components/common/Loader'
-import useApi from '@/hooks/useApi'
-import { apiPath } from '@/lib/api-path'
-import { setUser } from '@/redux/reducer/auth'
-import  { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
+import Loader from "@/components/common/Loader";
+import useApi from "@/hooks/useApi";
+import { apiPath } from "@/lib/api-path";
+import { setUser } from "@/redux/reducer/auth";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Profile = () => {
-    const { loader, apiAction } = useApi()
-    const [formData, setFormData] = useState<any>({})
-    console.log("🚀 ~ Profile ~ formData:", formData)
-    const [error, setError] = useState<any>({})
-    const { user, token } = useSelector((state: any) => state.auth)
-    const [imageFile, setImageFile] = useState(null);
-    const dispatch = useDispatch()
-    useEffect(() => {
-        setFormData(user)
-    }, [user])
+  const { loader, apiAction } = useApi();
+  const [formData, setFormData] = useState<any>({});
+  const [error, setError] = useState<any>({});
+  const { user, token } = useSelector((state: any) => state.auth);
+  const [imageFile, setImageFile] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
 
-    const handleImageChange = (file: any) => {
-        setImageFile(file);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setFormData(user);
+    if (user?.mobile?.split(" ")?.length === 2) {
+      const [countryCode, remainingMobile] = user.mobile.split(" ");
+      setSelectedCountry(countryCode);
+      setFormData({ ...user, mobile: remainingMobile });
+    }
+  }, [user]);
+
+  const handleImageChange = (file: any) => {
+    setImageFile(file);
+  };
+
+  const updateUser = async () => {
+    let updatedFormData: any = {
+      image: formData?.image,
+      firstname: formData.firstname,
+      lastname: formData.lastname,
+      email: formData.email,
+      mobile: selectedCountry
+        ? `${selectedCountry === "+1c" ? "+1" : selectedCountry} ${
+            formData?.mobile
+          }`
+        : formData?.mobile,
+      Address: formData.Address,
+      userid: user.id,
     };
+    const formdata = new FormData();
+    if (imageFile) {
+      formdata.append("image", imageFile);
 
-    const updateUser = async () => {
-        let updatedFormData: any = {
-            'image': formData?.image,
-            'firstname': formData.firstname,
-            'lastname': formData.lastname,
-            'email': formData.email,
-            'mobile': formData.mobile,
-            'Address': formData.Address,
-            'userid': user.id,
-        };
-        const formdata = new FormData();
-        if (imageFile) {
-            formdata.append('image', imageFile);
-
-            const response = await apiAction({
-                method: 'post',
-                url: `${apiPath?.image?.uploadImage}`,
-                data: formdata,
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            if (response) {
-                updatedFormData = { ...updatedFormData, image: response?.data?.image }
-                setFormData({ ...formData, image: response?.data?.image })
-                setImageFile(null)
-            }
-        }
-
-        // debugger
-        // urlencoded.append('image', formData?.image);
-        // urlencoded.append('firstname', updatedFormData.firstname);
-        // urlencoded.append('lastname', updatedFormData.lastname);
-        // urlencoded.append('email', updatedFormData.email);
-        // urlencoded.append('mobile', updatedFormData.mobile);
-        // urlencoded.append('Address', updatedFormData.Address);
-        // urlencoded.append('userid', user.id);
-
-        try {
-            const response = await apiAction({
-                method: 'patch',
-                url: `${apiPath?.auth?.updateUser}`,
-                data: updatedFormData,
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-            });
-            if (response) {
-                dispatch(setUser(response?.data))
-                toast.success("User Updated Successfully")
-                console.log('Update successful:', response);
-            }
-        } catch (error) {
-            console.error('Update failed:', error);
-        }
-    };
-
-    const OnSubmit = () => {
-        updateUser()
+      const response = await apiAction({
+        method: "post",
+        url: `${apiPath?.image?.uploadImage}`,
+        data: formdata,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      if (response) {
+        updatedFormData = { ...updatedFormData, image: response?.data?.image };
+        setFormData({ ...formData, image: response?.data?.image });
+        setImageFile(null);
+      }
     }
 
-    const handleChange = (name: string, value: string) => {
-        setFormData({ ...formData, [name]: value })
-        setError({ ...error, [name]: "" })
+    // debugger
+    // urlencoded.append('image', formData?.image);
+    // urlencoded.append('firstname', updatedFormData.firstname);
+    // urlencoded.append('lastname', updatedFormData.lastname);
+    // urlencoded.append('email', updatedFormData.email);
+    // urlencoded.append('mobile', updatedFormData.mobile);
+    // urlencoded.append('Address', updatedFormData.Address);
+    // urlencoded.append('userid', user.id);
+
+    try {
+      const response = await apiAction({
+        method: "patch",
+        url: `${apiPath?.auth?.updateUser}`,
+        data: updatedFormData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      if (response) {
+        dispatch(setUser(response?.data));
+        toast.success("User Updated Successfully");
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
     }
-    return (
-        <div>
-            <div className="px-5 pb-5">
-                <div className="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
-                    <div className="w-full flex items-center">
-                        <div className="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
-                            <img src={imageFile ? URL.createObjectURL(imageFile) : formData?.image} className="object-fill w-full h-full" alt="" />
-                        </div>
-                        <label
-                            htmlFor="profileImage"
-                            className="flex ml-2 text-xs items-center px-6 py-2.5 font-medium tracking-wide text-white capitalize bg-[#211c50] rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-900 transition duration-300 transform active:scale-95 ease-in-out"
-                        >
-                            <span className="pl-2 mx-1">Upload</span>
-                            <input
-                                type="file"
-                                id="profileImage"
-                                className="hidden"
-                                accept="image/*"
-                                onChange={(e: any) => handleImageChange(e.target.files[0])}
-                            />
-                        </label>
-                    </div>
-                </div>
-            {/* <Loader /> */}
+  };
 
-                {loader ? <Loader /> : null}
+  const OnSubmit = () => {
+    updateUser();
+  };
 
-                <div className="flex">
+  const handleChange = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
+    setError({ ...error, [name]: "" });
+  };
 
-                    <div className="flex-grow w-1/4 pr-2">
-                        <input
-                            placeholder="First Name"
-                            type="text"
-                            value={formData?.firstname}
-                            onChange={(e) => handleChange("firstname", e.target.value)}
-                            className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                        />
-                        {error?.firstname && <p className="text-red-500 text-xs mt-2">{error?.firstname}</p>}
-                    </div>
+  const handleCountryChange = (selectedOption: any) => {
+    setSelectedCountry(selectedOption.value);
+  };
 
-                    <div className="flex-grow">
-                        <input
-                            placeholder="Last Name"
-                            type="text"
-                            value={formData?.lastname}
-                            onChange={(e) => handleChange("lastname", e.target.value)}
-                            className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                        />
-                        {error?.lastname && <p className="text-red-500 text-xs mt-2">{error?.lastname}</p>}
-                    </div>
-
-                </div>
-
-                <input
-                    placeholder="Email"
-                    type="text"
-                    value={formData?.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                    className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                />
-                {error?.email && <p className="text-red-500 text-xs mt-2">{error?.email}</p>}
-
-                <input
-                    placeholder="Mobile"
-                    type="tel"
-                    maxLength={13}
-                    value={formData?.mobile}
-                    onChange={(e) => handleChange("mobile", e.target.value)}
-                    className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                />
-                {error?.mobile && <p className="text-red-500 text-xs mt-2">{error?.mobile}</p>}
-
-                <input
-                    placeholder="Address"
-                    type="text"
-                    value={formData?.Address}
-                    onChange={(e) => handleChange("Address", e.target.value)}
-                    className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                />
-                {error?.Address && <p className="text-red-500 text-xs mt-2">{error?.Address}</p>}
-
-                <div className='flex justify-end  my-6'>
-                    <button onClick={() => OnSubmit()} type="button" className="flex items-center px-6 py-2.5 font-medium tracking-wide text-white capitalize   bg-[#211c50] rounded-md hover:bg-gray-800  focus:outline-none focus:bg-gray-900  transition duration-300 transform active:scale-95 ease-in-out">
-
-                        <span className="pl-2 mx-1">Save</span>
-                    </button>
-
-                </div>
+  return (
+    <div>
+      <div className="px-5 pb-5">
+        <div className="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
+          <div className="w-full flex items-center">
+            <div className="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
+              <img
+                src={
+                  imageFile ? URL.createObjectURL(imageFile) : formData?.image
+                }
+                className="object-fill w-full h-full"
+                alt=""
+              />
             </div>
-
+            <label
+              htmlFor="profileImage"
+              className="flex ml-2 text-xs items-center px-6 py-2.5 font-medium tracking-wide text-white capitalize bg-[#211c50] rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-900 transition duration-300 transform active:scale-95 ease-in-out"
+            >
+              <span className="pl-2 mx-1">Upload</span>
+              <input
+                type="file"
+                id="profileImage"
+                className="hidden"
+                accept="image/*"
+                onChange={(e: any) => handleImageChange(e.target.files[0])}
+              />
+            </label>
+          </div>
         </div>
-    )
-}
+        {/* <Loader /> */}
 
-export default Profile
+        {loader ? <Loader /> : null}
+
+        <div className="flex">
+          <div className="flex-grow w-1/4 pr-2">
+            <input
+              placeholder="First Name"
+              type="text"
+              value={formData?.firstname}
+              onChange={(e) => handleChange("firstname", e.target.value)}
+              className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+            />
+            {error?.firstname && (
+              <p className="text-red-500 text-xs mt-2">{error?.firstname}</p>
+            )}
+          </div>
+
+          <div className="flex-grow">
+            <input
+              placeholder="Last Name"
+              type="text"
+              value={formData?.lastname}
+              onChange={(e) => handleChange("lastname", e.target.value)}
+              className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+            />
+            {error?.lastname && (
+              <p className="text-red-500 text-xs mt-2">{error?.lastname}</p>
+            )}
+          </div>
+        </div>
+
+        <input
+          placeholder="Email"
+          type="text"
+          value={formData?.email}
+          onChange={(e) => handleChange("email", e.target.value)}
+          className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+        />
+        {error?.email && (
+          <p className="text-red-500 text-xs mt-2">{error?.email}</p>
+        )}
+
+        <div className="flex">
+          <div className="w-1/6 pr-2">
+            <select
+              id="countries"
+              className="appearance-none text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border border-gray-300 rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+              onChange={(e) => handleCountryChange(e.target)}
+              value={selectedCountry || ""}
+            >
+              <option disabled selected value="">
+                Select Country code
+              </option>
+              <option value="+1">United States (+1)</option>
+              <option value="+1c">Canada (+1)</option>
+              <option value="+33">France (+33)</option>
+              <option value="+49">Germany (+49)</option>
+            </select>
+          </div>
+          <div className="flex-grow">
+            <input
+              placeholder="Mobile"
+              type="tel"
+              maxLength={13}
+              value={formData?.mobile}
+              onChange={(e) => handleChange("mobile", e.target.value)}
+              className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+            />
+            {error?.mobile && (
+              <p className="text-red-500 text-xs mt-2">{error?.mobile}</p>
+            )}
+          </div>
+        </div>
+
+        <input
+          placeholder="Address"
+          type="text"
+          value={formData?.Address}
+          onChange={(e) => handleChange("Address", e.target.value)}
+          className="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+        />
+        {error?.Address && (
+          <p className="text-red-500 text-xs mt-2">{error?.Address}</p>
+        )}
+
+        <div className="flex justify-end  my-6">
+          <button
+            onClick={() => OnSubmit()}
+            type="button"
+            className="flex items-center px-6 py-2.5 font-medium tracking-wide text-white capitalize   bg-[#211c50] rounded-md hover:bg-gray-800  focus:outline-none focus:bg-gray-900  transition duration-300 transform active:scale-95 ease-in-out"
+          >
+            <span className="pl-2 mx-1">Save</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Profile;

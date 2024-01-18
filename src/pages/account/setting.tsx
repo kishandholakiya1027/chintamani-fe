@@ -71,13 +71,13 @@ const Setting = () => {
         Update Password
         <div className="">
           <label className="text-sm font-sans font-medium">Old Password</label>
-          <div className="relative  h-full">
+          <div className="relative flex mt-2">
             <input
               type={showOldPassword ? "text" : "password"}
               name="old_pass"
               onChange={(e) => handleOnChange(e)}
               placeholder="Enter your old password"
-              className="w-full py-3 px-6 border hover: border-gray-500 rounded shadow text-base font-sans  h-full"
+              className="w-full py-2.5 px-6 border hover: border-gray-500 rounded shadow text-base font-sans flex-1"
             />
             <FontAwesomeIcon
               icon={!showOldPassword ? faEye : faEyeSlash}
@@ -91,13 +91,13 @@ const Setting = () => {
         </div>
         <div className="">
           <label className="text-sm font-sans font-medium">New Password</label>
-          <div className="relative">
+          <div className="relative flex mt-2">
             <input
               type={showNewPassword ? "text" : "password"}
               name="new_pass"
               onChange={(e) => handleOnChange(e)}
               placeholder="Enter your new password"
-              className="w-full py-3 px-6 border hover: border-gray-500 rounded shadow text-base font-sans"
+              className="w-full py-2.5 px-6 border hover: border-gray-500 rounded shadow text-base font-sans flex-1"
             />
             <FontAwesomeIcon
               icon={!showNewPassword ? faEye : faEyeSlash}
@@ -113,13 +113,13 @@ const Setting = () => {
           <label className="text-sm font-sans font-medium">
             Confirm Password
           </label>
-          <div className="relative">
+          <div className="relative flex mt-2">
             <input
               type={showConfirmPassword ? "text" : "password"}
               name="confirm_pass"
               onChange={(e) => handleOnChange(e)}
               placeholder="Confirm your new password"
-              className="w-full py-3 px-6 border hover: border-gray-500 rounded shadow text-base font-sans"
+              className="w-full py-2.5 px-6 border hover: border-gray-500 rounded shadow text-base font-sans flex-1"
             />
             <FontAwesomeIcon
               icon={!showConfirmPassword ? faEye : faEyeSlash}

@@ -192,7 +192,7 @@ const ProductDetailsComponent = () => {
                         )
                     })}
                 </span>
-                <TrendingDiamond />
+                <TrendingDiamond product={product} />
                 <div className="justify-center text-neutral-700 text-2xl font-bold leading-10 self-center mt-20 max-md:mt-10">
                     Want Customize Diamonds?
                 </div>
