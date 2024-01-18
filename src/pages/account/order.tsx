@@ -52,24 +52,24 @@ const Order: React.FC = () => {
     fetchData();
   }, [currentPage, rerenderFlag]);
 
-  const updateOrder = async (orderid :number) => {
+  const updateOrder = async (orderid: number) => {
     await apiAction({
       method: "patch",
       url: `${apiPath?.checkOut?.updateOrder}`,
-      data: { payment: 2, orderid},
+      data: { payment: 2, orderid },
       headers: { Authorization: `Bearer ${token}` },
     });
     setRerenderFlag(prevFlag => !prevFlag);
   };
-  const updatePaymentOrder = async (orderid :number) => {
+  const updatePaymentOrder = async (orderid: number) => {
     return await apiAction({
       method: "patch",
       url: `${apiPath?.order?.updatePaymentOrder}`,
-      data: { orderid},
+      data: { orderid },
       headers: { Authorization: `Bearer ${token}` },
     });
   }
-  const handlePayment = useCallback(async (order :any) => {
+  const handlePayment = useCallback(async (order: any) => {
     setLoading(true);
     try {
       const orderData = await updatePaymentOrder(order.id);
@@ -107,7 +107,7 @@ const Order: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [ user]);
+  }, [user]);
   const handlePageClick = (data: { selected: number }) => {
     setCurrentPage(data.selected);
   };
@@ -115,14 +115,14 @@ const Order: React.FC = () => {
   interface NestedObject {
     [key: string]: any;
   }
-  
+
   const flattenObject = (obj: NestedObject, prefix = ''): NestedObject => {
     const result: NestedObject = {};
-  
+
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         const newKey = prefix ? `${prefix}_${key}` : key;
-  
+
         if (typeof obj[key] === 'object' && obj[key] !== null) {
           Object.assign(result, flattenObject(obj[key], newKey));
         } else {
@@ -130,15 +130,15 @@ const Order: React.FC = () => {
         }
       }
     }
-  
+
     return result;
   };
-  
+
   const flattenedArray = (arrayOfObjects: NestedObject[]) => {
     console.log(arrayOfObjects.map(obj => flattenObject(obj)), "arrayOfObjects.map(obj => flattenObject(obj))")
     return arrayOfObjects.map(obj => flattenObject(obj));
   };
-  
+
   const displayedFields = {
     Title: "productResponse_0_product_title",
     Price: "totalprice",
@@ -201,7 +201,7 @@ const Order: React.FC = () => {
 
   const renderHeaders = () => {
     const headers = Object.keys(displayedFields);
-  
+
     return (
       <tr className="bg-gray-100">
         {headers.map((header) => (
@@ -215,16 +215,15 @@ const Order: React.FC = () => {
       </tr>
     );
   };
-  
+
   const renderCells = () => {
     return data?.responceData.map((order: any) => (
       <tr key={order.id} className="border-b border-gray-300">
         {Object.entries(displayedFields).map(([key, value], index) => (
           <td
             key={index}
-            className={`py-2 px-4 text-sm ${
-              typeof order[value] === "number" ? getColorClass(order[value]) : ""
-            }`}
+            className={`py-2 px-4 text-sm ${typeof order[value] === "number" ? getColorClass(order[value]) : ""
+              }`}
           >
             {key === "Action" && order[value] === 0 ? (
               <button
@@ -241,8 +240,6 @@ const Order: React.FC = () => {
       </tr>
     ));
   };
-  
-  
 
   return (
     <>
@@ -252,10 +249,12 @@ const Order: React.FC = () => {
         </div>
       ) : (
         <div className="">
-          <table className="min-w-full bg-white border border-gray-300">
-            <thead>{renderHeaders()}</thead>
-            <tbody>{renderCells()}</tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <table className="w-full bg-white border border-gray-300">
+              <thead>{renderHeaders()}</thead>
+              <tbody>{renderCells()}</tbody>
+            </table>
+          </div>
 
           <ReactPaginate
             previousLabel={"<"}
@@ -268,7 +267,7 @@ const Order: React.FC = () => {
             onPageChange={handlePageClick}
             containerClassName={"pagination mt-4"}
             activeClassName={"active"}
-            forcePage={currentPage}  
+            forcePage={currentPage}
           />
         </div>
       )}

@@ -37,9 +37,9 @@ const Diamond: FC = () => {
     return (
         <div className='w-full diamond-sec'>
             <Slider {...settings}>
-                {banners?.map((banner: bannerType) => {
+                {banners?.map((banner: bannerType, index: number) => {
                     return (
-                        <div>
+                        <div key={index}>
                             <div className={`lg:h-[631px] md:h-[400px] h-[400px] bg-no-repeat bg-cover !flex flex-col justify-center bg-center`} style={{ backgroundImage: `url('${banner?.image}')` }}>
                                 <div className='lg:px-[15%] md:px-[12%] sm:px-[9%] px-[20px]'>
                                     <h1 className='text-[#fff] lg:text-[55px] md:text-[30px] text-[30px] font-medium'>{banner?.title}</h1>

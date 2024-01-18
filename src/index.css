@@ -125,6 +125,9 @@
   padding-right: 20px;
   padding-left: 20px;
 }
+.makeStyles-container-9 {
+  padding: 0 !important;
+}
 @media (max-width: 575px) {
   .trending-diamonds .slick-slider .slick-track .slick-slide {
     padding-left: 0;

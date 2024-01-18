@@ -32,15 +32,15 @@ const Sidebar = ({ setFilter, filter }: any) => {
   const changeFilter = (name: string, value: string) => {
     if (filter?.[name]?.includes(value)) {
       let data = filter?.[name]?.filter((item: string) => item !== value)
-      if(data?.length){
+      if (data?.length) {
         setFilter({ ...filter, [name]: filter?.[name]?.filter((item: string) => item !== value) })
 
-      }else {
+      } else {
         delete filter[name]
-        setFilter({...filter})
+        setFilter({ ...filter })
       }
     } else
-      setFilter({ ...filter, [name]: [...filter?.[name]|| [], value] })
+      setFilter({ ...filter, [name]: [...filter?.[name] || [], value] })
   }
 
   return (<div className="lg:w-[20%] md:w-[30%] w-[100%] px-[0] border-r-[1px] border-[#eee] py-[20px] flex flex-col flex-nowrap items-start">
@@ -77,7 +77,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
               Cart
             </div>
             <div className='pr-4'>
-              <MultiRangeSlider min={0} max={100} step={5} subSteps={true} minValue={filter?.mincarat||0} maxValue={filter?.maxcarat || 100} onInput={() => {
+              <MultiRangeSlider min={0} max={100} step={5} subSteps={true} minValue={filter?.mincarat || 0} maxValue={filter?.maxcarat || 100} onInput={() => {
                 // props.setMinValue(e.minValue);
                 // props.setMaxValue(e.maxValue);
               }} onChange={(e: ChangeResult) => {
@@ -144,7 +144,7 @@ const Sidebar = ({ setFilter, filter }: any) => {
             <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
               CUT
             </div>
-            <div className="grid grid-cols-3 gap-[5px]">
+            <div className="grid grid-cols-3 gap-[5px] pr-4">
               {cuts?.map((cut: diamondProperty) => {
                 const extractedString = cut?.name?.substring(0, 5);
                 return <Button

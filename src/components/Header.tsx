@@ -135,11 +135,9 @@ const Header = ({ }: Props) => {
           Home
         </Link>
       </li>
-      {categories?.map((category: Category) => {
+      {categories?.map((category: Category, index: number) => {
         return (
-          <li className="relative group list-none flex flex-col" onClick={() => category?.subCategories?.length ? {} : dispatch(setCategory([{ path: category?.name, id: category?.id, name: "categoryid" }]))}>
-
-
+          <li key={index} className="relative group list-none flex flex-col" onClick={() => category?.subCategories?.length ? {} : dispatch(setCategory([{ path: category?.name, id: category?.id, name: "categoryid" }]))}>
             {category?.subCategories?.length ?
               <>
                 <div
@@ -150,9 +148,9 @@ const Header = ({ }: Props) => {
                 </div>
                 <ul className="group-hover:visible group-hover:opacity-[1] bg-[#eee] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%]">
 
-                  {category?.subCategories?.map((subCategory: subCategory) => {
+                  {category?.subCategories?.map((subCategory: subCategory, index) => {
                     return (
-                      <li className="flex flex-col list-none relative sub-group" onClick={() => subCategory?.innerCategories?.length ? {} : dispatch(setCategory([{ path: category?.name, id: category?.id, name: "categoryid" }, { description: subCategory?.description, path: subCategory?.name, id: subCategory?.id, name: "subCategoryid" }]))}>
+                      <li key={index} className="flex flex-col list-none relative sub-group" onClick={() => subCategory?.innerCategories?.length ? {} : dispatch(setCategory([{ path: category?.name, id: category?.id, name: "categoryid" }, { description: subCategory?.description, path: subCategory?.name, id: subCategory?.id, name: "subCategoryid" }]))}>
                         {subCategory?.innerCategories?.length ? <div
                           className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${subCategory?.innerCategories?.length && "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"}  font-semibold`}
                         >
@@ -177,9 +175,9 @@ const Header = ({ }: Props) => {
                           </Link>
                         }
                         <ul className={`sub-group-hover:visible sub-group-hover:opacity-[1] bg-[#eee] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[0] left-[100%]`}>
-                          {subCategory?.innerCategories?.map((innerCategory: subCategory) => {
+                          {subCategory?.innerCategories?.map((innerCategory: subCategory, index) => {
                             return (
-                              <li className="flex flex-col list-none relative" onClick={() => dispatch(setCategory([{ path: category?.name, id: category?.id, name: "categoryid" }, { path: subCategory?.name, id: subCategory?.id, name: "subCategoryid" }, { path: innerCategory?.name, id: innerCategory?.id, name: "innerCategoryid ", description: innerCategory?.description, }]))}>
+                              <li key={index} className="flex flex-col list-none relative" onClick={() => dispatch(setCategory([{ path: category?.name, id: category?.id, name: "categoryid" }, { path: subCategory?.name, id: subCategory?.id, name: "subCategoryid" }, { path: innerCategory?.name, id: innerCategory?.id, name: "innerCategoryid ", description: innerCategory?.description, }]))}>
                                 <Link
                                   to={"/product-category"}
                                   className="border-0 py-5 px-[15px] font-semibold text-sm decoration-none flex items-center text-[#211c50]"
@@ -194,7 +192,6 @@ const Header = ({ }: Props) => {
                       </li>
                     )
                   })}
-
                 </ul>
               </>
               : <Link
