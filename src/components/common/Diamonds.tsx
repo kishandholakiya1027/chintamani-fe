@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import ProductHeader from "./ProductHeader";
 import { convertObjectToURL } from "@/lib/utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from 'react-paginate';
 import ProductList from "./ProductList";
 import { apiPath } from "@/lib/api-path";
 import useApi from "@/hooks/useApi";
 import Loader from "./Loader";
+import { setFilterProduct } from "@/redux/reducer/category";
 
 const Diamonds = () => {
   const [totalRecords, setTotalRecords] = useState(0);
@@ -16,6 +17,7 @@ const Diamonds = () => {
   
   const [products, setProducts] = useState([]);
   const { category: { category, filterProduct={} } } = useSelector((state: any) => state)
+  const dispatch = useDispatch()
   // const { token, user } = useCheckPermission()
   const { loader, apiAction } = useApi()
 
@@ -35,7 +37,7 @@ const Diamonds = () => {
         setFilter({ page: 1, pageSize: limit,...filterProduct })
       }
       // setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id,mincarat:1,maxcarat:100 })
-
+      dispatch(setFilterProduct({}))
     }
   }, [category])
 

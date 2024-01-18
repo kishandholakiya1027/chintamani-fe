@@ -34,3 +34,17 @@ export const convertObjectToURL = (obj: any) => {
 
 // return  urlString.slice(0, -1);
 }
+
+export const formatPhoneNumber = (value: string, data: any): string => {
+  const numericPhoneNumber = value?.replace(/\D/g, '');
+
+  const startsWithCountryCode = numericPhoneNumber?.startsWith(data?.dialCode);
+
+  const finalNumericPhoneNumber = startsWithCountryCode
+    ? numericPhoneNumber.slice(data?.dialCode?.length)
+    : numericPhoneNumber;
+
+  const formattedPhoneNumber = `+${data?.dialCode} ${finalNumericPhoneNumber}`;
+
+  return formattedPhoneNumber;
+};

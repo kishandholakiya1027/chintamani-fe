@@ -9,7 +9,7 @@ const TrendingDiamond = ({ product }: { product: any }) => {
     console.log("🚀 ~ TrendingDiamond ~ products:", products)
     useEffect(() => {
         getTrendingProducts()
-    }, [])
+    }, [product])
 
 
     const getTrendingProducts = async () => {

@@ -44,6 +44,7 @@ const Order: React.FC = () => {
         orderData.data.responceData = flattenedArray(orderData.data.responceData);
         dispatch(setOrder(orderData));
       } catch (error) {
+        dispatch(setOrder({ data: { responceData: [] } }));
         console.error(error);
       } finally {
         setLoading(false);
