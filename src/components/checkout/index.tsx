@@ -89,7 +89,7 @@ const CheckoutComponent = () => {
     try {
       const params = { userid: user?.id, totalprice: handleTotalAmount() };
       const order = await createOrder(params);
-
+      console.log(order, "order")
       const options = {
         key: VITE_RAZORPAY_KEY_ID,
         secret: VITE_RAZORPAY_KEY_SECRET,

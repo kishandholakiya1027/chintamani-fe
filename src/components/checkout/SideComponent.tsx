@@ -1,4 +1,4 @@
-import { PHONE_CODE_REGEX } from '@/lib/constant'
+import { PHONE_CODE_REGEX, PINCODE_REGEX } from '@/lib/constant'
 import { formatPhoneNumber } from '@/lib/utils'
 import  { useState } from 'react'
 import PhoneInput from 'react-phone-input-2'
@@ -34,6 +34,9 @@ const SideComponent = ({address, setAddress, contact, setContact, setIsSave}:any
         }
         if (!address?.address) {
             err = { ...err, address: "Please enter address" }
+        }
+        if (!PINCODE_REGEX.test(address?.pincode)) {
+            err = { ...err, pincode: "Pincode is not valid" }
         }
         if (!address?.pincode) {
             err = { ...err, pincode: "Please enter pincode" }
