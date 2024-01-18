@@ -28,14 +28,14 @@ const NewArrivals: FC = () => {
 
   const setMenu = async (productName: string, productid: string) => {
     dispatch(
-      setCategory([...category, { path: productName, name: productName }])
+      setCategory([{ path: productName, name: productName }])
     );
     navigate(`/product/${productid}`);
   };
 
 
 const showMore = async() => {
-  dispatch(setCategory([...category, { path: "Shop", name: "Shop" }]))
+  dispatch(setCategory([ { path: "Shop", name: "Shop" }]))
   dispatch(setFilterProduct({sort:3}))
   navigate("/product-category")
 }

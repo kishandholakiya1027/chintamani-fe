@@ -31,6 +31,7 @@
     "react-router-dom": "^6.21.0",
     "react-select": "^5.8.0",
     "react-select-country-list": "^2.2.3",
+    "react-share-social": "^0.1.55",
     "react-slick": "^0.29.0",
     "react-toastify": "^9.1.3",
     "redux-persist": "^6.0.0",
