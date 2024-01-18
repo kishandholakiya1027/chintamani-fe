@@ -1,8 +1,10 @@
-import  { ChangeEvent, useState } from 'react';
-import useApi from '@/hooks/useApi';
-import { apiPath } from '@/lib/api-path';
-import { showToast } from '@/lib/utils';
-import { useSelector } from 'react-redux';
+import { ChangeEvent, useState } from "react";
+import useApi from "@/hooks/useApi";
+import { apiPath } from "@/lib/api-path";
+import { showToast } from "@/lib/utils";
+import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 interface IError {
   old_pass?: string;
@@ -17,11 +19,14 @@ interface IForm {
 }
 
 const Setting = () => {
-  const { token } = useSelector((state: { auth: any }) => state.auth)
+  const { token } = useSelector((state: { auth: any }) => state.auth);
 
   const [formData, setFormData] = useState<IForm>({});
+  const [showOldPassword, setShowOldPassword] = useState<boolean>(false);
+  const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [error, setError] = useState<IError>({});
-  const { apiAction,loader } = useApi();
+  const { apiAction, loader } = useApi();
 
   const handleSubmit = async () => {
     let err: IError = {};
@@ -45,7 +50,7 @@ const Setting = () => {
 
     const data = await apiAction({
       method: "post",
-      url: `${apiPath?.auth?.changePassword }`,
+      url: `${apiPath?.auth?.changePassword}`,
       data: formData,
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -66,39 +71,62 @@ const Setting = () => {
         Update Password
         <div className="">
           <label className="text-sm font-sans font-medium">Old Password</label>
-          <input
-            type="password"
-            name="old_pass"
-            onChange={(e) => handleOnChange(e)}
-            placeholder="Enter your old password"
-            className="w-full py-3 px-6 border hover: border-gray-500 rounded shadow text-base font-sans"
-          />
+          <div className="relative  h-full">
+            <input
+              type={showOldPassword ? "text" : "password"}
+              name="old_pass"
+              onChange={(e) => handleOnChange(e)}
+              placeholder="Enter your old password"
+              className="w-full py-3 px-6 border hover: border-gray-500 rounded shadow text-base font-sans  h-full"
+            />
+            <FontAwesomeIcon
+              icon={!showOldPassword ? faEye : faEyeSlash}
+              className="h-5 w-5 fill-current text-[#211c50] absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
+              onClick={() => setShowOldPassword(!showOldPassword)}
+            />
+          </div>
           {error?.old_pass && (
             <p className="text-red-500 text-xs mt-2">{error?.old_pass}</p>
           )}
         </div>
         <div className="">
           <label className="text-sm font-sans font-medium">New Password</label>
-          <input
-            type="password"
-            name="new_pass"
-            onChange={(e) => handleOnChange(e)}
-            placeholder="Enter your new password"
-            className="w-full py-3 px-6 border hover: border-gray-500 rounded shadow text-base font-sans"
-          />
+          <div className="relative">
+            <input
+              type={showNewPassword ? "text" : "password"}
+              name="new_pass"
+              onChange={(e) => handleOnChange(e)}
+              placeholder="Enter your new password"
+              className="w-full py-3 px-6 border hover: border-gray-500 rounded shadow text-base font-sans"
+            />
+            <FontAwesomeIcon
+              icon={!showNewPassword ? faEye : faEyeSlash}
+              className="h-5 w-5 fill-current text-[#211c50] absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
+              onClick={() => setShowNewPassword(!showNewPassword)}
+            />
+          </div>
           {error?.new_pass && (
             <p className="text-red-500 text-xs mt-2">{error?.new_pass}</p>
           )}
         </div>
         <div className="">
-          <label className="text-sm font-sans font-medium">Confirm Password</label>
-          <input
-            type="password"
-            name="confirm_pass"
-            onChange={(e) => handleOnChange(e)}
-            placeholder="Confirm your new password"
-            className="w-full py-3 px-6 border hover: border-gray-500 rounded shadow text-base font-sans"
-          />
+          <label className="text-sm font-sans font-medium">
+            Confirm Password
+          </label>
+          <div className="relative">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              name="confirm_pass"
+              onChange={(e) => handleOnChange(e)}
+              placeholder="Confirm your new password"
+              className="w-full py-3 px-6 border hover: border-gray-500 rounded shadow text-base font-sans"
+            />
+            <FontAwesomeIcon
+              icon={!showConfirmPassword ? faEye : faEyeSlash}
+              className="h-5 w-5 fill-current text-[#211c50] absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            />
+          </div>
           {error?.confirm_pass && (
             <p className="text-red-500 text-xs mt-2">{error?.confirm_pass}</p>
           )}

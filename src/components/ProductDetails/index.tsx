@@ -108,24 +108,28 @@ const ProductDetailsComponent = () => {
                 <div className="justify-center text-neutral-500 text-base font-semibold leading-6 self-center max-md:max-w-full">
                     <BreadCrumb submitHandler={() => navigate("/product-category")} />
                 </div>
-                <div className=' mt-20 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:mt-10'>
-                    <div className='border border-[#211c50] rounded-md'>
-                        <img
-                            loading="lazy"
-                            src={currentImage || ""}
-                            className="aspect-square lg:h-[500px] md:h-[500px] h-[300px] w-full shadow-sm overflow-hidden max-w-full  self-end"
-                        />
-                    </div>
-                    <div className='my-4 flex gap-4'>
-                        {product?.productimage && product?.productimage?.map((image: string) => {
-                            return <div className='border border-[#211c50] w-[80px] rounded-md' onClick={() => setCurrentImage(image)}>
-                                <img
-                                    loading="lazy"
-                                    src={image}
-                                    className="aspect-square object-fill object-center w-[80px] h-[80px] shadow-sm overflow-hidden max-w-full self-end"
-                                />
-                            </div>
-                        })}
+                <div className='lg:w-[500px] md:w-[500px] w-full'>
+                    <div className='mt-8 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:mt-4'>
+                        <div className='border border-[#211c50] rounded-md'>
+                            <img
+                                loading="lazy"
+                                src={currentImage || ""}
+                                className="aspect-square lg:h-[500px] md:h-[500px] h-[300px] w-full shadow-sm overflow-hidden max-w-full  self-end"
+                            />
+                        </div>
+                        <div className='my-4 flex gap-4 overflow-auto max-w-full'>
+                            {product?.productimage && product?.productimage?.map((image: string, index: number) => {
+                                return (
+                                    <div key={index} className='border border-[#211c50] w-[80px] rounded-md' onClick={() => setCurrentImage(image)}>
+                                        <img
+                                            loading="lazy"
+                                            src={image}
+                                            className="aspect-square object-fill object-center w-[80px] h-[80px] shadow-sm overflow-hidden max-w-full self-end"
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
                 <div className="text-neutral-700 lg:text-3xl md:text-4xl text-2xl font-bold lg:leading-10 md:leading-10 leading-8 font-bold leading-10  mt-10 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:mt-10">
@@ -173,10 +177,10 @@ const ProductDetailsComponent = () => {
                     {diamondsDetails?.map((item, index) => {
                         return (
                             <div key={index} className='pb-4'>
-                                <div className="justify-center text-neutral-700 text-3xl font-bold leading-10 self-stretch w-full max-md:max-w-full">
+                                <div className="justify-center text-neutral-700 lg:text-3xl md:text-3xl text-xl font-bold leading-10 self-stretch w-full max-md:max-w-full">
                                     {item.title}
                                 </div>
-                                <div className="justify-center text-neutral-700 text-base leading-7 self-stretch mr-3.5 mt-4 max-md:max-w-full max-md:mr-2.5">
+                                <div className="justify-center text-neutral-700 text-base leading-7 self-stretch lg:mt-4 md:mt-4 mt-0 max-md:max-w-full">
                                     {item.description}
                                 </div>{" "}
                                 <img
@@ -192,7 +196,7 @@ const ProductDetailsComponent = () => {
                 <div className="justify-center text-neutral-700 text-2xl font-bold leading-10 self-center mt-20 max-md:mt-10">
                     Want Customize Diamonds?
                 </div>
-                <span className="justify-center text-white text-center text-base font-semibold leading-6 items-stretch border bg-sky-600 ml-96 my-3 px-5 py-2 rounded border-solid border-sky-600 self-start max-md:ml-2.5">
+                <span className="justify-center text-white text-center text-base font-semibold leading-6 items-stretch border bg-sky-600 my-3 px-5 py-2 rounded border-solid border-sky-600 self-center">
                     Contact Us
                 </span>
             </span>
