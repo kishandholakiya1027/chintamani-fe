@@ -34,11 +34,11 @@ const NewArrivals: FC = () => {
   };
 
 
-const showMore = async() => {
-  dispatch(setCategory([ { path: "Shop", name: "Shop" }]))
-  dispatch(setFilterProduct({sort:3}))
-  navigate("/product-category")
-}
+  const showMore = async () => {
+    dispatch(setCategory([{ path: "Shop", name: "Shop" }]))
+    dispatch(setFilterProduct({ sort: 3 }))
+    navigate("/product-category")
+  }
 
 
   return (
@@ -57,8 +57,8 @@ const showMore = async() => {
             Shop
           </h1>
           <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}>
-            {latestProducts?.slice(0,4).map((product: productType) => (
-              <div key={product?.id} className="mb-5 rounded-3xl overflow-hidden shadow" onClick={() => setMenu(product?.title||"", product?.id||"")}>
+            {latestProducts?.slice(0, 4).map((product: productType) => (
+              <div key={product?.id} className="mb-5 rounded-3xl overflow-hidden shadow cursor-pointer" onClick={() => setMenu(product?.title || "", product?.id || "")}>
                 <div className="mx-auto w-full">
                   <img
                     src={product?.productimage?.[0] || ''}

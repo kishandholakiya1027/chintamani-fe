@@ -24,6 +24,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [cartProducts, setCartProducts] = useState<string[]>([]);
   const [productLoading, setProductLoading] = useState<string[]>([]);
+  console.log('products', products);
 
   const { apiAction, loader: loading } = useApi();
   const dispatch = useDispatch();
@@ -168,7 +169,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
             <img
               src={product?.productimage?.[0]}
               alt="RoundedDiamond"
-              className=" block shadow-none  min-h-[250px]"
+              className=" block shadow-none  min-h-[250px] w-full"
             />
           </div>
           <div className="my-3 ml-3 border-b-[1px]">
@@ -240,11 +241,11 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
 
   return (
     <>
-      {slider ? <ul className="grid lg:grid-cols-1 md:grid-cols-1 grid-cols-1 gap-5 cursor-pointer lg:mb-[75px] md:mb-[75px] mb-0">
+      {slider ? <ul className="w-full gap-5 cursor-pointer lg:mb-[75px] md:mb-[75px] mb-0">
         <Slider {...settings}>
           {products?.length ? (
             products?.map((product: productType) => (
-              <li key={product.id} className={`max-w-full relative ml-0 bg-[#f1f1f1] rounded-[20px]`}>
+              <li key={product.id} className={`max-w-full relative ml-0 bg-[#f1f1f1] rounded-[20px] overflow-hidden w-full`}>
                 {fetchProducts(product)}
               </li>
             ))
