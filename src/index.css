@@ -163,6 +163,10 @@
   right: 12px !important;
 }
 
+.border-grey {
+  border: 1px solid #f1f1f1;
+}
+
 .diamond-sec .slick-slider .slick-next::before {
   content: "";
   background: transparent url("../public/assests/Images/download1.png")
