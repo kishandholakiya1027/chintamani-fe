@@ -245,7 +245,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
         <Slider {...settings}>
           {products?.length ? (
             products?.map((product: productType) => (
-              <li key={product.id} className={`max-w-full relative ml-0 bg-[#f1f1f1] rounded-[20px] overflow-hidden w-full`}>
+              <li key={product.id} className={`max-w-full relative ml-0 bg-[#f1f1f1] rounded-[20px] overflow-hidden w-full border-grey`}>
                 {fetchProducts(product)}
               </li>
             ))
