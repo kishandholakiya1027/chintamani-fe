@@ -232,6 +232,10 @@ const Order: React.FC = () => {
               >
                 Pay now
               </button>
+            ) : key === "Price" ? (
+              <span>
+               $ {order[value]}
+              </span>
             ) : (
               statusText(value, order[value])
             )}
@@ -240,6 +244,9 @@ const Order: React.FC = () => {
       </tr>
     ));
   };
+  
+  
+  
 
   return (
     <>

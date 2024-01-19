@@ -5,6 +5,7 @@ import { showToast } from "@/lib/utils";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Loader from "@/components/common/Loader";
 
 interface IError {
   old_pass?: string;
@@ -67,6 +68,12 @@ const Setting = () => {
 
   return (
     <>
+     <div className="relative h-screen">
+      {loader && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+        <Loader  />
+        </div>
+      )}
       <div className="row-span-4 row-start-2 md:text-4xl text-2xl">
         Update Password
         <div className="">
@@ -141,6 +148,7 @@ const Setting = () => {
             UPDATE PASSWORD
           </button>
         </div>
+      </div>
       </div>
     </>
   );
