@@ -120,7 +120,7 @@ const ProductDetailsComponent = () => {
                         <div className='my-4 flex gap-4 overflow-auto max-w-full'>
                             {product?.productimage && product?.productimage?.map((image: string, index: number) => {
                                 return (
-                                    <div key={index} className='border border-[#211c50] w-[80px] rounded-md  overflow-hidden' onClick={() => setCurrentImage(image)}>
+                                    <div key={index} className='border border-[#211c50] w-[80px] rounded-md  overflow-hidden cursor-pointer' onClick={() => setCurrentImage(image)}>
                                         <img
                                             loading="lazy"
                                             src={image}
@@ -193,7 +193,7 @@ const ProductDetailsComponent = () => {
                     })}
                 </span>
                 <TrendingDiamond product={product} />
-                <div className="justify-center text-neutral-700 text-2xl font-bold leading-10 self-center mt-20 max-md:mt-10">
+                <div className="text-neutral-700 text-2xl font-bold leading-10 mt-20 max-md:mt-10 text-center">
                     Want Customize Diamonds?
                 </div>
                 <span className="justify-center text-white text-center text-base font-semibold leading-6 items-stretch border bg-sky-600 my-3 px-5 py-2 rounded border-solid border-sky-600 self-center">
