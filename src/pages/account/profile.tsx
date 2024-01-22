@@ -5,8 +5,8 @@ import { setUser } from "@/redux/reducer/auth";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import 'react-phone-input-2/lib/style.css';
-import PhoneInput from 'react-phone-input-2';
+import "react-phone-input-2/lib/style.css";
+import PhoneInput from "react-phone-input-2";
 import { formatPhoneNumber } from "@/lib/utils";
 import { PHONE_CODE_REGEX } from "@/lib/constant";
 
@@ -91,7 +91,7 @@ const Profile = () => {
     }
     if (Object.keys(err).length > 0) {
       setError(err);
-      return
+      return;
     }
     updateUser();
   };
@@ -101,10 +101,10 @@ const Profile = () => {
     setError({ ...error, [name]: "" });
   };
 
-  const handleCountryChange = (value:any, data:any) => {
+  const handleCountryChange = (value: any, data: any) => {
     const formattedPhoneNumber = formatPhoneNumber(value, data);
     handleChange("mobile", formattedPhoneNumber);
-  }
+  };
 
   return (
     <div>
@@ -139,8 +139,8 @@ const Profile = () => {
 
         {loader ? <Loader /> : null}
 
-        <div className="flex">
-          <div className="flex-grow w-1/4 pr-2">
+        <div className="flex sm:gap-[8px] sm:flex-row flex-col">
+          <div className="w-full">
             <input
               placeholder="First Name"
               type="text"
@@ -153,7 +153,7 @@ const Profile = () => {
             )}
           </div>
 
-          <div className="flex-grow">
+          <div className="w-full">
             <input
               placeholder="Last Name"
               type="text"

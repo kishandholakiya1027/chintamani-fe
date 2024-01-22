@@ -20,11 +20,11 @@ import HeartShape from "./components/diamondshape/HeartShape";
 import RadiantShape from "./components/diamondshape/RadiantShape";
 import PearShape from "./components/diamondshape/PearShape";
 import MarquiseShape from "./components/diamondshape/MarquiseShape";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Provider } from 'react-redux'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
-import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from "redux-persist/integration/react";
 import Diamonds from "./components/common/Diamonds";
 import Login from "./pages/auth/login";
 import WishList from "./pages/wishlist";
@@ -37,11 +37,6 @@ import Faqs from "./pages/Faq";
 import Account from "./pages/account";
 import BlogDetails from "./pages/Blog/blogDetails";
 import TermsCondition from "./pages/terms-conditions";
-
-
-
-
-
 
 const router = createBrowserRouter([
   {
@@ -177,8 +172,6 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-
-
   return (
     <>
       <ToastContainer />
@@ -190,13 +183,12 @@ const App = () => {
       
 
       </div> */}
-      <Provider store={store} >
+      <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <RouterProvider router={router} />
           <ScrollToTopButton />
         </PersistGate>
       </Provider>
-
     </>
   );
 };
