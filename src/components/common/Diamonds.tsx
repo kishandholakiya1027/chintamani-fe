@@ -23,8 +23,6 @@ const Diamonds = () => {
   // const { token, user } = useCheckPermission()
   const {loader, apiAction} = useApi();
 
-  console.log("+++++", {category, filterProduct});
-
   // useEffect(() => {
   //   if (Object.keys(filterProduct)?.length)
   //     setFilter(filterProduct)
@@ -96,7 +94,7 @@ const Diamonds = () => {
           <div className="lg:w-[80%] md:w-[70%] w-[100%] flex flex-col flex-nowrap items-start p-[20px] lg:pl-[20px] md:pl-[20px] sm:pl-0 pl-0 pr-[0]">
             <div className="w-full">
               {/* <Loader />  */}
-              {products?.length && (
+              {!!products?.length && (
                 <p className="py-[8px] text-base font-poppins font-normal text-[#404040] mb-[16px] float-left">
                   showing {totalRecords ? filter?.page || 1 : 0}-
                   {Math.ceil(totalRecords / limit) ?? 0} of {totalRecords ?? 0}{" "}
@@ -141,7 +139,7 @@ const Diamonds = () => {
                 />
               )}
 
-              {products?.length && !loader && (
+              {!!products?.length && !loader && (
                 <nav
                   aria-label="Page navigation"
                   className="flex justify-center items-center mb-[75px]"
