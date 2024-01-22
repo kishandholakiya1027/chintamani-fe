@@ -8,18 +8,21 @@ import { useDispatch } from "react-redux";
 import { setCategory } from "@/redux/reducer/category";
 
 const PrevalentDiamonds: FC = () => {
-  const { apiAction } = useApi()
-  const [shapes, setShapes] = useState([])
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { apiAction } = useApi();
+  const [shapes, setShapes] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
-    getAllShape()
-  }, [])
+    getAllShape();
+  }, []);
 
   const getAllShape = async () => {
-    const data = await apiAction({ method: "get", url: `${apiPath?.shape?.all}` })
-    setShapes(data?.data?.Shapedata)
-  }
+    const data = await apiAction({
+      method: "get",
+      url: `${apiPath?.shape?.all}`,
+    });
+    setShapes(data?.data?.Shapedata);
+  };
 
   return (
     <section className="w-full bg-cover mt-[25px]">
@@ -31,23 +34,39 @@ const PrevalentDiamonds: FC = () => {
           <img src={KImg} alt="KImg" className="max-w-[100%]" />
         </div>
         <div className="mt-[40px] hidden"></div>
-        <div className="pt-[30px] flex w-full lg:flex-row flex-row items-stretch justify-center flex-wrap gap-4">
+        <div className="py-[54px] flex w-full lg:flex-row flex-row items-stretch justify-center flex-wrap gap-4">
           {shapes?.map((shape: shapeType) => {
+            console.log(shape, "shape123");
+
             return (
-              <div className="lg:w-[9.5%] md:w-[17.5%] w-[29%] flex flex-col items-center mb-2.5" key={shape?.name}>
+              <div
+                className="lg:w-[9.5%] md:w-[17.5%] w-[29%] flex flex-col items-center mb-2.5"
+                key={shape?.name}
+              >
                 <Link
                   to={"#"}
                   onClick={() => {
-                    dispatch(setCategory([{ path: "Shape" }, { path: shape?.name, name: "shape", id: shape?.name }]))
-                    navigate("/product-category")
+                    dispatch(
+                      setCategory([
+                        { path: "Shape" },
+                        { path: shape?.name, name: "shape", id: shape?.name },
+                      ])
+                    );
+                    navigate("/product-category");
                   }}
                   className="text-center"
                 >
-                  <img src={shape?.image} alt="shapeImg" className="max-w-full h-[72px] mx-auto" />
-                  <h6 className="text-base font-normal pt-2 break-words break-all">{shape?.name}</h6>
+                  <img
+                    src={shape?.image}
+                    alt="shapeImg"
+                    className="max-w-full h-[72px] mx-auto"
+                  />
+                  <h6 className="text-base font-normal pt-2 break-words break-all">
+                    {shape?.name}
+                  </h6>
                 </Link>
               </div>
-            )
+            );
           })}
         </div>
       </div>
