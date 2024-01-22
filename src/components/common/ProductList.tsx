@@ -109,6 +109,9 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
     if (checkUser()) {
       try {
         setProductLoading((prevLoading) => [...prevLoading, id]);
+        if(cartProducts?.includes(id)){
+          return
+        }
         const data = await apiAction({
           method: "post",
           url: `${apiPath?.product?.addToCart}`,

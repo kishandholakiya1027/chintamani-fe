@@ -94,7 +94,7 @@ const CheckoutComponent = () => {
         key: VITE_RAZORPAY_KEY_ID,
         secret: VITE_RAZORPAY_KEY_SECRET,
         amount: order?.data?.orderDetails?.amount_due,
-        currency: "USD",
+        currency: order?.data?.orderDetails?.currency,
         name: "Acme Corp",
         description: "Test Transaction",
         order_id: order?.data?.orderDetails?.id,
