@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import RemovePopup from "../alert/RemovePopup";
 import { useNavigate } from "react-router";
 import Loader from "../common/Loader";
-import { createPortal } from "react-dom";
 
 const Index = () => {
   const modalRef: any = useRef(null);

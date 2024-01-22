@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { productType } from "@/lib/interfaces/category";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCategory, setFilterProduct } from "@/redux/reducer/category";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,6 @@ const NewArrivals: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const { user, token } = useSelector((state: { auth: any }) => state.auth);
-  const { category } = useSelector((state: any) => state?.category);
   // const {} = useSelector((state: { auth: any }) => state?.auth);
 
   useEffect(() => {

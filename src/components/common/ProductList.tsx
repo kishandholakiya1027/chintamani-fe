@@ -1,32 +1,31 @@
-import RoundedDiamond from "../../../public/assests/Images/roundedDiamon.png";
-import { apiPath } from "@/lib/api-path";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import {apiPath} from "@/lib/api-path";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
 import useApi from "@/hooks/useApi";
-import { productType } from "@/lib/interfaces/category";
-import { showToast } from "@/lib/utils";
+import {productType} from "@/lib/interfaces/category";
+import {showToast} from "@/lib/utils";
 import {
   addCartProduct,
   addWishLishProduct,
   setOpenCart,
 } from "@/redux/reducer/cart";
-import { useNavigate } from "react-router-dom";
-import { setCategory } from "@/redux/reducer/category";
-import { toast } from "react-toastify";
+import {useNavigate} from "react-router-dom";
+import {setCategory} from "@/redux/reducer/category";
+import {toast} from "react-toastify";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
-  const { user, token } = useSelector((state: { auth: any }) => state.auth);
-  const { category } = useSelector((state: any) => state?.category);
+const ProductList = ({products = [], loader, width = "25%", slider}: any) => {
+  const {user, token} = useSelector((state: {auth: any}) => state.auth);
+  const {category} = useSelector((state: any) => state?.category);
 
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [cartProducts, setCartProducts] = useState<string[]>([]);
   const [productLoading, setProductLoading] = useState<string[]>([]);
-  console.log('products', products);
+  console.log("products", products);
 
-  const { apiAction, loader: loading } = useApi();
+  const {apiAction, loader: loading} = useApi();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -48,13 +47,11 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
     const data = await apiAction({
       method: "get",
       url: `${apiPath?.user?.allCart}/${user?.id}`,
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {Authorization: `Bearer ${token}`},
     });
     if (data) {
       setCartProducts(
-        data?.data?.products?.map(
-          (product: any) => product?.product?.id
-        )
+        data?.data?.products?.map((product: any) => product?.product?.id)
       );
     }
   };
@@ -63,7 +60,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
     const data = await apiAction({
       method: "get",
       url: `${apiPath?.user?.allWishlist}/${user?.id}`,
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {Authorization: `Bearer ${token}`},
     });
     if (data)
       setWishlist(
@@ -78,8 +75,8 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
       const data = await apiAction({
         method: "post",
         url: `${apiPath?.product?.addWishlist}`,
-        data: { userid: user?.id, productid: id },
-        headers: { Authorization: `Bearer ${token}` },
+        data: {userid: user?.id, productid: id},
+        headers: {Authorization: `Bearer ${token}`},
       });
       if (!data?.data?.error && data) {
         dispatch(addWishLishProduct(data?.data));
@@ -94,8 +91,8 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
       const data = await apiAction({
         method: "post",
         url: `${apiPath?.product?.removeWishlist}`,
-        data: { userid: user?.id, productid: id },
-        headers: { Authorization: `Bearer ${token}` },
+        data: {userid: user?.id, productid: id},
+        headers: {Authorization: `Bearer ${token}`},
       });
       if (!data?.data?.error && data) {
         dispatch(addWishLishProduct(data?.data));
@@ -115,8 +112,8 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
         const data = await apiAction({
           method: "post",
           url: `${apiPath?.product?.addToCart}`,
-          data: { userid: user?.id, productid: id, quantity: 1 },
-          headers: { Authorization: `Bearer ${token}` },
+          data: {userid: user?.id, productid: id, quantity: 1},
+          headers: {Authorization: `Bearer ${token}`},
         });
 
         if (!data?.data?.error) {
@@ -126,16 +123,17 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
       } catch (error) {
         console.log(error);
       } finally {
-        setProductLoading((prevLoading) =>
-          prevLoading.filter((productId) => productId !== id)
+        setProductLoading(prevLoading =>
+          prevLoading.filter(productId => productId !== id)
         );
       }
     }
   };
 
   const setMenu = async (productName: string, productid: string) => {
+    const newData = category.filter((item: any) => item.id)    
     dispatch(
-      setCategory([...category, { path: productName, name: productName }])
+      setCategory([...newData, {path: productName, name: productName}])
     );
     navigate(`/product/${productid}`);
   };
@@ -221,16 +219,15 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
           {/* <FontAwesomeIcon icon={faHeart} onClick={() => addToWishList(product?.id)} />
                     <FontAwesomeIcon icon={regular("heart")} /> */}
           {cartProducts?.includes(product?.id || "") ? (
-            <button onClick={() => dispatch(setOpenCart())}>
-              Go to Cart
-            </button>
+            <button onClick={() => dispatch(setOpenCart())}>Go to Cart</button>
           ) : (
             <button
               onClick={() => addToCart(product?.id || "")}
-              className={` ${productLoading.includes(product?.id || "")
-                ? "cursor-not-allowed opacity-50"
-                : ""
-                }`}
+              className={` ${
+                productLoading.includes(product?.id || "")
+                  ? "cursor-not-allowed opacity-50"
+                  : ""
+              }`}
             >
               {productLoading.includes(product?.id || "")
                 ? "Adding to Cart..."
@@ -239,42 +236,51 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
           )}{" "}
         </div>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <>
-      {slider ? <ul className="w-full gap-5 cursor-pointer lg:mb-[75px] md:mb-[75px] mb-0">
-        <Slider {...settings}>
-          {products?.length ? (
-            products?.map((product: productType) => (
-              <li key={product.id} className={`max-w-full relative ml-0 bg-[#f1f1f1] rounded-[20px] overflow-hidden w-full border-grey`}>
-                {fetchProducts(product)}
-              </li>
-            ))
-          ) : (
-            <div className="flex justify-center w-full mt-14">
-              {(loader || loading) ? "" : " No Products Found"}
-            </div>
-          )}
-        </Slider>
-      </ul> : <>
-        <ul className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer lg:mb-[75px] md:mb-[75px] mb-0">
-          {products?.length ? (
-            products?.map((product: productType) => {
-              return (
-                <li className={`max-w-full sm:max-w-[${width}] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]`}>
+      {slider ? (
+        <div className="w-full gap-5 cursor-pointer lg:mb-[75px] md:mb-[75px] mb-0">
+          <Slider {...settings}>
+            {products?.length ? (
+              products?.map((product: productType) => (
+                <li
+                  key={product.id}
+                  className={`max-w-full relative ml-0 bg-[#f1f1f1] rounded-[20px] overflow-hidden w-full`}
+                >
                   {fetchProducts(product)}
                 </li>
-              );
-            })
-          ) : (
-            <div className="flex justify-center w-full h-32 items-center">
-              {(loader || loading) ? "" : " No Products Found"}
-            </div>
-          )}
-        </ul>
-      </>}
+              ))
+            ) : (
+              <div className="flex justify-center w-full mt-14">
+                {loader || loading ? "" : " No Products Found"}
+              </div>
+            )}
+          </Slider>
+        </div>
+      ) : (
+        <>
+          <ul className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer lg:mb-[75px] md:mb-[75px] mb-0">
+            {products?.length
+              ? products?.map((product: productType, index: number) => {
+                  return (
+                    <li
+                      key={index}
+                      className={`max-w-full sm:max-w-[${width}] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]`}
+                    >
+                      {fetchProducts(product)}
+                    </li>
+                  );
+                })
+              : null}
+          </ul>
+          <div className="flex justify-center w-full h-32 items-center">
+            {loader || loading ? "" : " No Products Found"}
+          </div>
+        </>
+      )}
     </>
   );
 };

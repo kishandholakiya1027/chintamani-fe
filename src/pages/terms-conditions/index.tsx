@@ -615,7 +615,7 @@ const Index = () => {
                         apply to custom-made rings.
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-7 self-stretch mt-4 max-md:max-w-full">
-                        <div _text="" />
+                        
                     </div>{" "}
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-5 self-start max-md:max-w-full">
                         6. The terms for resizing{" "}

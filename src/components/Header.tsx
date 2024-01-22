@@ -30,7 +30,6 @@ const Header = ({ }: Props) => {
   const dispatch = useDispatch()
   const { apiAction } = useApi()
   const { auth: { user, token }, cart: { cartCount, wishListCount } } = useSelector((state: { auth: any, cart: any }) => state)
-  const { category } = useSelector((state: any) => state?.category);
   const modalRef: any = useRef(null);
 
   const handleOutsideClick = (e: any) => {
@@ -67,9 +66,9 @@ const Header = ({ }: Props) => {
   }, [window.location.pathname]);
 
   const navigate = useNavigate()
-  const throttle = (func, delay) => {
+  const throttle = (func: (...arg: any) => void, delay: number) => {
     let lastCall = 0;
-    return function (...args) {
+    return function (...args: any) {
       const now = new Date().getTime();
       if (now - lastCall >= delay) {
         lastCall = now;

@@ -7,12 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCategory } from "@/redux/reducer/category";
 
-interface Category {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-}
 
 const NaturalDiamonds: FC = () => {
   const navigate = useNavigate();
