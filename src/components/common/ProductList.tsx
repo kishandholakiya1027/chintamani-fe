@@ -167,6 +167,9 @@ const ProductList = ({products = [], loader, width = "25%", slider}: any) => {
       <>
         <div onClick={() => setMenu(product?.title || "", product?.id || "")}>
           <div className="flex text-center items-center flex-col  relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
+            {product?.disccount_price && <div className="w-[100px] h-[100px]  absolute top-0 -left-[20px]">
+              <span className="absolute block w-[175px] py-[5px] bg-[#1eb5ff] -left-[22px] top-[30px] -rotate-45 text-center text-white text-base">Sale</span>
+            </div>}
             <img
               src={product?.productimage?.[0]}
               alt="RoundedDiamond"
@@ -177,7 +180,24 @@ const ProductList = ({products = [], loader, width = "25%", slider}: any) => {
             <div className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[16px] font-bold text-[#211c50]">
               {product?.maintitle}
             </div>
-            <div className="text-yellow-800">${product?.price}</div>
+            <div className="text-yellow-800">
+              {product?.disccount_price ? (
+                <>
+                  <del className="text-gray-600 text-xs">${product?.price}</del>
+                  &nbsp;
+                  <span className="font-semibold  text-lg">
+                    ${product?.disccount_price}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="font-semibold text-lg">
+                    ${product?.price}
+                  </span>
+                </>
+              )}
+            </div>
+            
           </div>
         </div>
         <div className="mb-3 mx-3 flex items-center justify-between">
@@ -277,7 +297,7 @@ const ProductList = ({products = [], loader, width = "25%", slider}: any) => {
               : null}
           </ul>
           <div className="flex justify-center w-full h-32 items-center">
-            {loader || loading ? "" : " No Products Found"}
+            {loader || loading || products?.length ? "" : " No Products Found"}
           </div>
         </>
       )}

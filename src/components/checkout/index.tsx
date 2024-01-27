@@ -148,7 +148,6 @@ const CheckoutComponent = () => {
               {cartProduct?.map((prod: any) => {
                 let product = prod?.product || prod;
                 let qty = prod?.quantity || 1;
-                console.log("🚀 ~ CheckoutComponent ~ product:", product);
                 return (
                   <div className="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
                     <div className="w-full flex items-center">
@@ -177,9 +176,6 @@ const CheckoutComponent = () => {
                           <>
                             <span className="font-semibold text-gray-600 text-xl">
                               ${product?.price}
-                            </span>
-                            <span className="font-semibold text-gray-600 text-sm">
-                              .00
                             </span>
                           </>
                         )}
@@ -223,9 +219,9 @@ const CheckoutComponent = () => {
                     <span className="text-gray-600">Total</span>
                   </div>
                   <div className="pl-3">
-                    <span className="font-semibold text-gray-400 text-sm">
-                      AUD
-                    </span>{" "}
+                    {/* <span className="font-semibold text-gray-400 text-sm">
+                      USD
+                    </span>{" "} */}
                     <span className="font-semibold">
                       ${handleTotalAmount()}
                     </span>
@@ -317,8 +313,8 @@ const CheckoutComponent = () => {
               <div>
                 <button
                   style={{ opacity: isSave ? 1 : 0.5 }}
-                  className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold relative"
-                  disabled={!isSave || isLoading}
+                  className="block w-full max-w-xs mx-auto disabled:bg-indigo-300 disabled:hover:bg-indigo-300 bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold relative"
+                  disabled={!isSave || isLoading || !cartProduct?.length}
                   onClick={handlePayment}
                 >
                   {isLoading && (

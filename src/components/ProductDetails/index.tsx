@@ -10,7 +10,6 @@ import {productType} from "@/lib/interfaces/category";
 import TrendingDiamond from "../TrendingDiamond";
 import SocialShare from "../social-share";
 
-
 const ProductDetailsComponent = () => {
   const {apiAction} = useApi();
   const {id} = useParams();
@@ -22,7 +21,7 @@ const ProductDetailsComponent = () => {
     (product: any) => product?.product?.id || product?.id
   );
 
-  const [product, setProduct] = useState<productType>({});
+  const [product, setProduct] = useState<productType | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentImage, setCurrentImage] = useState<any>("");
   const navigate = useNavigate();
@@ -88,7 +87,7 @@ const ProductDetailsComponent = () => {
     },
     {
       title: "Cut",
-      description: product?.diamond_cut?.diamond_cut,
+      description: product?.diamond_cut?.cut_desc,
       img: product?.diamond_cut?.cutimage,
     },
   ];
@@ -121,7 +120,10 @@ const ProductDetailsComponent = () => {
         <div className="flex flex-col gap-8 md:flex-row">
           <div className="lg:w-[500px] md:w-[500px] w-full">
             <div className="mt-8 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:mt-4">
-              <div className="border border-[#211c50] rounded-md overflow-hidden">
+              <div className="border relative border-[#211c50] rounded-md overflow-hidden">
+                {product?.disccount_price && <div className="w-[100px] h-[100px]  absolute top-0 -left-[20px]">
+                  <span className="absolute block w-[175px] py-[5px] bg-[#1eb5ff] -left-[22px] top-[30px] -rotate-45 text-center text-white text-lg">Sale</span>
+                </div>}
                 <img
                   loading="lazy"
                   src={currentImage || ""}
@@ -161,15 +163,30 @@ const ProductDetailsComponent = () => {
                 <div className="bg-black flex shrink-0 h-0.5 flex-col rounded-none" />
               </div>
             </div>
-            <div className=" text-gray-600 text-xl leading-8 mt-4 self-start lg:ml-2.5 md:ml-2.5 ml-0">
-              ${product?.price}
+            <div className=" text-gray-600  mt-4 self-start lg:ml-2.5 md:ml-2.5 ml-0">
+              {product?.disccount_price ? (
+                <>
+                  <del>${product?.price}</del>&nbsp;
+                  <span className="font-semibold text-gray-600 text-xl">
+                    ${product?.disccount_price}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="font-semibold text-gray-600 text-xl">
+                    ${product?.price}
+                  </span>
+                </>
+              )}
             </div>
             <button
               disabled={isLoading}
               onClick={addToCart}
               className="text-white text-center text-base font-bold leading-4 items-stretch border outline-none bg-purple-800 disabled:bg-purple-400  mt-7 px-5 py-3.5 rounded border-solid border-indigo-950 self-start lg:ml-2.5 md:ml-2.5 ml-0"
             >
-              {isLoading ? "Adding to cart" : cartProductIds?.includes(product?.id)
+              {isLoading
+                ? "Adding to cart"
+                : cartProductIds?.includes(product?.id)
                 ? "Go to cart"
                 : "Add to cart"}
             </button>

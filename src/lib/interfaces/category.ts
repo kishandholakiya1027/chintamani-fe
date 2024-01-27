@@ -36,34 +36,67 @@ export interface diamondProperty {
 }
 
 export interface productType {
-  id?: string;
-  price?: string;
-  title?: string;
-  createdAt?: string;
-  updatedAt?: string;
-  productimage?: string[];
-  maintitle?: string;
-  shape?: string;
-  carat?: string;
-  colour?: string;
-  clarity?: string;
-  cut?: string;
-  polish?: string;
-  symmetry?: string;
-  flourescence?: string;
-  measurements?: string;
-  cert_number?: string;
-  table?: string;
-  crown_height?: string;
-  pavilian_depth?: string;
-  depth?: string;
-  crown_angle?: string;
-  pavilian_angle?: string;
-  diamond_size?: diamond_size;
-  diamond_clarity?: diamond_clarity;
-  diamond_color?: diamond_color;
-  diamond_cut?: diamond_cut;
+  id: string;
+  title: string;
+  maintitle: string;
+  price: string;
+  disccount_price: string;
+  shape: string;
+  carat: string;
+  colour: string;
+  clarity: string;
+  cut: string;
+  polish: string;
+  symmetry: string;
+  flourescence: string;
+  measurements: string;
+  cert_number: string;
+  table: string;
+  crown_height: string;
+  pavilian_depth: string;
+  depth: string;
+  crown_angle: string;
+  pavilian_angle: string;
+  disccount_percentage: string;
+  productimage?: (string)[];
+  status: number;
+  diamond_size: DiamondSize;
+  diamond_color: DiamondColor;
+  diamond_clarity: DiamondClarity;
+  diamond_cut: DiamondCut;
+  createdAt: string;
+  updatedAt: string;
+  subcategoryid?: ProductTypeCategory ;
+  categoryid: ProductTypeCategory;
+  innercategoryid?: ProductTypeCategory;
 }
+export interface DiamondSize {
+  size: string;
+  size_desc: string;
+  sizeimages: string;
+}
+export interface DiamondColor {
+  color_desc: string;
+  colorimage: string;
+}
+export interface DiamondClarity {
+  clarity_desc: string;
+  clarityimage: string;
+}
+export interface DiamondCut {
+  cut_desc: string;
+  cutimage: string;
+}
+export interface ProductTypeCategory {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  status: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 
 interface diamond_size {
   size_desc?:string;
