@@ -1,21 +1,21 @@
 import useApi from "@/hooks/useApi";
-import {apiPath} from "@/lib/api-path";
-import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import { apiPath } from "@/lib/api-path";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import BreadCrumb from "../common/BreadCrumb";
-import {useDispatch, useSelector} from "react-redux";
-import {showToast} from "@/lib/utils";
-import {addCartProduct, setOpenCart} from "@/redux/reducer/cart";
-import {productType} from "@/lib/interfaces/category";
+import { useDispatch, useSelector } from "react-redux";
+import { showToast } from "@/lib/utils";
+import { addCartProduct, setOpenCart } from "@/redux/reducer/cart";
+import { productType } from "@/lib/interfaces/category";
 import TrendingDiamond from "../TrendingDiamond";
 import SocialShare from "../social-share";
 
 const ProductDetailsComponent = () => {
-  const {apiAction} = useApi();
-  const {id} = useParams();
+  const { apiAction } = useApi();
+  const { id } = useParams();
   const {
-    cart: {cartProduct},
-    auth: {user, token},
+    cart: { cartProduct },
+    auth: { user, token },
   } = useSelector((state: any) => state);
   let cartProductIds = cartProduct?.map(
     (product: any) => product?.product?.id || product?.id
@@ -24,12 +24,13 @@ const ProductDetailsComponent = () => {
   const [product, setProduct] = useState<productType | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentImage, setCurrentImage] = useState<any>("");
+  const [currentVideo, setCurrentVideo] = useState<any>("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [id]);
 
   const getProduct = async () => {
     let data = await apiAction({
@@ -57,8 +58,8 @@ const ProductDetailsComponent = () => {
         const data = await apiAction({
           method: "post",
           url: `${apiPath?.product?.addToCart}`,
-          data: {userid: user?.id, productid: product?.id, quantity: 1},
-          headers: {Authorization: `Bearer ${token}`},
+          data: { userid: user?.id, productid: product?.id, quantity: 1 },
+          headers: { Authorization: `Bearer ${token}` },
         });
         if (!data?.data?.error) {
           setIsLoading(false);
@@ -93,22 +94,52 @@ const ProductDetailsComponent = () => {
   ];
 
   const diamondetailsArr = [
-    {title: "Shape", description: product?.shape},
-    {title: "Carat", description: product?.carat},
-    {title: "Colour", description: product?.colour},
-    {title: "Clarity", description: product?.clarity},
-    {title: "Cut", description: product?.cut},
-    {title: "Polish", description: product?.polish},
-    {title: "Symmetry", description: product?.symmetry},
-    {title: "Flourescence", description: product?.flourescence},
-    {title: "Measurements", description: product?.measurements},
-    {title: "Cert Number", description: product?.cert_number},
-    {title: "Table", description: product?.table},
-    {title: "Crown Height", description: product?.crown_height},
-    {title: "Pavilian Depth", description: product?.pavilian_depth},
-    {title: "Depth", description: product?.depth},
-    {title: "Crown Angle", description: product?.crown_angle},
-    {title: "Pavilian Angle", description: product?.pavilian_angle},
+    { title: "Shape", description: product?.shape },
+    { title: "Carat", description: product?.carat },
+    { title: "Colour", description: product?.colour },
+    { title: "Clarity", description: product?.clarity },
+    { title: "Cut", description: product?.cut },
+    { title: "Polish", description: product?.polish },
+    { title: "Symmetry", description: product?.symmetry },
+    { title: "Flourescence", description: product?.flourescence },
+    { title: "Measurements", description: product?.measurements },
+    { title: "Cert Number", description: product?.cert_number },
+    { title: "Table", description: product?.table },
+    { title: "Crown Height", description: product?.crown_height },
+    { title: "Pavilian Depth", description: product?.pavilian_depth },
+    { title: "Depth", description: product?.depth },
+    { title: "Crown Angle", description: product?.crown_angle },
+    { title: "Pavilian Angle", description: product?.pavilian_angle },
+    { title: "srno", description: product?.srno },
+    { title: "Location", description: product?.location },
+    { title: "Stock", description: product?.stock },
+    { title: "Stone", description: product?.stone },
+    { title: "Price", description: product?.price },
+    { title: "Rap", description: product?.rap },
+    { title: "Rap Disccount", description: product?.rap_disccount },
+    { title: "Per CT", description: product?.per_ct },
+    { title: "Disccount Price", description: product?.disccount_price },
+    { title: "FlourescenceColor", description: product?.flourescence_Color },
+    { title: "Table Inclusion", description: product?.table_inclusion },
+    { title: "Side Inclusion", description: product?.side_inclusion },
+    { title: "Feather Inclusion", description: product?.feather_inclusion },
+    { title: "Tinge", description: product?.tinge },
+    { title: "Eyeclean", description: product?.eyeclean },
+    { title: "Girdle", description: product?.girdle },
+    { title: "Girdle Con", description: product?.girdle_con },
+    { title: "Girdle Per", description: product?.girdle_per },
+    { title: "Culet", description: product?.culet },
+    { title: "Report", description: product?.report },
+    { title: "Report Date", description: product?.report_date },
+    { title: "Laser Inscription", description: product?.laser_inscription },
+    { title: "Lab", description: product?.lab },
+    { title: "Star Length", description: product?.star_length },
+    { title: "Lower", description: product?.lower },
+    {
+      title: "Disccount Percentage",
+      description: product?.disccount_percentage,
+    },
+    { title: "Diamond Size", description: product?.diamond_size?.size },
   ];
 
   return (
@@ -121,14 +152,37 @@ const ProductDetailsComponent = () => {
           <div className="lg:w-[500px] md:w-[500px] w-full">
             <div className="mt-8 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:mt-4">
               <div className="border relative border-[#211c50] rounded-md overflow-hidden">
-                {product?.disccount_price && <div className="w-[100px] h-[100px]  absolute top-0 -left-[20px]">
-                  <span className="absolute block w-[175px] py-[5px] bg-[#1eb5ff] -left-[22px] top-[30px] -rotate-45 text-center text-white text-lg">Sale</span>
-                </div>}
-                <img
-                  loading="lazy"
-                  src={currentImage || ""}
-                  className="aspect-square lg:h-[500px] md:h-[500px] h-[300px] w-full shadow-sm overflow-hidden max-w-full  self-end"
-                />
+                {product?.disccount_price && (
+                  <div className="w-[100px] h-[100px]  absolute top-0 -left-[20px]">
+                    <span className="absolute block w-[175px] py-[5px] bg-[#1eb5ff] -left-[22px] top-[30px] -rotate-45 text-center text-white text-lg">
+                      Sale
+                    </span>
+                  </div>
+                )}
+                {currentVideo ? (
+                  currentVideo.endsWith(".mp4") ? (
+                    <video
+                      controls
+                      width="80"
+                      height="80"
+                      className="aspect-square lg:h-[500px] md:h-[500px] h-[300px] w-full shadow-sm overflow-hidden max-w-full  self-end"
+                    >
+                      <source src={currentVideo} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <iframe
+                      title="Embedded Content"
+                      src={currentVideo}
+                      className="aspect-square lg:h-[500px] md:h-[500px] h-[300px] w-full shadow-sm overflow-hidden max-w-full  self-end"
+                    />
+                  )
+                ) : (
+                  <img
+                    loading="lazy"
+                    src={currentImage || ""}
+                    className="aspect-square lg:h-[500px] md:h-[500px] h-[300px] w-full shadow-sm overflow-hidden max-w-full  self-end"
+                  />
+                )}
               </div>
               <div className="my-4 flex gap-4 overflow-auto max-w-full">
                 {product?.productimage &&
@@ -137,7 +191,10 @@ const ProductDetailsComponent = () => {
                       <div
                         key={index}
                         className="border border-[#211c50] w-[80px] rounded-md  overflow-hidden cursor-pointer"
-                        onClick={() => setCurrentImage(image)}
+                        onClick={() => {
+                          setCurrentVideo("");
+                          setCurrentImage(image);
+                        }}
                       >
                         <img
                           loading="lazy"
@@ -147,6 +204,41 @@ const ProductDetailsComponent = () => {
                       </div>
                     );
                   })}
+                {product?.productvideo && (
+                  <div
+                    className="border border-[#211c50] w-[80px] rounded-md overflow-hidden cursor-pointer relative"
+                    onClick={() => {
+                      setCurrentImage("");
+                      setCurrentVideo(product?.productvideo);
+                    }}
+                  >
+                    {product?.productvideo.endsWith(".mp4") ? (
+                      <video
+                        controls
+                        width="80"
+                        height="80"
+                        className="aspect-square object-fill object-center w-[80px] h-[80px] shadow-sm overflow-hidden max-w-full self-end"
+                      >
+                        <source src={product?.productvideo} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <>
+                      <iframe
+                        title="Embedded Content"
+                        src={product?.productvideo}
+                        className="aspect-square object-fill object-center w-[80px] h-[80px] shadow-sm overflow-hidden max-w-full self-end"                 
+                      />
+                      <div
+                        className="absolute top-0 left-0 w-full h-full"
+                        onClick={() => {
+                          setCurrentImage("");
+                          setCurrentVideo(product?.productvideo);
+                        }}
+                      ></div>
+                    </>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -190,13 +282,25 @@ const ProductDetailsComponent = () => {
                 ? "Go to cart"
                 : "Add to cart"}
             </button>
-            <span className=" text-black text-center text-base font-semibold leading-5 tracking-wider items-stretch border bg-white  mt-8 px-7 py-4 rounded-lg border-solid border-indigo-950 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:px-5">
-              Get GIA Report
-            </span>
+            {product?.diamond_certificate && (
+              <span
+                onClick={() =>
+                  window.open(product?.diamond_certificate, "_blank")
+                }
+                className="text-black text-center text-base font-semibold leading-5 tracking-wider items-stretch border bg-white  mt-8 px-7 py-4 rounded-lg border-solid border-indigo-950 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:px-5 cursor-pointer"
+              >
+                Get GIA Report
+              </span>
+            )}
 
-            <span className=" text-black text-center text-base font-semibold leading-5 tracking-wider items-stretch border bg-white  mt-2 px-7 py-4 rounded-lg border-solid border-indigo-950 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:px-5">
-              Contact
-            </span>
+            {product?.customized && (
+              <span
+                onClick={() => navigate("/contact")}
+                className=" text-black text-center text-base font-semibold leading-5 tracking-wider items-stretch border bg-white  mt-2 px-7 py-4 rounded-lg border-solid border-indigo-950 self-start lg:ml-2.5 md:ml-2.5 ml-0 max-md:px-5 cursor-pointer"
+              >
+                Contact
+              </span>
+            )}
             <SocialShare />
           </div>
         </div>
@@ -204,33 +308,43 @@ const ProductDetailsComponent = () => {
           <div className="text-3xl font-bold mt-8 mb-4">Diamond Details</div>
           <table className="table-auto mx-auto mb-8 border-collapse border border-slate-400 lg:w-[500px] md:w-[500px] w-full">
             <tbody>
-              {diamondetailsArr.map((item, index) => (
-                <tr key={index} className="border border-slate-300">
-                  <td className="font-bold py-2 px-4 text-start">
-                    {item.title}
-                  </td>
-                  <td className="px-4 text-start">{item.description}</td>
-                </tr>
-              ))}
+              {diamondetailsArr.map(
+                (item, index) =>
+                  item?.description && (
+                    <tr key={index} className="border border-slate-300">
+                      <td className="font-bold py-2 px-4 text-start">
+                        {item.title}
+                      </td>
+                      <td className="px-4 text-start">{item.description}</td>
+                    </tr>
+                  )
+              )}
             </tbody>
           </table>
         </div>
         <span className="flex flex-col">
           {diamondsDetails?.map((item, index) => {
             return (
-              <div key={index} className="pb-4">
-                <div className="justify-center text-neutral-700 lg:text-3xl md:text-3xl text-xl font-bold leading-10 self-stretch w-full max-md:max-w-full">
-                  {item.title}
+              item.img &&
+              item.description && (
+                <div key={index} className="pb-4">
+                  <div className="justify-center text-neutral-700 lg:text-3xl md:text-3xl text-xl font-bold leading-10 self-stretch w-full max-md:max-w-full">
+                    {item.title}
+                  </div>
+                  {item.description && (
+                    <div className="justify-center text-neutral-700 text-base leading-7 self-stretch lg:mt-4 md:mt-4 mt-0 max-md:max-w-full">
+                      {item.description}
+                    </div>
+                  )}
+                  {item.img && (
+                    <img
+                      loading="lazy"
+                      srcSet={item.img}
+                      className="aspect-[0.96] object-contain object-center w-full h-[182px] overflow-hidden mt-1 self-center mx-auto"
+                    />
+                  )}
                 </div>
-                <div className="justify-center text-neutral-700 text-base leading-7 self-stretch lg:mt-4 md:mt-4 mt-0 max-md:max-w-full">
-                  {item.description}
-                </div>{" "}
-                <img
-                  loading="lazy"
-                  srcSet={item.img}
-                  className="aspect-[0.96] object-contain object-center w-full h-[182px] overflow-hidden mt-1 self-center mx-auto"
-                />
-              </div>
+              )
             );
           })}
         </span>
@@ -238,7 +352,10 @@ const ProductDetailsComponent = () => {
         <div className="text-neutral-700 text-2xl font-bold leading-10 mt-20 max-md:mt-10 text-center">
           Want Customize Diamonds?
         </div>
-        <span className="justify-center text-white text-center text-base font-semibold leading-6 items-stretch border bg-sky-600 my-3 px-5 py-2 rounded border-solid border-sky-600 self-center">
+        <span
+          onClick={() => navigate("/contact")}
+          className="justify-center text-white text-center text-base font-semibold leading-6 items-stretch border bg-sky-600 my-3 px-5 py-2 rounded border-solid border-sky-600 self-center cursor-pointer"
+        >
           Contact Us
         </span>
       </span>

@@ -173,7 +173,7 @@ const ProductList = ({products = [], loader, width = "25%", slider}: any) => {
             <img
               src={product?.productimage?.[0]}
               alt="RoundedDiamond"
-              className=" block shadow-none  min-h-[250px] w-full"
+              className=" block shadow-none  h-[250px] w-full"
             />
           </div>
           <div className="my-3 ml-3 border-b-[1px]">

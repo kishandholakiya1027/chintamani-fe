@@ -3,7 +3,7 @@ import Loader from "@/components/common/Loader";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { EMAIL_REGEX } from "@/lib/constant";
-import { showToast } from "@/lib/utils";
+import { showErrorToast, showToast } from "@/lib/utils";
 import { handleLogin } from "@/redux/reducer/auth";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -40,17 +40,24 @@ const Login = () => {
       setError(err);
       return;
     }
-    const data = await apiAction({
-      method: "post",
-      url: `${apiPath?.auth?.login}`,
-      data: { email, password },
-    });
-    if (data?.data?.qurey?.role === 1 || data?.data?.qurey?.role === 2) {
-      console.log("🚀 ~ handleSubmit ~ data:", data);
-      showToast("Login  successfully!");
-
-      dispatch(handleLogin(data?.data));
-      navigate("/");
+    try {
+      const data = await apiAction({
+        method: "post",
+        url: `${apiPath?.auth?.login}`,
+        data: { email, password },
+      });
+      if (data?.data?.qurey?.role === 1 || data?.data?.qurey?.role === 2) {
+        console.log("🚀 ~ handleSubmit ~ data:", data);
+        showToast("Login  successfully!");
+  
+        dispatch(handleLogin(data?.data));
+        navigate("/");
+      }else{
+        showErrorToast("Failed to login. Please try again later.");
+      }
+      
+    } catch (error) {
+      showErrorToast("Something went wrong!");
     }
   };
 

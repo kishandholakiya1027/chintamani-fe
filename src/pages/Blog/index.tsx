@@ -62,7 +62,7 @@ const Index = () => {
                                                     {blog?.title}
 
                                                 </div>
-                                                <div className="justify-center text-black text-sm font-medium leading-5 mt-3">
+                                                <div className="justify-center text-black text-sm font-medium leading-5 mt-3 overflow-hidden line-clamp-6">
                                                     {blog?.description}
                                                 </div>
                                                 <div className=" text-indigo-950 text-sm font-medium leading-5 mt-6">

@@ -8,7 +8,7 @@ import ProductList from "./ProductList";
 import {apiPath} from "@/lib/api-path";
 import useApi from "@/hooks/useApi";
 import Loader from "./Loader";
-import {setFilterProduct} from "@/redux/reducer/category";
+import {setCategory, setFilterProduct} from "@/redux/reducer/category";
 
 const Diamonds = () => {
   const [totalRecords, setTotalRecords] = useState(0);
@@ -32,18 +32,28 @@ const Diamonds = () => {
     if (category?.length) {
       window.scrollTo(0, 0);
       let currCategory = category?.[category?.length - 1];
-      if (currCategory?.id)
-        setFilter({
-          [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id,
-          page: 1,
-          pageSize: limit,
-          ...filterProduct,
-        });
-      else {
-        setFilter({page: 1, pageSize: limit, ...filterProduct});
+      // console.log(currCategory, "currCategory");
+      if(currCategory.path === " FANCY DIAMOND"){
+        dispatch(
+          setCategory([
+            { path: "Shape" },
+            { path: "ROUND", name: "shape", id: "ROUND" },
+          ])
+        );
+      } else {
+        if (currCategory?.id)
+          setFilter({
+            [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id,
+            page: 1,
+            pageSize: limit,
+            ...filterProduct,
+          });
+        else {
+          setFilter({page: 1, pageSize: limit, ...filterProduct});
+        }
+        // setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id,mincarat:1,maxcarat:100 })
+        dispatch(setFilterProduct({}));
       }
-      // setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id,mincarat:1,maxcarat:100 })
-      dispatch(setFilterProduct({}));
     }
   }, [category]);
 

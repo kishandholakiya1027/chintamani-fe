@@ -149,12 +149,13 @@ const Header = ({ }: Props) => {
 
                   {category?.subCategories?.map((subCategory: subCategory, index) => {
                     return (
+                      subCategory?.status === 1 &&
                       <li key={index} className="flex flex-col list-none relative sub-group" onClick={() => subCategory?.innerCategories?.length ? {} : dispatch(setCategory([{ path: category?.name, id: category?.id, name: "categoryid" }, { description: subCategory?.description, path: subCategory?.name, id: subCategory?.id, name: "subCategoryid" }]))}>
                         {subCategory?.innerCategories?.length ? <div
                           className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${subCategory?.innerCategories?.length && "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"}  font-semibold`}
                         >
                           <img
-                            src={subCategory?.image?.[0] || CVD}
+                            src={subCategory?.image || CVD}
                             alt="CVD"
                             className="w-6 mr-[10px] align-middle"
                           />{" "}
@@ -166,7 +167,7 @@ const Header = ({ }: Props) => {
                             className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${subCategory?.innerCategories?.length && "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"}  font-semibold`}
                           >
                             <img
-                              src={subCategory?.image?.[0] || CVD}
+                              src={subCategory?.image || CVD}
                               alt="CVD"
                               className="w-6 mr-[10px] align-middle"
                             />{" "}
@@ -189,6 +190,7 @@ const Header = ({ }: Props) => {
                           })}
                         </ul>
                       </li>
+                        
                     )
                   })}
                 </ul>

@@ -30,6 +30,7 @@ const JewelleryProduct: FC = () => {
   const { category } = useSelector((state: any) => state?.category)
   
   const fetchProducts = async (id: string, name: string) => {
+    console.log(name, "name")
     const data = await api({ method: "get", url: `${apiPath?.categories?.product}?${name?.toLowerCase()}=${id}` })
     // setTotalRecords(data?.data?.total)
     console.log("🚀 ~ fetchProducts ~ data:", data)

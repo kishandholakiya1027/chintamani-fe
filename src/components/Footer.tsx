@@ -23,7 +23,8 @@ const Footer: FC = () => {
 
   const getCategories = async () => {
     let data = await apiAction({ method: "get", url: `${apiPath?.categories?.all}?page=1&pageSize=100` })
-    setCategories(data?.data?.filter((category: any) => (category?.name === "Diamonds" || category?.name === "Diamond")))
+    console.log(data, "data")
+    setCategories(data?.data?.filter((category: any) => (category?.name.toLowerCase() === "diamonds" || category?.name?.toLowerCase() === "diamond")))
   }
   const handleRoute = (category:any) => {
 
