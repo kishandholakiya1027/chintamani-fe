@@ -5,186 +5,191 @@ import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { useDispatch, useSelector } from "react-redux";
 import { addCartProduct } from "@/redux/reducer/cart";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const VITE_RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID;
 const VITE_RAZORPAY_KEY_SECRET = import.meta.env.VITE_RAZORPAY_KEY_SECRET;
 
 const CheckoutComponent = () => {
-  const dispatch = useDispatch();
-  const [address, setAddress] = useState({});
-  const [contact, setContact] = useState();
-  const [isSave, setIsSave] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+	const dispatch = useDispatch();
+	const [address, setAddress] = useState({});
+	const [contact, setContact] = useState();
+	const [isSave, setIsSave] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const navigate = useNavigate();
 
-  const {
-    auth: { user, token },
-    cart: { cartProduct },
-  } = useSelector((state: any) => state);
+	const {
+		auth: { user, token },
+		cart: { cartProduct },
+	} = useSelector((state: any) => state);
 
-  const handleTotalAmount = () => {
-    const totalAmount = cartProduct?.reduce((prev: number, products: any) => {
-      let product = products?.product || products;
-      return (
-        prev +
-        (products?.quantity || 1) * (product?.disccount_price || product?.price)
-      );
-    }, 0);
-    return totalAmount;
-  };
+	const handleTotalAmount = () => {
+		const totalAmount = cartProduct?.reduce((prev: number, products: any) => {
+			let product = products?.product || products;
+			return (
+				prev +
+				(products?.quantity || 1) * (product?.disccount_price || product?.price)
+			);
+		}, 0);
+		return totalAmount;
+	};
 
-  const [Razorpay] = useRazorpay();
+	const [Razorpay] = useRazorpay();
 
-  //   const {
-  //     auth: { token, user }
-  //   } = useSelector((state: { auth: any }) => state);
-  const { apiAction } = useApi();
+	//   const {
+	//     auth: { token, user }
+	//   } = useSelector((state: { auth: any }) => state);
+	const { apiAction } = useApi();
 
-  //   const createOrder = async (params: any) => {
-  //     try {
-  //       const data = await apiAction({
-  //         method: "post",
-  //         url: `${apiPath?.checkOut?.createOrder}`,
-  //         data: { userid: params?.userid, totalprice: params?.totalprice },
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       });
-  //       return data;
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+	//   const createOrder = async (params: any) => {
+	//     try {
+	//       const data = await apiAction({
+	//         method: "post",
+	//         url: `${apiPath?.checkOut?.createOrder}`,
+	//         data: { userid: params?.userid, totalprice: params?.totalprice },
+	//         headers: { Authorization: `Bearer ${token}` },
+	//       });
+	//       return data;
+	//     } catch (error) {
+	//       console.log(error);
+	//     }
+	//   };
 
-  const createOrder = async (params: any) => {
-    try {
-      // First API call to create an order
-      const data = await apiAction({
-        method: "post",
-        url: `${apiPath?.checkOut?.createOrder}`,
-        data: {
-          userid: params?.userid,
-          totalprice: params?.totalprice,
-          mobile: contact,
-          address: JSON.stringify(address),
-        },
-        headers: { Authorization: `Bearer ${token}` },
-      });
+	const createOrder = async (params: any) => {
+		try {
+			// First API call to create an order
+			const data = await apiAction({
+				method: "post",
+				url: `${apiPath?.checkOut?.createOrder}`,
+				data: {
+					userid: params?.userid,
+					totalprice: params?.totalprice,
+					mobile: contact,
+					address: JSON.stringify(address),
+				},
+				headers: { Authorization: `Bearer ${token}` },
+			});
 
-      const fetchCartData = async () => {
-        const cartData = await apiAction({
-          method: "get",
-          url: `${apiPath?.user?.allCart}/${user?.id}`,
-          headers: { Authorization: `Bearer ${token}` },
-        });
+			const fetchCartData = async () => {
+				const cartData = await apiAction({
+					method: "get",
+					url: `${apiPath?.user?.allCart}/${user?.id}`,
+					headers: { Authorization: `Bearer ${token}` },
+				});
 
-        if (cartData) {
-          dispatch(addCartProduct(cartData?.data));
-        }
-      };
+				if (cartData) {
+					dispatch(addCartProduct(cartData?.data));
+				}
+			};
 
-      await fetchCartData();
+			await fetchCartData();
 
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-  const handlePayment = useCallback(async () => {
-    setIsLoading(true);
+	const handlePayment = useCallback(async () => {
+		setIsLoading(true);
 
-    try {
-      const params = { userid: user?.id, totalprice: handleTotalAmount() };
-      const order = await createOrder(params);
-      console.log(order, "order");
-      const options = {
-        key: VITE_RAZORPAY_KEY_ID,
-        secret: VITE_RAZORPAY_KEY_SECRET,
-        amount: order?.data?.orderDetails?.amount_due,
-        currency: order?.data?.orderDetails?.currency,
-        name: "Acme Corp",
-        description: "Test Transaction",
-        order_id: order?.data?.orderDetails?.id,
-        handler: (res: Object) => {
-          console.log(res, "ress++");
-          updateOrder(order?.data?.id);
-        },
-        prefill: {
-          name: `${user?.firstname} ${user?.lastname}`,
-          email: user?.email,
-          contact: contact,
-          // method: "netbanking"
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
+		try {
+			const params = { userid: user?.id, totalprice: handleTotalAmount() };
+			const order = await createOrder(params);
+			console.log(order, "order");
+			const options = {
+				key: VITE_RAZORPAY_KEY_ID,
+				secret: VITE_RAZORPAY_KEY_SECRET,
+				amount: order?.data?.orderDetails?.amount_due,
+				currency: order?.data?.orderDetails?.currency,
+				name: "Acme Corp",
+				description: "Test Transaction",
+				order_id: order?.data?.orderDetails?.id,
+				handler: (res: Object) => {
+					console.log(res, "ress++");
+					updateOrder(order?.data?.id);
+					toast.success("Payment success");
+					navigate("/");
+				},
+				prefill: {
+					name: `${user?.firstname} ${user?.lastname}`,
+					email: user?.email,
+					contact: contact,
+					// method: "netbanking"
+				},
+				notes: {
+					address: "Razorpay Corporate Office",
+				},
+				theme: {
+					color: "#3399cc",
+				},
+			};
 
-      const rzpay = new Razorpay(options);
-      rzpay.open();
-    } catch (error) {
-      console.error("Error handling payment:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [createOrder, handleTotalAmount, user, setIsLoading]);
+			const rzpay = new Razorpay(options);
+			rzpay.open();
+		} catch (error) {
+			console.error("Error handling payment:", error);
+		} finally {
+			setIsLoading(false);
+		}
+	}, [createOrder, handleTotalAmount, user, setIsLoading]);
 
-  const updateOrder = async (orderid: number) => {
-    apiAction({
-      method: "patch",
-      url: `${apiPath?.checkOut?.updateOrder}`,
-      data: { payment: 2, Address: Object.values(address).join(", "), orderid },
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  };
+	const updateOrder = async (orderid: number) => {
+		apiAction({
+			method: "patch",
+			url: `${apiPath?.checkOut?.updateOrder}`,
+			data: { payment: 2, Address: Object.values(address).join(", "), orderid },
+			headers: { Authorization: `Bearer ${token}` },
+		});
+	};
 
-  return (
-    <div className="container mx-auto">
-      <div className="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
-        <div className="w-full">
-          <div className="-mx-3 md:flex items-start">
-            <div className="px-3 md:w-6/12 lg:pr-10">
-              {cartProduct?.map((prod: any) => {
-                let product = prod?.product || prod;
-                let qty = prod?.quantity || 1;
-                return (
-                  <div className="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
-                    <div className="w-full flex items-center">
-                      <div className="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
-                        <img
-                          src={product?.productimage?.[0]}
-                          className="object-fill h-full"
-                          alt=""
-                        />
-                      </div>
-                      <div className="flex-grow pl-3">
-                        <h6 className="font-semibold uppercase text-gray-600">
-                          {product?.maintitle}
-                        </h6>
-                        <p className="text-gray-400">{qty}</p>
-                      </div>
-                      <div>
-                        {product?.disccount_price ? (
-                          <>
-                            <del>${product?.price}</del>&nbsp;
-                            <span className="font-semibold text-gray-600 text-xl">
-                              ${product?.disccount_price}
-                            </span>
-                          </>
-                        ) : (
-                          <>
-                            <span className="font-semibold text-gray-600 text-xl">
-                              ${product?.price}
-                            </span>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-              {/* <div className="mb-6 pb-6 border-b border-gray-200">
+	return (
+		<div className="container mx-auto">
+			<div className="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
+				<div className="w-full">
+					<div className="-mx-3 md:flex items-start">
+						<div className="px-3 md:w-6/12 lg:pr-10">
+							{cartProduct?.map((prod: any) => {
+								let product = prod?.product || prod;
+								let qty = prod?.quantity || 1;
+								return (
+									<div className="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
+										<div className="w-full flex items-center">
+											<div className="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
+												<img
+													src={product?.productimage?.[0]}
+													className="object-fill h-full"
+													alt=""
+												/>
+											</div>
+											<div className="flex-grow pl-3">
+												<h6 className="font-semibold uppercase text-gray-600">
+													{product?.maintitle}
+												</h6>
+												<p className="text-gray-400">{qty}</p>
+											</div>
+											<div>
+												{product?.disccount_price ? (
+													<>
+														<del>${product?.price}</del>&nbsp;
+														<span className="font-semibold text-gray-600 text-xl">
+															${product?.disccount_price}
+														</span>
+													</>
+												) : (
+													<>
+														<span className="font-semibold text-gray-600 text-xl">
+															${product?.price}
+														</span>
+													</>
+												)}
+											</div>
+										</div>
+									</div>
+								);
+							})}
+							{/* <div className="mb-6 pb-6 border-b border-gray-200">
                                 <div className="-mx-2 flex items-end justify-end">
                                     <div className="flex-grow px-2 lg:max-w-xs">
                                         <label className="text-gray-600 font-semibold text-sm mb-2 ml-1">Discount code</label>
@@ -197,7 +202,7 @@ const CheckoutComponent = () => {
                                     </div>
                                 </div>
                             </div> */}
-              {/* <div className="w-full flex mb-3 items-center">
+							{/* <div className="w-full flex mb-3 items-center">
                                     <div className="flex-grow">
                                         <span className="text-gray-600">Subtotal</span>
                                     </div>
@@ -205,7 +210,7 @@ const CheckoutComponent = () => {
                                         <span className="font-semibold">${handleTotalAmount()}</span>
                                     </div>
                                 </div> */}
-              {/* <div className="w-full flex items-center">
+							{/* <div className="w-full flex items-center">
                                     <div className="flex-grow">
                                         <span className="text-gray-600">Taxes (GST)</span>
                                     </div>
@@ -213,33 +218,33 @@ const CheckoutComponent = () => {
                                         <span className="font-semibold">$19.09</span>
                                     </div>
                                 </div> */}
-              <div className="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
-                <div className="w-full flex items-center">
-                  <div className="flex-grow">
-                    <span className="text-gray-600">Total</span>
-                  </div>
-                  <div className="pl-3">
-                    {/* <span className="font-semibold text-gray-400 text-sm">
+							<div className="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
+								<div className="w-full flex items-center">
+									<div className="flex-grow">
+										<span className="text-gray-600">Total</span>
+									</div>
+									<div className="pl-3">
+										{/* <span className="font-semibold text-gray-400 text-sm">
                       USD
                     </span>{" "} */}
-                    <span className="font-semibold">
-                      ${handleTotalAmount()}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="px-3 md:w-6/12">
-              <SideComponent
-                address={address}
-                setAddress={setAddress}
-                contact={contact}
-                setContact={setContact}
-                setIsSave={setIsSave}
-              />
+										<span className="font-semibold">
+											${handleTotalAmount()}
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="px-3 md:w-6/12">
+							<SideComponent
+								address={address}
+								setAddress={setAddress}
+								contact={contact}
+								setContact={setContact}
+								setIsSave={setIsSave}
+							/>
 
-              {/* <PaymentComponent totalPrice={handleTotalAmount()}/> */}
-              {/* <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6">
+							{/* <PaymentComponent totalPrice={handleTotalAmount()}/> */}
+							{/* <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6">
                                 <div className="w-full p-3 border-b border-gray-200">
                                     <div className="mb-5">
                                         <label htmlFor="type1" className="flex items-center cursor-pointer">
@@ -310,28 +315,27 @@ const CheckoutComponent = () => {
                                     </label>
                                 </div>
                             </div> */}
-              <div>
-                <button
-                  style={{ opacity: isSave ? 1 : 0.5 }}
-                  className="block w-full max-w-xs mx-auto disabled:bg-indigo-300 disabled:hover:bg-indigo-300 bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold relative"
-                  disabled={!isSave || isLoading || !cartProduct?.length}
-                  onClick={handlePayment}
-                >
-                  {isLoading && (
-                    <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-6 w-6 border-t-4 border-white-700"></div>
-                    </div>
-                  )}
-                  <i className="mdi mdi-lock-outline mr-1"></i>{" "}
-                  {!isLoading && <>PAY NOW</>}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+							<div>
+								<button
+									style={{ opacity: isSave ? 1 : 0.5 }}
+									className="block w-full max-w-xs mx-auto disabled:bg-indigo-300 disabled:hover:bg-indigo-300 bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold relative"
+									disabled={!isSave || isLoading || !cartProduct?.length}
+									onClick={handlePayment}>
+									{isLoading && (
+										<div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+											<div className="animate-spin rounded-full h-6 w-6 border-t-4 border-white-700"></div>
+										</div>
+									)}
+									<i className="mdi mdi-lock-outline mr-1"></i>{" "}
+									{!isLoading && <>PAY NOW</>}
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default CheckoutComponent;
