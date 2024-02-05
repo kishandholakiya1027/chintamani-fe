@@ -191,7 +191,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
 						/>
 					</div>
 					<div className="bg-white">
-						<div className="py-3 ml-3 border-b-[1px]">
+						<div className="py-3 mx-3 border-b-[1px]">
 							<div className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[16px] font-bold text-[#211c50]">
 								{product?.maintitle}
 							</div>
@@ -310,7 +310,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
 							  })
 							: null}
 					</ul>
-					<div className="flex justify-center w-full h-32 items-center">
+					<div className="flex justify-center w-full h-[30px] items-center">
 						{loader || loading || products?.length ? "" : " No Products Found"}
 					</div>
 				</>

@@ -54,7 +54,7 @@ const Header = ({}: Props) => {
 		auth: { user, token },
 		cart: { cartCount, wishListCount },
 	} = useSelector((state: { auth: any; cart: any }) => state);
-	const { category } = useSelector((state: any) => state?.category);
+	// const { category } = useSelector((state: any) => state?.category);
 	const modalRef: any = useRef(null);
 
 	const handleOutsideClick = (e: any) => {
