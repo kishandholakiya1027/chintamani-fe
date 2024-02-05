@@ -44,7 +44,6 @@ interface Currency {
 
 const Header = ({}: Props) => {
 	const [isScrolled, setIsScrolled] = useState(false);
-	console.log("🚀 ~ Header ~ isScrolled:", isScrolled);
 	const [categories, setCategories] = useState([]);
 	const [menu, setMenu] = useState(false);
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -168,7 +167,7 @@ const Header = ({}: Props) => {
 				const countriesData: Country[] = response.data.map((country: any) => ({
 					value: country.name.common,
 					label: (
-						<div className="flex items-center">
+						<div className="flex items-center cursor-pointer">
 							<img
 								src={country.flags.svg}
 								alt={country.name.common}
@@ -201,11 +200,34 @@ const Header = ({}: Props) => {
 			.catch((error) => {
 				console.error("Error fetching currencies:", error);
 			});
+
+		const storedCountry = localStorage.getItem("selectedCountry");
+		if (storedCountry) {
+			try {
+				const parsedCountry = JSON.parse(storedCountry);
+				const reconstructedCountry = {
+					...parsedCountry,
+					label: (
+						<div className="flex items-center cursor-pointer">
+							<img
+								src={parsedCountry.label.props.children[0].props.src}
+								alt={parsedCountry.value}
+								className="mr-2 w-5 h-5"
+							/>
+							{parsedCountry.value}
+						</div>
+					),
+				};
+				setSelectedCountry(reconstructedCountry);
+			} catch (error) {
+				console.error("Error parsing stored country:", error);
+			}
+		}
 	}, []);
 
 	const handleCountryChange = (selectedOption: Country | null) => {
 		setSelectedCountry(selectedOption);
-		console.log("🚀 ~ handleCountryChange ~ selectedOption:", selectedOption);
+		localStorage.setItem("selectedCountry", JSON.stringify(selectedOption));
 	};
 
 	const headerMenu = (
@@ -249,102 +271,104 @@ const Header = ({}: Props) => {
 									{category?.subCategories?.map(
 										(subCategory: subCategory, index) => {
 											return (
-												<li
-													key={index}
-													className="flex flex-col list-none relative sub-group"
-													onClick={() =>
-														subCategory?.innerCategories?.length
-															? {}
-															: dispatch(
-																	setCategory([
-																		{
-																			path: category?.name,
-																			id: category?.id,
-																			name: "categoryid",
-																		},
-																		{
-																			description: subCategory?.description,
-																			path: subCategory?.name,
-																			id: subCategory?.id,
-																			name: "subCategoryid",
-																		},
-																	])
-															  )
-													}>
-													{subCategory?.innerCategories?.length ? (
-														<div
-															className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${
-																subCategory?.innerCategories?.length &&
-																"after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
-															}  font-semibold`}>
-															<img
-																src={subCategory?.image?.[0] || CVD}
-																alt="CVD"
-																className="w-6 mr-[10px] align-middle"
-															/>{" "}
-															{subCategory?.name}
-														</div>
-													) : (
-														<Link
-															to={
-																subCategory?.innerCategories?.length
-																	? ""
-																	: "/product-category"
-															}
-															className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${
-																subCategory?.innerCategories?.length &&
-																"after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
-															}  font-semibold`}>
-															<img
-																src={subCategory?.image?.[0] || CVD}
-																alt="CVD"
-																className="w-6 mr-[10px] align-middle"
-															/>{" "}
-															{subCategory?.name}
-														</Link>
-													)}
-													<ul
-														className={`sub-group-hover:visible sub-group-hover:opacity-[1] bg-[#eee] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[0] left-[100%]`}>
-														{subCategory?.innerCategories?.map(
-															(innerCategory: subCategory, index) => {
-																return (
-																	<li
-																		key={index}
-																		className="flex flex-col list-none relative"
-																		onClick={() =>
-																			dispatch(
-																				setCategory([
-																					{
-																						path: category?.name,
-																						id: category?.id,
-																						name: "categoryid",
-																					},
-																					{
-																						path: subCategory?.name,
-																						id: subCategory?.id,
-																						name: "subCategoryid",
-																					},
-																					{
-																						path: innerCategory?.name,
-																						id: innerCategory?.id,
-																						name: "innerCategoryid ",
-																						description:
-																							innerCategory?.description,
-																					},
-																				])
-																			)
-																		}>
-																		<Link
-																			to={"/product-category"}
-																			className="border-0 py-5 px-[15px] font-semibold text-sm decoration-none flex items-center text-[#211c50]">
-																			{innerCategory?.name}
-																		</Link>
-																	</li>
-																);
-															}
+												subCategory?.status === 1 && (
+													<li
+														key={index}
+														className="flex flex-col list-none relative sub-group"
+														onClick={() =>
+															subCategory?.innerCategories?.length
+																? {}
+																: dispatch(
+																		setCategory([
+																			{
+																				path: category?.name,
+																				id: category?.id,
+																				name: "categoryid",
+																			},
+																			{
+																				description: subCategory?.description,
+																				path: subCategory?.name,
+																				id: subCategory?.id,
+																				name: "subCategoryid",
+																			},
+																		])
+																  )
+														}>
+														{subCategory?.innerCategories?.length ? (
+															<div
+																className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${
+																	subCategory?.innerCategories?.length &&
+																	"after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
+																}  font-semibold`}>
+																<img
+																	src={subCategory?.image?.[0] || CVD}
+																	alt="CVD"
+																	className="w-6 mr-[10px] align-middle"
+																/>{" "}
+																{subCategory?.name}
+															</div>
+														) : (
+															<Link
+																to={
+																	subCategory?.innerCategories?.length
+																		? ""
+																		: "/product-category"
+																}
+																className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${
+																	subCategory?.innerCategories?.length &&
+																	"after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
+																}  font-semibold`}>
+																<img
+																	src={subCategory?.image?.[0] || CVD}
+																	alt="CVD"
+																	className="w-6 mr-[10px] align-middle"
+																/>{" "}
+																{subCategory?.name}
+															</Link>
 														)}
-													</ul>
-												</li>
+														<ul
+															className={`sub-group-hover:visible sub-group-hover:opacity-[1] bg-[#eee] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[0] left-[100%]`}>
+															{subCategory?.innerCategories?.map(
+																(innerCategory: subCategory, index) => {
+																	return (
+																		<li
+																			key={index}
+																			className="flex flex-col list-none relative"
+																			onClick={() =>
+																				dispatch(
+																					setCategory([
+																						{
+																							path: category?.name,
+																							id: category?.id,
+																							name: "categoryid",
+																						},
+																						{
+																							path: subCategory?.name,
+																							id: subCategory?.id,
+																							name: "subCategoryid",
+																						},
+																						{
+																							path: innerCategory?.name,
+																							id: innerCategory?.id,
+																							name: "innerCategoryid ",
+																							description:
+																								innerCategory?.description,
+																						},
+																					])
+																				)
+																			}>
+																			<Link
+																				to={"/product-category"}
+																				className="border-0 py-5 px-[15px] font-semibold text-sm decoration-none flex items-center text-[#211c50]">
+																				{innerCategory?.name}
+																			</Link>
+																		</li>
+																	);
+																}
+															)}
+														</ul>
+													</li>
+												)
 											);
 										}
 									)}
@@ -451,7 +475,7 @@ const Header = ({}: Props) => {
 					</div>
 				</div>
 				<div className="">
-					<ul className="flex-row flex p-0 m-0 list-none lg:flex sm:hidden hidden">
+					<ul className="flex-row p-0 m-0 list-none lg:flex sm:hidden hidden">
 						{headerMenu}
 					</ul>
 				</div>
@@ -495,19 +519,21 @@ const Header = ({}: Props) => {
 								<div className="flex flex-wrap flex-col">
 									<div className="relative">
 										<div className="flex items-center justify-center">
-											<div className="font-arial text-xs text-left cursor-pointer lg:w-[200px] md:w-[200px] w-[150px] leading-0 mr-3 rounded-lg">
+											<div className="font-arial text-xs text-left cursor-pointer lg:w-[200px] md:w-[200px] w-[130px] leading-0 mr-3 rounded-lg">
 												<Select
 													options={countries}
 													placeholder="Select a country"
 													onChange={handleCountryChange}
 													value={selectedCountry}
 													isSearchable
+													className="cursor-pointer"
 												/>
 											</div>
 											<div className="font-arial text-xs text-left cursor-pointer lg:w-[120px] md:w-[120px] w-[100px] leading-0 rounded-lg">
 												<Select
 													options={currencies}
 													placeholder="Select a currency"
+													className="cursor-pointer"
 													isSearchable
 													value={
 														selectedCountry

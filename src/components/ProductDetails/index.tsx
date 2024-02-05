@@ -154,8 +154,8 @@ const ProductDetailsComponent = () => {
 							<div className="border relative border-[#211c50] rounded-md overflow-hidden lg:w-[500px] md:w-[500px] sm:w-[500px] w-full">
 								{product?.disccount_price && (
 									<div className="w-[100px] h-[100px]  absolute top-0 -left-[20px]">
-										<span className="absolute w-[175px] bg-[#211c50] h-[86px] -left-[36px] -top-[12px] -rotate-45 flex justify-center items-center text-center text-white text-base">
-											Sale
+										<span className="absolute w-[147px] bg-[#211c50] h-[95px] -left-[26px] -top-[12px] -rotate-45 flex justify-center items-center text-center text-white text-base font-bold">
+											Sale!
 										</span>
 									</div>
 								)}

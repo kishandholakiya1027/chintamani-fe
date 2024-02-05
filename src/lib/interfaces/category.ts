@@ -43,11 +43,11 @@ export interface productType {
   stone?: string | null;
   title: string;
   maintitle: string;
-  price: string;
+  price?: number;
   rap?: string;
   rap_disccount?: string;
   per_ct?: string;
-  disccount_price?: string | null;
+  disccount_price?: number;
   shape: string;
   carat: string;
   colour: string;
@@ -92,7 +92,7 @@ export interface productType {
   diamond_cut: DiamondCut;
   createdAt: string;
   updatedAt: string;
-  subcategoryid?: ProductTypeCategory ;
+  subcategoryid?: ProductTypeCategory;
   categoryid: ProductTypeCategory;
   innercategoryid?: ProductTypeCategory;
 }
@@ -136,16 +136,16 @@ export interface shapeType {
 export interface blogType {
   id?: string;
   title?: string;
-  author?:{
-    firstname:string
-    lastname:string
+  author?: {
+    firstname: string
+    lastname: string
   };
   heading?: string;
   description?: string;
   image?: string;
   createdAt?: string;
   updatedAt?: string;
-  
+
 }
 
 export interface bannerType {

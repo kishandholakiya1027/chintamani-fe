@@ -145,7 +145,7 @@ const Index = () => {
 			) : null}
 			{ShowCart ? (
 				<div
-					className="fixed top-0 right-0 z-20 h-full shadow-lg bg-white lg:min-w-[400px] md:min-w-[400px] min-w-full z-[99999]"
+					className="fixed top-0 right-0 z-20 h-full shadow-lg bg-white lg:w-[400px] md:w-[400px] sm:w-[400px] w-full z-[99999]"
 					ref={modalRef}>
 					<div
 						className="flex mt-4 mx-5 items-end justify-start w-fit"
@@ -164,7 +164,7 @@ const Index = () => {
 							/>
 						</svg>
 					</div>
-					<div className="mx-auto max-w-5xl justify-center px-6 h-[100vh] md:space-x-6 xl:px-0 overflow-y-auto">
+					<div className="mx-auto max-w-5xl justify-center px-6 h-[calc(100vh-64px)] md:space-x-6 xl:px-0 overflow-y-auto">
 						<div className="px-6 py-4">
 							<div className="rounded-lg md:w-full">
 								{loader ? (
@@ -177,11 +177,11 @@ const Index = () => {
 										let product = products?.product || products;
 										let qty = products?.quantity;
 										return (
-											<div className="justify-between mb-6 rounded-lg bg-white p-4 shadow-md sm:flex sm:justify-start">
+											<div className="justify-between mb-6 rounded-lg bg-white p-4 shadow-[0px_.125rem_.25rem_0px_rgba(0,0,0,0.075)] overflow-hidden sm:flex sm:justify-start">
 												<img
 													src={product?.productimage[0]}
 													alt="product-image"
-													className="w-[100px] rounded-lg "
+													className="w-[100px] h-[100px] rounded-lg border-gray-200"
 												/>
 												<div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
 													<div className="mt-5 sm:mt-0">
