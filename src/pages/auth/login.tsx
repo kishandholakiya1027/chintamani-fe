@@ -75,7 +75,7 @@ const Login = () => {
 			<AuthWrapper>
 				<div className="row-span-4 row-start-2 text-4xl">
 					Sign In
-					<div className="pt-10 pr-20">
+					<div className="pt-10 xl:pr-20 lg:pr-0 md:pr-0 pr-0">
 						<label className="text-sm font-sans font-medium">Email</label>
 						<input
 							type="text"
@@ -91,7 +91,7 @@ const Login = () => {
 							<p className="text-red-500 text-xs mt-2">{error?.email}</p>
 						)}
 					</div>
-					<div className="pt-2 pr-20">
+					<div className="pt-2 xl:pr-20 lg:pr-0 md:pr-0 pr-0">
 						<label className="text-sm font-sans font-medium">Password</label>
 						<input
 							type="password"
@@ -112,7 +112,7 @@ const Login = () => {
 							Forgot password?
 						</Link>
 					</div>
-					<div className="text-sm font-sans font-medium w-full pr-20 pt-10">
+					<div className="text-sm font-sans font-medium w-full xl:pr-20 lg:pr-0 md:pr-0 pr-0 pt-10">
 						<button
 							onClick={handleSubmit}
 							type="button"
