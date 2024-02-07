@@ -85,7 +85,7 @@ const NaturalDiamonds: FC = () => {
 											</div>
 										</div>
 									</div>
-									{/* {elm?.subCategories?.length &&
+									{elm?.subCategories?.length &&
 										elm?.subCategories?.map((subelm: any, index: number) => {
 											return (
 												<div
@@ -135,7 +135,7 @@ const NaturalDiamonds: FC = () => {
 													</div>
 												</div>
 											);
-										})} */}
+										})}
 								</>
 							);
 						})}
