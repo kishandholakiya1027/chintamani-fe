@@ -75,11 +75,11 @@ const NaturalDiamonds: FC = () => {
 												</Button>
 											</div>
 											<div
-												className={`lg:w-[50%] md:w-[50%] w-full p-5 flex flex-nowrap flex-col items-start`}>
+												className={`lg:w-[50%] md:w-[50%] w-full p-5 flex-nowrap flex-col items-start grid justify-center`}>
 												<img
 													src={elm.image}
 													alt={elm.name}
-													className="max-w-[100%] w-full h-[293.88px]"
+													className="lg:w-[300px] md:w-[300px] w-full h-[293.88px]"
 												/>
 												<div className="w-full hidden"></div>
 											</div>
