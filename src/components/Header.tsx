@@ -350,7 +350,7 @@ const Header = ({}: Props) => {
 																						{
 																							path: innerCategory?.name,
 																							id: innerCategory?.id,
-																							name: "innerCategoryid ",
+																							name: "innerCategoryid",
 																							description:
 																								innerCategory?.description,
 																						},

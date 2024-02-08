@@ -31,6 +31,11 @@ const NaturalDiamonds: FC = () => {
 		);
 	};
 
+	const handleRoute = (category: any) => {
+		dispatch(setCategory(category));
+		navigate("/product-category");
+	};
+
 	return (
 		<section className="w-full">
 			<div className="container lg:px-5 md:px-5 sm:px-5 px-0 h-[100%] pb-[54px]">
@@ -79,7 +84,7 @@ const NaturalDiamonds: FC = () => {
 												<img
 													src={elm.image}
 													alt={elm.name}
-													className="lg:w-[300px] md:w-[300px] w-full h-[293.88px]"
+													className="m-auto h-[293.88px]"
 												/>
 												<div className="w-full hidden"></div>
 											</div>
@@ -108,18 +113,21 @@ const NaturalDiamonds: FC = () => {
 															<Button
 																variant={"secondary"}
 																className="mt-[25px] font-poppins text-[17px] font-medium rounded-[10px] py-2 px-[25px] text-[#ffff] bg-[#211c50] border-[1px] border-[#fff] outline-none hover:text-[#211c50] hover:border-[#211c50]"
-																onClick={() => {
-																	navigate(`/product-category`);
-																	dispatch(
-																		setCategory([
-																			{
-																				path: subelm?.name,
-																				id: subelm?.id,
-																				name: "categoryid",
-																			},
-																		])
-																	);
-																}}>
+																onClick={() =>
+																	handleRoute([
+																		{
+																			path: elm?.name,
+																			id: elm?.id,
+																			name: "categoryid",
+																		},
+																		{
+																			description: subelm?.description,
+																			path: subelm?.name,
+																			id: subelm?.id,
+																			name: "subCategoryid",
+																		},
+																	])
+																}>
 																Purchase Now
 															</Button>
 														</div>
@@ -128,7 +136,7 @@ const NaturalDiamonds: FC = () => {
 															<img
 																src={subelm.image}
 																alt={subelm.name}
-																className="lg:w-[300px] md:w-[300px] w-full h-[293.88px]"
+																className="m-auto h-[293.88px]"
 															/>
 															<div className="w-full hidden"></div>
 														</div>

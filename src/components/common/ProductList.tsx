@@ -163,12 +163,8 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
 	};
 
 	function formatPrice(price = 0) {
-		// If the price has more than 2 decimal places, round it to 2 decimal places
 		const roundedPrice = Math.round(price * 100) / 100;
-
-		// Convert the rounded price to a string with 2 decimal places
 		const formattedPrice = roundedPrice.toFixed(2);
-
 		return formattedPrice;
 	}
 

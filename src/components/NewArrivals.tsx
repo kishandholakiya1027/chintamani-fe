@@ -39,6 +39,12 @@ const NewArrivals: FC = () => {
 		navigate("/product-category");
 	};
 
+	function formatPrice(price = 0) {
+		const roundedPrice = Math.round(price * 100) / 100;
+		const formattedPrice = roundedPrice.toFixed(2);
+		return formattedPrice;
+	}
+
 	return (
 		<section className="w-full">
 			<div className="flex flex-col items-center py-10 md:py-16 px-5 sm:container sm:mx-auto">
@@ -63,17 +69,35 @@ const NewArrivals: FC = () => {
 								onClick={() =>
 									setMenu(product?.title || "", product?.id || "")
 								}>
-								<div className="mx-auto w-full">
+								<div className="mx-auto w-full bg-[#f1f1f1]">
 									<img
 										src={product?.productimage?.[0] || ""}
 										alt="Arrive"
 										className="w-full h-[300px] block shadow-none"
 									/>
 								</div>
-								<div className="p-4 text-center text-base">
-									<div className="">{product?.title}</div>
-									<div className="text-[#211c50] font-medium">
-										${product?.price}
+								<div className="bg-white text-center">
+									<div className="py-3 mx-3 font-poppins">
+										<div className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[16px] font-medium text-[#211c50]">
+											{product?.title}
+										</div>
+										<div className="text-[#b3af54] text-[.857em] mt-1">
+											{product?.disccount_price ? (
+												<>
+													<del>${formatPrice(product?.price)}</del>
+													&nbsp;
+													<span className="font-semibold">
+														${formatPrice(product?.disccount_price)}
+													</span>
+												</>
+											) : (
+												<>
+													<span className="font-semibold">
+														${formatPrice(product?.price)}
+													</span>
+												</>
+											)}
+										</div>
 									</div>
 								</div>
 							</div>

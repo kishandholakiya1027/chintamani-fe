@@ -142,8 +142,14 @@ const ProductDetailsComponent = () => {
 		{ title: "Diamond Size", description: product?.diamond_size?.size },
 	];
 
+	function formatPrice(price = 0) {
+		const roundedPrice = Math.round(price * 100) / 100;
+		const formattedPrice = roundedPrice.toFixed(2);
+		return formattedPrice;
+	}
+
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col font-poppins">
 			<span className="self-center flex w-full container flex-col mt-24 max-md:max-w-full max-md:mt-10">
 				<div className="justify-center text-neutral-500 text-base font-semibold leading-6 self-center max-md:max-w-full">
 					<BreadCrumb submitHandler={() => navigate("/product-category")} />
@@ -247,20 +253,23 @@ const ProductDetailsComponent = () => {
 							</div>
 						</div>
 						<div className=" text-gray-600  mt-4 self-start lg:ml-2.5 md:ml-2.5 ml-0">
-							{product?.disccount_price ? (
-								<>
-									<del>${product?.price}</del>&nbsp;
-									<span className="font-semibold text-gray-600 text-xl">
-										${product?.disccount_price}
-									</span>
-								</>
-							) : (
-								<>
-									<span className="font-semibold text-gray-600 text-xl">
-										${product?.price}
-									</span>
-								</>
-							)}
+							<div className="text-[#b3af54] text-xl mt-1">
+								{product?.disccount_price ? (
+									<>
+										<del>${formatPrice(product?.price)}</del>
+										&nbsp;
+										<span className="font-semibold">
+											${formatPrice(product?.disccount_price)}
+										</span>
+									</>
+								) : (
+									<>
+										<span className="font-semibold">
+											${formatPrice(product?.price)}
+										</span>
+									</>
+								)}
+							</div>
 						</div>
 						<button
 							disabled={isLoading}
@@ -328,7 +337,7 @@ const ProductDetailsComponent = () => {
 										<img
 											loading="lazy"
 											srcSet={item.img}
-											className="aspect-[0.96] object-contain object-center w-full h-[182px] overflow-hidden mt-1 self-center mx-auto"
+											className="mx-auto my-4"
 										/>
 									)}
 								</div>

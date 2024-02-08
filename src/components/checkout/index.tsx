@@ -144,6 +144,12 @@ const CheckoutComponent = () => {
 		});
 	};
 
+	function formatPrice(price = 0) {
+		const roundedPrice = Math.round(price * 100) / 100;
+		const formattedPrice = roundedPrice.toFixed(2);
+		return formattedPrice;
+	}
+
 	return (
 		<div className="container mx-auto">
 			<div className="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
@@ -170,20 +176,23 @@ const CheckoutComponent = () => {
 												<p className="text-gray-400">{qty}</p>
 											</div>
 											<div>
-												{product?.disccount_price ? (
-													<>
-														<del>${product?.price}</del>&nbsp;
-														<span className="font-semibold text-gray-600 text-xl">
-															${product?.disccount_price}
-														</span>
-													</>
-												) : (
-													<>
-														<span className="font-semibold text-gray-600 text-xl">
-															${product?.price}
-														</span>
-													</>
-												)}
+												<div className="text-[#b3af54] text-xl mt-1">
+													{product?.disccount_price ? (
+														<>
+															<del>${formatPrice(product?.price)}</del>
+															&nbsp;
+															<span className="font-semibold">
+																${formatPrice(product?.disccount_price)}
+															</span>
+														</>
+													) : (
+														<>
+															<span className="font-semibold">
+																${formatPrice(product?.price)}
+															</span>
+														</>
+													)}
+												</div>
 											</div>
 										</div>
 									</div>
