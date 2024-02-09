@@ -50,6 +50,9 @@ const Header = ({}: Props) => {
 	const [search, setSearch] = useState("");
 	const dispatch = useDispatch();
 	const { apiAction } = useApi();
+	const [categoryOpen, setCategoryOpen] = useState(false);
+	const [KnowledgeOpen, setKnowledgeOpen] = useState(false);
+	const [AboutOpen, setAboutOpen] = useState(false);
 	const {
 		auth: { user, token },
 		cart: { cartCount, wishListCount },
@@ -87,28 +90,31 @@ const Header = ({}: Props) => {
 	}, [menuOpen]);
 
 	const navigate = useNavigate();
-	const throttle = (func: (...arg: any) => void, delay: number) => {
-		let lastCall = 0;
-		return function (...args: any) {
-			const now = new Date().getTime();
-			if (now - lastCall >= delay) {
-				lastCall = now;
+
+	const debounce = (func: (...args: any[]) => void, delay: number) => {
+		let timeoutId: NodeJS.Timeout;
+		return (...args: any[]) => {
+			clearTimeout(timeoutId);
+			timeoutId = setTimeout(() => {
 				func(...args);
-			}
+			}, delay);
 		};
 	};
-
 	useEffect(() => {
-		const throttledHandleScroll = throttle(() => {
+		const debouncedHandleScroll = debounce(() => {
 			const scrollTop = window.scrollY;
 			setIsScrolled(scrollTop > 200);
-		}, 200);
+		}, 100);
+		const handleScroll = () => {
+			debouncedHandleScroll();
+		};
 		getCategories();
-		window.addEventListener("scroll", throttledHandleScroll);
+		window.addEventListener("scroll", handleScroll);
 		return () => {
-			window.removeEventListener("scroll", throttledHandleScroll);
+			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
+
 	useEffect(() => {
 		setMenuOpen(false);
 	}, [window.location.pathname]);
@@ -462,6 +468,285 @@ const Header = ({}: Props) => {
 		</>
 	);
 
+	const mobileHeaderMenu = (
+		<>
+			<li className="relative group">
+				<Link
+					to={""}
+					className="py-5 px-[15px] group-hover:bg-[#eee] group-hover:border-t-[3px] group-hover:border-[#211c50] text-sm border-t-[3px] border-transparent text-[#211c50] font-normal hover:bg-[#eee] flex items-center">
+					Home
+				</Link>
+			</li>
+			<li className="relative group">
+				<Link
+					onClick={() => {
+						setCategoryOpen(!categoryOpen);
+						setKnowledgeOpen(false);
+						setAboutOpen(false);
+					}}
+					className={`py-5 justify-between px-[15px] ${
+						categoryOpen &&
+						"bg-[#eee] border-t-[#211c50] border-t-[3px] border-[#211c50]"
+					} hover:border-t-[#211c50] hover:border-t-[3px] hover:border-[#211c50] text-sm border-t-[3px] border-transparent text-[#211c50] font-normal hover:bg-[#eee] flex items-center after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] ${
+						categoryOpen && "after:rotate-[315deg]"
+					} after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em]`}>
+					Category
+				</Link>
+			</li>
+			{categories?.length > 0 &&
+				categoryOpen &&
+				categories?.map((category: Category, index: number) => {
+					return (
+						<li
+							key={index}
+							className={`relative group list-none flex flex-col`}>
+							<div
+								onClick={() => {
+									if (category?.subCategories?.length) {
+										setCategoryOpen(true);
+										setMenuOpen(true);
+									} else {
+										dispatch(
+											setCategory([
+												{
+													path: category?.name,
+													id: category?.id,
+													name: "categoryid",
+												},
+											])
+										);
+										setMenuOpen(false);
+										setCategoryOpen(false);
+									}
+								}}>
+								{category?.subCategories?.length ? (
+									<>
+										<div
+											// to={category?.subCategories?.length ? "" : "/product-category"}
+											className={`bg-[#eee] justify-between ${
+												categoryOpen && "border-t-[3px]"
+											} py-5 px-[15px] text-sm text-[#211c50] font-normal ${
+												categoryOpen && "border-t-[3px]"
+											} ${
+												category?.subCategories?.length &&
+												"after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
+											}  flex items-center  ${
+												categoryOpen && "after:rotate-[315deg]"
+											}`}>
+											{category?.name}
+										</div>
+										<ul className="bg-[#eee] p-0 flex-col whitespace-nowrap border-t-[3px]">
+											{category?.subCategories?.map(
+												(subCategory: subCategory, index) => {
+													return (
+														subCategory?.status === 1 && (
+															<li
+																key={index}
+																className="flex flex-col list-none relative sub-group"
+																onClick={() => {
+																	dispatch(
+																		setCategory([
+																			{
+																				path: category?.name,
+																				id: category?.id,
+																				name: "categoryid",
+																			},
+																			{
+																				description: subCategory?.description,
+																				path: subCategory?.name,
+																				id: subCategory?.id,
+																				name: "subCategoryid",
+																			},
+																		])
+																	),
+																		setMenuOpen(false);
+																	setCategoryOpen(false);
+																}}>
+																{subCategory?.innerCategories?.length ? (
+																	<div
+																		className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${
+																			subCategory?.innerCategories?.length &&
+																			"after:w-[0.35em] after:h-[0.35em] after"
+																		} border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1] font-semibold`}>
+																		<img
+																			src={subCategory?.image || CVD}
+																			alt="CVD"
+																			className="w-6 mr-[10px] align-middle"
+																		/>{" "}
+																		{subCategory?.name}
+																	</div>
+																) : (
+																	<Link
+																		to={
+																			subCategory?.innerCategories?.length
+																				? ""
+																				: "/product-category"
+																		}
+																		className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${
+																			subCategory?.innerCategories?.length &&
+																			"after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
+																		}  font-semibold`}>
+																		<img
+																			src={subCategory?.image || CVD}
+																			alt="CVD"
+																			className="w-6 mr-[10px] align-middle"
+																		/>{" "}
+																		{subCategory?.name}
+																	</Link>
+																)}
+																<ul
+																	className={`bg-[#eee] z-[2147483641] p-0 flex-col whitespace-nowrap flex`}>
+																	{subCategory?.innerCategories?.map(
+																		(innerCategory: subCategory, index) => {
+																			return (
+																				<li
+																					key={index}
+																					className="flex flex-col list-none relative"
+																					onClick={() => {
+																						dispatch(
+																							setCategory([
+																								{
+																									path: category?.name,
+																									id: category?.id,
+																									name: "categoryid",
+																								},
+																								{
+																									path: subCategory?.name,
+																									id: subCategory?.id,
+																									name: "subCategoryid",
+																								},
+																								{
+																									path: innerCategory?.name,
+																									id: innerCategory?.id,
+																									name: "innerCategoryid",
+																									description:
+																										innerCategory?.description,
+																								},
+																							])
+																						),
+																							setMenuOpen(false);
+																						setCategoryOpen(false);
+																					}}>
+																					<Link
+																						to={"/product-category"}
+																						className="border-0 py-5 px-[15px] font-semibold text-sm decoration-none flex items-center text-[#211c50] pl-14">
+																						{innerCategory?.name}
+																					</Link>
+																				</li>
+																			);
+																		}
+																	)}
+																</ul>
+															</li>
+														)
+													);
+												}
+											)}
+										</ul>
+									</>
+								) : (
+									<Link
+										to={"/product-category"}
+										className={`bg-[#eee] justify-between ${
+											categoryOpen && "border-y-[3px]"
+										} py-5 px-[15px] text-sm text-[#211c50] font-normal ${
+											categoryOpen && "border-t-[3px]"
+										} ${
+											category?.subCategories?.length &&
+											"after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:ml-[0.5em] hover:visible hover:opacity-[1]"
+										}  flex items-center `}>
+										{category?.name}
+									</Link>
+								)}
+							</div>
+						</li>
+					);
+				})}
+			<li className="relative group diamond list-none flex  flex-col">
+				<Link
+					onClick={() => {
+						setKnowledgeOpen(!KnowledgeOpen);
+						setCategoryOpen(false);
+						setAboutOpen(false);
+					}}
+					className={`${
+						KnowledgeOpen && "border-t-[3px] border-[#211c50] bg-[#eee]"
+					}  py-5 px-[15px] text-sm text-[#211c50] font-normal after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] ${
+						KnowledgeOpen && "after:rotate-[315deg]"
+					} flex items-center after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1] justify-between`}>
+					Knowledge
+				</Link>
+				{KnowledgeOpen && (
+					<ul className="sub-menu bg-[#eee] p-0 flex-col whitespace-nowrap border-t-[3px] flex">
+						<li className="flex flex-col list-none relative">
+							<Link
+								to={"/diamond-price"}
+								className="border-0 py-5 px-[15px] text-sm font-semibold decoration-none flex items-center text-[#211c50]">
+								Diamond Price
+							</Link>
+						</li>
+						<li className="flex flex-col list-none relative">
+							<Link
+								to={"/diamonds-shapes"}
+								className="border-0 py-5 px-[15px] text-sm font-semibold decoration-none flex items-center text-[#211c50]">
+								Diamonds Shapes
+							</Link>
+						</li>
+						<li className="flex flex-col list-none relative">
+							<Link
+								to={"/cs-diamond"}
+								className="border-0 py-5 px-[15px] text-sm font-semibold decoration-none flex items-center text-[#211c50]">
+								7 C’s of Diamond
+							</Link>
+						</li>
+					</ul>
+				)}
+			</li>
+			<li className="relative group diamond list-none flex  flex-col">
+				<Link
+					onClick={() => {
+						setAboutOpen(!AboutOpen);
+						setKnowledgeOpen(false);
+						setCategoryOpen(false);
+					}}
+					className={`${
+						AboutOpen &&
+						"border-t-[3px] border-[#211c50] bg-[#eee] after:rotate-[315deg]"
+					} py-5 px-[15px] text-sm text-[#211c50] font-normal after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] flex items-center after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1] justify-between`}>
+					About
+				</Link>
+				{AboutOpen && (
+					<ul className="sub-menu bg-[#eee] p-0 flex-col whitespace-nowrap border-t-[3px] flex">
+						<li className="flex flex-col list-none relative">
+							<Link
+								to={"/why-us"}
+								className="border-0 py-5 px-[15px] text-sm font-semibold decoration-none flex items-center text-[#211c50]">
+								Why Us
+							</Link>
+						</li>
+					</ul>
+				)}
+			</li>
+			<li className="relative diamond list-none flex flex-col">
+				<Link
+					to={"/product-category"}
+					onClick={() =>
+						dispatch(setCategory([{ name: "Shop", path: "Shop", id: "Shop" }]))
+					}
+					className="py-5 px-[15px] text-sm border-t-[3px] border-transparent font-normal text-[#211c50] hover:bg-[#eee] hover:border-t-[3px] hover:border-[#211c50] flex items-center">
+					Shop
+				</Link>
+			</li>
+			<li className="relative diamond list-none flex flex-col">
+				<Link
+					to={"/contact"}
+					className="py-5 px-[15px] text-sm border-t-[3px] border-transparent font-normal text-[#211c50] hover:bg-[#eee] hover:border-t-[3px] hover:border-[#211c50] flex items-center">
+					Contact
+				</Link>
+			</li>
+		</>
+	);
+
 	const headerTop = (
 		<div className="flex flex-wrap flex-col  items-start">
 			<nav className="font-poppins">
@@ -744,7 +1029,9 @@ const Header = ({}: Props) => {
 				<div className="flex items-center justify-center">{headerTop}</div>
 			</header>
 			{menuOpen && (
-				<div className="header-menu active relative" ref={modalRef}>
+				<div
+					className="header-menu active relative lg:hidden md:block block"
+					ref={modalRef}>
 					<div
 						className="absolute top-[10px] right-[10px] z-[999999]"
 						onClick={() => setMenuOpen(false)}>
@@ -753,7 +1040,7 @@ const Header = ({}: Props) => {
 							className="h-6 w-6 fill-current text-[#211c50]"
 						/>
 					</div>
-					<ul className="mt-4">{headerMenu}</ul>
+					<ul className="mt-4">{mobileHeaderMenu}</ul>
 				</div>
 			)}
 			{isScrolled && (

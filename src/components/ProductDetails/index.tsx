@@ -93,6 +93,12 @@ const ProductDetailsComponent = () => {
 		},
 	];
 
+	function formatPrice(price = 0) {
+		const roundedPrice = Math.round(price * 100) / 100;
+		const formattedPrice = roundedPrice.toFixed(2);
+		return formattedPrice;
+	}
+
 	const diamondetailsArr = [
 		{ title: "Shape", description: product?.shape },
 		{ title: "Carat", description: product?.carat },
@@ -114,11 +120,14 @@ const ProductDetailsComponent = () => {
 		{ title: "Location", description: product?.location },
 		{ title: "Stock", description: product?.stock },
 		{ title: "Stone", description: product?.stone },
-		{ title: "Price", description: product?.price },
+		{ title: "Price", description: `$${formatPrice(product?.price)}` },
+		{
+			title: "Disccount Price",
+			description: `$${formatPrice(product?.disccount_price)}`,
+		},
 		{ title: "Rap", description: product?.rap },
 		{ title: "Rap Disccount", description: product?.rap_disccount },
 		{ title: "Per CT", description: product?.per_ct },
-		{ title: "Disccount Price", description: product?.disccount_price },
 		{ title: "FlourescenceColor", description: product?.flourescence_Color },
 		{ title: "Table Inclusion", description: product?.table_inclusion },
 		{ title: "Side Inclusion", description: product?.side_inclusion },
@@ -137,16 +146,10 @@ const ProductDetailsComponent = () => {
 		{ title: "Lower", description: product?.lower },
 		{
 			title: "Disccount Percentage",
-			description: product?.disccount_percentage,
+			description: Number(product?.disccount_percentage).toFixed(2),
 		},
 		{ title: "Diamond Size", description: product?.diamond_size?.size },
 	];
-
-	function formatPrice(price = 0) {
-		const roundedPrice = Math.round(price * 100) / 100;
-		const formattedPrice = roundedPrice.toFixed(2);
-		return formattedPrice;
-	}
 
 	return (
 		<div className="flex flex-col font-poppins">

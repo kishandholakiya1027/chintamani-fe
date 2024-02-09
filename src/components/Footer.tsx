@@ -6,6 +6,7 @@ import { setCategory } from "@/redux/reducer/category";
 import { useDispatch } from "react-redux";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
+import bgImage from "../../public/assests/Images/BgFooter.png";
 
 const Footer: FC = () => {
 	// const { category } = useSelector((state: any) => state?.category)
@@ -65,7 +66,11 @@ const Footer: FC = () => {
 					</div>
 				</div>
 			</div>
-			<footer className="relative z-0 bg-[url('../../public/assests/Images/BgFooter.png')] after:bg-[#000] after:-z-[1] after:absolute after:top-0 after:left-0 after:opacity-[0.7] after:w-full after:h-full bg-no-repeat w-full bg-cover h-full sm:h-full flex items-center">
+			<footer
+				className={`relative z-0 after:bg-[#000] after:-z-[1] after:absolute after:top-0 after:left-0 after:opacity-[0.7] after:w-full after:h-full bg-no-repeat w-full bg-cover h-full sm:h-full flex items-center`}
+				style={{
+					backgroundImage: `url(${bgImage || "/assests/Images/BgFooter.png"})`,
+				}}>
 				<div className="container mx-auto">
 					<div className="lg:flex md:block block sm:items-center justify-between mb-6 lg:text-start md:text-center text-center lg:pt-[75px] lg:pb-[40px]">
 						<div className="lg:mt-0 md:mt-[116px] mt-[116px] lg:pb-[0] md:pb-[40px] pb-[40px]">
