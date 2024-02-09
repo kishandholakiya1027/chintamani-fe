@@ -90,28 +90,17 @@ const Header = ({}: Props) => {
 
   const navigate = useNavigate();
 
-  const debounce = (func: (...args: any[]) => void, delay: number) => {
-    let timeoutId: NodeJS.Timeout;
-    return (...args: any[]) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func(...args);
-      }, delay);
-    };
-  };
+  // const debounce = (func: (...args: any[]) => void, delay: number) => {
+  //   let timeoutId: NodeJS.Timeout;
+  //   return (...args: any[]) => {
+  //     clearTimeout(timeoutId);
+  //     timeoutId = setTimeout(() => {
+  //       func(...args);
+  //     }, delay);
+  //   };
+  // };
 
   useEffect(() => {
-    const debouncedHandleScroll = debounce(() => {
-      const element = document.getElementById("sticky__header");
-      const scrollTop = window.scrollY;
-      if (scrollTop > 200) {
-        element?.classList.add("top-0");
-        element?.classList.remove("-top-full");
-      } else {
-        element?.classList.remove("top-0");
-        element?.classList.add("-top-full");
-      }
-    }, 100);
     const handleScroll = () => {
       // debouncedHandleScroll();
       const element = document.getElementById("sticky__header");
