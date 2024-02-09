@@ -478,7 +478,7 @@ const Header = ({}: Props) => {
 				</Link>
 			</li>
 			<li className="relative group">
-				<Link
+				<div
 					onClick={() => {
 						setCategoryOpen(!categoryOpen);
 						setKnowledgeOpen(false);
@@ -491,7 +491,7 @@ const Header = ({}: Props) => {
 						categoryOpen && "after:rotate-[315deg]"
 					} after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em]`}>
 					Category
-				</Link>
+				</div>
 			</li>
 			{categories?.length > 0 &&
 				categoryOpen &&
@@ -663,7 +663,7 @@ const Header = ({}: Props) => {
 					);
 				})}
 			<li className="relative group diamond list-none flex  flex-col">
-				<Link
+				<div
 					onClick={() => {
 						setKnowledgeOpen(!KnowledgeOpen);
 						setCategoryOpen(false);
@@ -675,7 +675,7 @@ const Header = ({}: Props) => {
 						KnowledgeOpen && "after:rotate-[315deg]"
 					} flex items-center after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1] justify-between`}>
 					Knowledge
-				</Link>
+				</div>
 				{KnowledgeOpen && (
 					<ul className="sub-menu bg-[#eee] p-0 flex-col whitespace-nowrap border-t-[3px] flex">
 						<li className="flex flex-col list-none relative">
@@ -703,7 +703,7 @@ const Header = ({}: Props) => {
 				)}
 			</li>
 			<li className="relative group diamond list-none flex  flex-col">
-				<Link
+				<div
 					onClick={() => {
 						setAboutOpen(!AboutOpen);
 						setKnowledgeOpen(false);
@@ -714,7 +714,7 @@ const Header = ({}: Props) => {
 						"border-t-[3px] border-[#211c50] bg-[#eee] after:rotate-[315deg]"
 					} py-5 px-[15px] text-sm text-[#211c50] font-normal after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] flex items-center after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1] justify-between`}>
 					About
-				</Link>
+				</div>
 				{AboutOpen && (
 					<ul className="sub-menu bg-[#eee] p-0 flex-col whitespace-nowrap border-t-[3px] flex">
 						<li className="flex flex-col list-none relative">
