@@ -24,6 +24,12 @@ const CheckoutComponent = () => {
 		cart: { cartProduct },
 	} = useSelector((state: any) => state);
 
+	function formatPrice(price = 0) {
+		const roundedPrice = Math.round(price * 100) / 100;
+		const formattedPrice = roundedPrice.toFixed(2);
+		return formattedPrice;
+	}
+
 	const handleTotalAmount = () => {
 		const totalAmount = cartProduct?.reduce((prev: number, products: any) => {
 			let product = products?.product || products;
@@ -32,7 +38,7 @@ const CheckoutComponent = () => {
 				(products?.quantity || 1) * (product?.disccount_price || product?.price)
 			);
 		}, 0);
-		return totalAmount;
+		return formatPrice(totalAmount);
 	};
 
 	const [Razorpay] = useRazorpay();
@@ -143,12 +149,6 @@ const CheckoutComponent = () => {
 			headers: { Authorization: `Bearer ${token}` },
 		});
 	};
-
-	function formatPrice(price = 0) {
-		const roundedPrice = Math.round(price * 100) / 100;
-		const formattedPrice = roundedPrice.toFixed(2);
-		return formattedPrice;
-	}
 
 	return (
 		<div className="container mx-auto">
