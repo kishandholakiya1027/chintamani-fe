@@ -115,7 +115,7 @@ const CheckoutComponent = () => {
 				name: "Acme Corp",
 				description: "Test Transaction",
 				order_id: order?.data?.orderDetails?.id,
-				handler: (res: Object) => {
+				handler: () => {
 					updateOrder(order?.data?.id);
 					toast.success("Payment success");
 					navigate("/");
