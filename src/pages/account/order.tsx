@@ -239,7 +239,7 @@ const Order: React.FC = () => {
 									Pay now
 								</button>
 							) : key === "Price" ? (
-								<span>{order?.orderDetails_currency === "INR" ? "₹" : order?.orderDetails_currency === "EUR" ? "€" : "$"} {(order?.orderDetails_amount / 100).toFixed(2)}</span>
+								<span>{order?.orderDetails_currency === "INR" ? "₹" : order?.orderDetails_currency === "EUR" ? "€" : order?.orderDetails_currency === "GBP" ? "£" : "$"} {(order?.orderDetails_amount / 100).toFixed(2)}</span>
 							) : (
 								statusText(value, order[value])
 							)}

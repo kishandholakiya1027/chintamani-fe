@@ -190,16 +190,16 @@ const CheckoutComponent = () => {
 												<div className="text-[#b3af54] text-xl mt-1">
 													{product?.disccount_price ? (
 														<>
-															<del>${formatPrice(product?.newCalcPrice, "")}</del>
+															<del>{currency?.value === "INR" ? "₹" : currency?.value === "EUR" ? "€" : currency?.value === "GBP" ? "£" : "$"}{formatPrice(product?.newCalcPrice, "")}</del>
 															&nbsp;
 															<span className="font-semibold">
-																${formatPrice(product?.newCalcPrice, "")}
+																{currency?.value === "INR" ? "₹" : currency?.value === "EUR" ? "€" : currency?.value === "GBP" ? "£" : "$"}{formatPrice(product?.newCalcPrice, "")}
 															</span>
 														</>
 													) : (
 														<>
 															<span className="font-semibold">
-																{currency?.value === "INR" ? "₹" : currency?.value === "EUR" ? "€" : "$"}{formatPrice(product?.newCalcPrice, "")}
+																{currency?.value === "INR" ? "₹" : currency?.value === "EUR" ? "€" : currency?.value === "GBP" ? "£" : "$"}{formatPrice(product?.newCalcPrice, "")}
 															</span>
 														</>
 													)}
