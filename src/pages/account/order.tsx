@@ -78,17 +78,15 @@ const Order: React.FC = () => {
 			setLoading(true);
 			try {
 				const orderData = await updatePaymentOrder(order.id);
-				console.log(orderData, "orderData");
 				const options = {
 					key: VITE_RAZORPAY_KEY_ID,
 					secret: VITE_RAZORPAY_KEY_SECRET,
-					amount: orderData?.data?.orderDetails?.amount_due,
+					amount: (+orderData?.data?.calculatedPrice).toFixed(),
 					currency: orderData?.data?.orderDetails?.currency,
 					name: "Acme Corp",
 					description: "Test Transaction",
 					order_id: orderData?.data?.orderDetails?.id,
 					handler: (res: Object) => {
-						console.log(res, "ress++");
 						updateOrder(orderData?.data?.id);
 						toast.success("Payment success");
 						navigate("/");
@@ -108,8 +106,6 @@ const Order: React.FC = () => {
 				};
 
 				const rzpay = new Razorpay(options);
-				console.log("🚀 ~ handlePayment ~ rzpay:", rzpay);
-				console.log("🚀 ~ handlePayment ~ options:", options);
 				rzpay.open();
 			} catch (error) {
 				console.error("Error handling payment:", error);
@@ -146,10 +142,6 @@ const Order: React.FC = () => {
 	};
 
 	const flattenedArray = (arrayOfObjects: NestedObject[]) => {
-		console.log(
-			arrayOfObjects.map((obj) => flattenObject(obj)),
-			"arrayOfObjects.map(obj => flattenObject(obj))"
-		);
 		return arrayOfObjects.map((obj) => flattenObject(obj));
 	};
 
@@ -230,28 +222,30 @@ const Order: React.FC = () => {
 
 	const renderCells = () => {
 		return data?.responceData.map((order: any) => (
-			<tr key={order.id} className="border-b border-gray-300">
-				{Object.entries(displayedFields).map(([key, value], index) => (
-					<td
-						key={index}
-						className={`py-2 px-4 text-sm ${
-							typeof order[value] === "number"
+
+			<tr key={order.id} className="border-b border-gray-300" >
+				{
+					Object.entries(displayedFields).map(([key, value], index) => (
+						<td
+							key={index}
+							className={`py-2 px-4 text-sm ${typeof order[value] === "number"
 								? getColorClass(order[value])
 								: ""
-						}`}>
-						{key === "Action" && order[value] === 0 ? (
-							<button
-								className="bg-blue-500 text-white px-2 py-1 rounded"
-								onClick={() => handlePayment(order)}>
-								Pay now
-							</button>
-						) : key === "Price" ? (
-							<span>$ {order[value]}</span>
-						) : (
-							statusText(value, order[value])
-						)}
-					</td>
-				))}
+								}`}>
+							{key === "Action" && order[value] === 0 ? (
+								<button
+									className="bg-blue-500 text-white px-2 py-1 rounded"
+									onClick={() => handlePayment(order)}>
+									Pay now
+								</button>
+							) : key === "Price" ? (
+								<span>{order?.orderDetails_currency === "INR" ? "₹" : order?.orderDetails_currency === "EUR" ? "€" : "$"} {(order?.orderDetails_amount / 100).toFixed(2)}</span>
+							) : (
+								statusText(value, order[value])
+							)}
+						</td>
+					))
+				}
 			</tr>
 		));
 	};

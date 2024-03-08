@@ -1,7 +1,7 @@
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { addCartProduct } from "@/redux/reducer/cart";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import useRazorpay from "react-razorpay";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -25,10 +25,19 @@ const CheckoutComponent = () => {
 		cart: { cartProduct },
 	} = useSelector((state: any) => state);
 
-	function formatPrice(price = 0) {
+	const priceFormate = useMemo(() => {
+		return cartProduct.map((product: any) => {
+			return {
+				...product.product,
+				newCalcPrice: product?.product?.disccount_price ? currency.price !== "" ? product?.product?.disccount_price * +currency.price : product?.product?.disccount_price : currency.price !== "" ? product?.product?.price * +currency.price : product?.product?.price
+			}
+		})
+	}, [cartProduct, currency]);
+
+	function formatPrice(price = 0, currency: any) {
 		const roundedPrice = Math.round(price * 100) / 100;
-		const formattedPrice = roundedPrice.toFixed(2);
-		return formattedPrice;
+		const formattedPrice = currency === "" ? roundedPrice : (roundedPrice * currency);
+		return formattedPrice.toFixed();
 	}
 
 	const handleTotalAmount = () => {
@@ -39,7 +48,7 @@ const CheckoutComponent = () => {
 				(products?.quantity || 1) * (product?.disccount_price || product?.price)
 			);
 		}, 0);
-		return formatPrice(totalAmount);
+		return formatPrice(totalAmount, currency?.price);
 	};
 
 	const [Razorpay] = useRazorpay();
@@ -158,7 +167,7 @@ const CheckoutComponent = () => {
 				<div className="w-full">
 					<div className="-mx-3 md:flex items-start">
 						<div className="px-3 md:w-6/12 lg:pr-10">
-							{cartProduct?.map((prod: any) => {
+							{priceFormate?.map((prod: any) => {
 								let product = prod?.product || prod;
 								let qty = prod?.quantity || 1;
 								return (
@@ -181,16 +190,16 @@ const CheckoutComponent = () => {
 												<div className="text-[#b3af54] text-xl mt-1">
 													{product?.disccount_price ? (
 														<>
-															<del>${formatPrice(product?.price)}</del>
+															<del>${formatPrice(product?.newCalcPrice, "")}</del>
 															&nbsp;
 															<span className="font-semibold">
-																${formatPrice(product?.disccount_price)}
+																${formatPrice(product?.newCalcPrice, "")}
 															</span>
 														</>
 													) : (
 														<>
 															<span className="font-semibold">
-																${formatPrice(product?.price)}
+																{currency?.value === "INR" ? "₹" : currency?.value === "EUR" ? "€" : "$"}{formatPrice(product?.newCalcPrice, "")}
 															</span>
 														</>
 													)}
@@ -239,7 +248,7 @@ const CheckoutComponent = () => {
                       USD
                     </span>{" "} */}
 										<span className="font-semibold">
-											${handleTotalAmount()}
+											{currency?.value === "INR" ? "₹" : currency?.value === "EUR" ? "€" : "$"}{handleTotalAmount()}
 										</span>
 									</div>
 								</div>
