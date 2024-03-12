@@ -87,8 +87,7 @@ const WishListProducts = () => {
                               onClick={() => setOpenPopup("")}
                               className="px-3  border-[#211c50]  text-[#211c50]  rounded-md w-full sm:w-auto"
                             >
-                              {" "}
-                              Cancel{" "}
+                              Cancel
                             </button>
                             <button
                               onClick={() =>
@@ -96,8 +95,7 @@ const WishListProducts = () => {
                               }
                               className="px-3   text-rose-500  rounded-md w-full sm:w-auto"
                             >
-                              {" "}
-                              Remove{" "}
+                              Remove
                             </button>
                           </div>
                         </div>

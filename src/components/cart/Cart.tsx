@@ -169,7 +169,7 @@ const Index = () => {
 							<div className="rounded-lg md:w-full">
 								{loader ? (
 									<div className="mt-[10px]">
-										<Loader />{" "}
+										<Loader />
 									</div>
 								) : null}
 								{cartProduct?.length ? (
@@ -202,8 +202,7 @@ const Index = () => {
 																		: false
 																}
 																className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
-																{" "}
-																-{" "}
+																-
 															</button>
 															<input
 																className="h-8 w-8 border bg-white text-center text-xs outline-none"
@@ -225,8 +224,7 @@ const Index = () => {
 																	)
 																}
 																className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
-																{" "}
-																+{" "}
+																+
 															</button>
 														</div>
 													</div>

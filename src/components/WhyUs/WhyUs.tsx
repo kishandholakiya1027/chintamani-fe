@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import IgiLogo from "../../../public/assests/Images/igi_Logo..png";
-import GiaLogo from "../../../public/assests/Images/gia_Logo.png";
-import StandardsLogo from "../../../public/assests/Images/Indian_Standards_Logo.png";
+import IgiLogo from "/assests/Images/igi_Logo..png";
+import GiaLogo from "/assests/Images/gia_Logo.png";
+import StandardsLogo from "/assests/Images/Indian_Standards_Logo.png";
 
 const WhyUs = () => {
   return (

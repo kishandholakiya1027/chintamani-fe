@@ -1,15 +1,15 @@
 import { FC } from "react";
-import Mining from "../../public/assests/Images/11.png";
-import Diamonds from "../../public/assests/Images/12.png";
-import Cutting from "../../public/assests/Images/13-1.png";
-import Conflict from "../../public/assests/Images/14.png";
-import Standard from "../../public/assests/Images/15.png";
+import Mining from "/assests/Images/11.png";
+import Diamonds from "/assests/Images/12.png";
+import Cutting from "/assests/Images/13-1.png";
+import Conflict from "/assests/Images/14.png";
+import Standard from "/assests/Images/15.png";
 import { Link } from "react-router-dom";
 
 const MiningMap: FC = () => {
 	return (
 		<>
-			<section className='bg-[url("../../public/assests/Images/fre.png")] bg:cover bg:no-repeat w-full h-[532px] lg:block hidden'>
+			<section className='bg-[url("/assests/Images/fre.png")] bg:cover bg:no-repeat w-full h-[532px] lg:block hidden'>
 				<div className="w-[98%]">
 					<div className="pt-[33px] pb-[30px] container flex items-start flex-col px-5">
 						<div className="py-0 w-full flex flex-row items-stretch justify-center flex-wrap">
@@ -28,7 +28,7 @@ const MiningMap: FC = () => {
 											Mining
 										</h2>
 										<div className="text-[13px] text-[#000] font-poppins p-[10px] hidden">
-											A natural diamond is usually so-called because it is{" "}
+											A natural diamond is usually so-called because it is
 											<strong>
 												mined from the earth after occurring naturally
 											</strong>
@@ -38,7 +38,7 @@ const MiningMap: FC = () => {
 										</div>
 										<div className="text-[13px] font-light text-[#000] font-poppins p-[10px]">
 											<p>
-												A natural diamond is usually so-called because it is{" "}
+												A natural diamond is usually so-called because it is
 												<strong>
 													mined from the earth after occurring naturally
 												</strong>
@@ -183,7 +183,7 @@ const MiningMap: FC = () => {
 														GCAL – Gem Certification & Assurance Lab
 													</li>
 													<li className="list-item">
-														IGI – International Gemological Institute.{" "}
+														IGI – International Gemological Institute.
 													</li>
 													<li className="list-item">
 														EGL – European Gemological Laboratories.

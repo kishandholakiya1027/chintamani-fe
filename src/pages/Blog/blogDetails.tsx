@@ -64,12 +64,12 @@ const BlogDetails = () => {
                                    {blog?.content}
                                 </div> */}
                             </span>
-                        </div>{" "}
+                        </div>
                         <div className="flex flex-col items-stretch w-[47%] ml-5 max-md:w-full max-md:ml-0">
                             <span className="flex flex-col mt-5 items-end max-md:max-w-full max-md:mt-10">
                                 <div className="justify-center text-black text-2xl font-medium leading-10 self-stretch max-md:max-w-full">
                                     Related Post
-                                </div>{" "}
+                                </div>
                                 <div className="justify-center text-indigo-950 text-base font-semibold leading-7 self-stretch mt-2 max-md:max-w-full">
                                 {blogs?.map((blog:blogType) => {
                                     return(
@@ -83,12 +83,12 @@ const BlogDetails = () => {
                                     New Collection
                                     <br />
                                     Ruby on Rose Accessories */}
-                                </div>{" "}
+                                </div>
                               
                             </span>
                         </div>
                     </div>
-                </div>{" "}
+                </div>
                 <div className="my-24 max-md:max-w-full max-md:mt-10 max-md:pr-5">
                     <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                         {blogs?.map((blog:blogType) => {
@@ -138,19 +138,19 @@ const BlogDetails = () => {
                                             loading="lazy"
                                             srcSet="..."
                                             className="absolute h-full w-full object-cover object-center inset-0"
-                                        />{" "}
+                                        />
                                         <span className="relative justify-center text-white text-xs font-bold leading-4 whitespace-nowrap items-stretch bg-indigo-950 mb-24 px-3 py-3.5 max-md:mb-10">
                                             December 2, 2020
                                         </span>
                                     </div>
-                                </div>{" "}
+                                </div>
                                 <span className="flex flex-col mt-5 px-5 max-md:pl-5">
                                     <div className="justify-center text-black text-2xl font-semibold leading-7 self-stretch">
                                         The Engagement Ring
-                                    </div>{" "}
+                                    </div>
                                     <div className="justify-center text-indigo-950 text-sm leading-6 self-stretch mt-3.5">
                                         Chintamanigems
-                                    </div>{" "}
+                                    </div>
                                     <div className="justify-center text-black text-sm leading-5 self-stretch max-w-[316px] mt-5">
                                         An engagement ring is a ring indicating that
                                         <br />
@@ -160,13 +160,13 @@ const BlogDetails = () => {
                                         <br />
                                         is presented as an engagement gift by a<br />
                                         partner to their prospective spouse when
-                                    </div>{" "}
+                                    </div>
                                     <span className="justify-center text-indigo-950 text-sm font-semibold leading-3 whitespace-nowrap items-stretch border mt-3.5 px-5 py-3.5 rounded-3xl border-solid border-indigo-950 self-start max-md:pr-5">
                                         Read More
                                     </span>
                                 </span>
                             </div>
-                        </div>{" "}
+                        </div>
                         <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
                             <div className="shadow-lg bg-white flex grow flex-col items-stretch w-full pb-8 max-md:mt-4">
                                 <div className="flex flex-col justify-center items-stretch">
@@ -175,19 +175,19 @@ const BlogDetails = () => {
                                             loading="lazy"
                                             srcSet="..."
                                             className="absolute h-full w-full object-cover object-center inset-0"
-                                        />{" "}
+                                        />
                                         <span className="relative justify-center text-white text-xs font-bold leading-4 whitespace-nowrap items-stretch bg-indigo-950 mb-24 px-3 py-3.5 max-md:mb-10">
                                             December 2, 2020
                                         </span>
                                     </div>
-                                </div>{" "}
+                                </div>
                                 <span className="flex flex-col mt-5 px-6 max-md:px-5">
                                     <div className="justify-center text-black text-2xl font-semibold leading-7 self-stretch">
                                         New Collection
-                                    </div>{" "}
+                                    </div>
                                     <div className="justify-center text-indigo-950 text-sm leading-6 self-stretch mt-5">
                                         Chintamanigems
-                                    </div>{" "}
+                                    </div>
                                     <div className="justify-center text-black text-sm leading-5 self-stretch max-w-[308px] mt-5">
                                         Jewellery or jewelry consists of decorative
                                         <br />
@@ -198,13 +198,13 @@ const BlogDetails = () => {
                                         pendants, bracelets, and cufflinks. Jewellery
                                         <br />
                                         may be attached to the body or the clothes.
-                                    </div>{" "}
+                                    </div>
                                     <span className="justify-center text-indigo-950 text-sm font-semibold leading-3 whitespace-nowrap items-stretch border mt-3.5 px-5 py-3.5 rounded-3xl border-solid border-indigo-950 self-start max-md:pr-5">
                                         Read More
                                     </span>
                                 </span>
                             </div>
-                        </div>{" "}
+                        </div>
                         <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
                             <div className="shadow-lg bg-white flex grow flex-col items-stretch w-full pb-8 max-md:mt-4">
                                 <div className="flex flex-col justify-center items-stretch">
@@ -213,19 +213,19 @@ const BlogDetails = () => {
                                             loading="lazy"
                                             srcSet="..."
                                             className="absolute h-full w-full object-cover object-center inset-0"
-                                        />{" "}
+                                        />
                                         <span className="relative justify-center text-white text-xs font-bold leading-4 whitespace-nowrap items-stretch bg-indigo-950 mb-24 px-3 py-3.5 max-md:mb-10">
                                             December 2, 2020
                                         </span>
                                     </div>
-                                </div>{" "}
+                                </div>
                                 <span className="flex flex-col mt-5 px-5 max-md:px-5">
                                     <div className="justify-center text-black text-2xl font-semibold leading-7 self-stretch whitespace-nowrap">
                                         Ruby on Rose Accessories
-                                    </div>{" "}
+                                    </div>
                                     <div className="justify-center text-indigo-950 text-sm leading-6 self-stretch mt-3.5">
                                         Chintamanigems
-                                    </div>{" "}
+                                    </div>
                                     <div className="justify-center text-black text-sm leading-5 self-stretch max-w-[315px] mt-5">
                                         A ruby is a pink to blood-red colored
                                         <br />
@@ -236,7 +236,7 @@ const BlogDetails = () => {
                                         quality corundum are called sapphires. Ruby
                                         <br />
                                         is one of the traditional cardinal gems,
-                                    </div>{" "}
+                                    </div>
                                     <span className="justify-center text-indigo-950 text-sm font-semibold leading-3 whitespace-nowrap items-stretch border mt-3.5 px-5 py-3.5 rounded-3xl border-solid border-indigo-950 self-start max-md:pr-5">
                                         Read More
                                     </span>
@@ -245,7 +245,7 @@ const BlogDetails = () => {
                         </div> */}
                     </div>
                 </div>
-            </div>{" "}
+            </div>
 
         </div>
 

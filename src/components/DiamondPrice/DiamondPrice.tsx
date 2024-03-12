@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import diamondReport from "../../../public/assests/Images/rapaport_diamond_report.png";
-import RightArrowIcon from "../../../public/assests/Icons/RightArrowIcon.svg";
-import DiamondImg from "../../../public/assests/Images/Diamond-Price.png";
+import diamondReport from "/assests/Images/rapaport_diamond_report.png";
+import RightArrowIcon from "/assests/Icons/RightArrowIcon.svg";
+import DiamondImg from "/assests/Images/Diamond-Price.png";
 
 const DiamondPrice = () => {
   return (
@@ -44,17 +44,17 @@ const DiamondPrice = () => {
             Formula: Diamond Cost = Carat Weight * Price Per Carat
           </p>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
-            Price for{" "}
-            <span className="underline decoration-1">0.32 carat is 850$</span>{" "}
-            per carat,{" "}
-            <span className="underline decoration-1">1.27 carat is 1800$</span>{" "}
+            Price for
+            <span className="underline decoration-1">0.32 carat is 850$</span>
+            per carat,
+            <span className="underline decoration-1">1.27 carat is 1800$</span>
             per carat & price for 3.04 carat is 4100$ per carat which means :
           </p>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
-            A ) 0.32 * 850 = 272$ Total for 0.32 ct{" "}
+            A ) 0.32 * 850 = 272$ Total for 0.32 ct
           </p>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
-            B) 1.27 * 1800 = 2286$ Total for 1.27 ct{" "}
+            B) 1.27 * 1800 = 2286$ Total for 1.27 ct
           </p>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
             C ) 3.04 * 4100 = 12464$ Total for 3.04 ct
@@ -72,11 +72,11 @@ const DiamondPrice = () => {
           </h3>
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
             Most of you might be wondering, from where do these price per carat
-            numbers come from? Well, there are two major organizations named{" "}
+            numbers come from? Well, there are two major organizations named
             <strong>RAPAPORT</strong> & <strong>IDEX</strong>. They set the
             price per carat from 0.01 to 10.00ct for D-to-N color and FL-to-I2
             clarity. However, the RAPAPORT diamond price list (RAP List) is most
-            commonly used in all major countries. For{" "}
+            commonly used in all major countries. For
             <a
               href="/web/20230203132158/https://chintamanigems.com/diamonds-shapes/"
               target="_blank"
@@ -84,9 +84,9 @@ const DiamondPrice = () => {
               className="text-[#211c50] font-[600]"
             >
               diamond shapes
-            </a>{" "}
+            </a>
             like princess, oval, heart, etc. Rapaport releases a common price
-            list for all fancy shapes and another list for{" "}
+            list for all fancy shapes and another list for
             <a
               href="/web/20230203132158/https://chintamanigems.com/diamonds-shapes/round/"
               target="_blank"
@@ -102,7 +102,7 @@ const DiamondPrice = () => {
             price lists are updated weekly based on demand, supply other
             factors. Don’t worry to buy a new price list every week as there are
             very few % changes or no changes. Or you can even simply comment
-            below your diamond’s{" "}
+            below your diamond’s
             <a
               href="https://web.archive.org/web/20230203132158/https://chintamanigems.com/7-cs-of-diamond/"
               target="_blank"
@@ -126,7 +126,7 @@ const DiamondPrice = () => {
             So, above we have a sample copy of the Rapaport Price List. Let us
             learn how to read it. For eg, You have to check the price for 1.01
             carat, H color, VS2 clarity stone. To know the diamond price you
-            need to know 3 things. Weight, Color, &{" "}
+            need to know 3 things. Weight, Color, &
             <a
               href="/web/20230203132158/https://chintamanigems.com/4-cs-of-diamonds/"
               target="_blank"
@@ -145,7 +145,7 @@ const DiamondPrice = () => {
           <p className="leading-[1.6] font-poppins text-[16px] font-[400] text-[#404040] ">
             All the values are in hundreds. So the price for 1.01 H VS2 is 6300
             USD per carat. This is an old price list just used for reference and
-            example.{" "}
+            example.
             <span className="underline decoration-1">
               The price per carat for 1.01 H VS2 is 7600 $ ar per the Latest
               RAPAPORT price list
@@ -216,7 +216,7 @@ const DiamondPrice = () => {
               src={RightArrowIcon}
               alt="RightArrowIcon"
               className="inline-block text-[#3366ff]"
-            />{" "}
+            />
             Are you paying the right price ? not sure? use the chatbox on the
             screen and leave your diamond question with your email address. I
             will personally review your diamond question and assist you.

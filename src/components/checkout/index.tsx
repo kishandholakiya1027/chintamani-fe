@@ -246,7 +246,7 @@ const CheckoutComponent = () => {
 									<div className="pl-3">
 										{/* <span className="font-semibold text-gray-400 text-sm">
                       USD
-                    </span>{" "} */}
+                    </span> */}
 										<span className="font-semibold">
 											{currency?.value === "INR" ? "₹" : currency?.value === "EUR" ? "€" : "$"}{handleTotalAmount()}
 										</span>
@@ -348,7 +348,7 @@ const CheckoutComponent = () => {
 											<div className="animate-spin rounded-full h-6 w-6 border-t-4 border-white-700"></div>
 										</div>
 									)}
-									<i className="mdi mdi-lock-outline mr-1"></i>{" "}
+									<i className="mdi mdi-lock-outline mr-1"></i>
 									{!isLoading && <>PAY NOW</>}
 								</button>
 							</div>

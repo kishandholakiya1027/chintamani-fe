@@ -84,8 +84,8 @@ const ContactUs = () => {
               <div className="px-0 py-[75px] flex w-full flex-row items-stretch flex-wrap border-b-[1px]">
                 <button className="text-sm font-poppins text-[#767676] font-semibold mr-1">
                   <Link to={"/"}>Home</Link>
-                </button>{" "}
-                <span className="text-sm text-[#767676]">/ </span>{" "}
+                </button>
+                <span className="text-sm text-[#767676]">/ </span>
                 <button className="text-sm font-poppins text-[#767676] font-normal">
                   Contact
                 </button>
@@ -102,7 +102,7 @@ const ContactUs = () => {
                 ADDRESS
               </h4>
               <div className="text-[#404040] text-base font-normal font-poppins">
-                Keas 69 Str. 15234, Chalandri Athens, Greece
+              B/404, Shivan Avenue, Surat.
               </div>
             </div>
             <div className="flex flex-nowrap flex-col items-start">
@@ -114,7 +114,7 @@ const ContactUs = () => {
                 <br />
                 Whatsapp : +44 7425 380174
                 <br />
-                Contact No : +91 93278 12738
+                Contact No : +91 97370 70030
               </div>
             </div>
             <div className="flex flex-nowrap flex-col items-start">
@@ -162,7 +162,6 @@ const ContactUs = () => {
                             htmlFor=""
                             className="text-[13px] font-semibold text-[#404040]"
                           >
-                            {" "}
                             Name: <br />
                           </label>
                           <span className="relative">
@@ -186,7 +185,7 @@ const ContactUs = () => {
                             htmlFor=""
                             className="text-[13px] font-semibold text-[#404040]"
                           >
-                            {" "}
+                            
                             Email Address:
                             <br />
                           </label>
@@ -211,7 +210,7 @@ const ContactUs = () => {
                             htmlFor=""
                             className="text-[13px] font-semibold text-[#404040]"
                           >
-                            {" "}
+                            
                             Phone Number:
                             <br />
                           </label>
@@ -247,7 +246,7 @@ const ContactUs = () => {
                             htmlFor=""
                             className="text-[13px] font-semibold text-[#404040]"
                           >
-                            {" "}
+                            
                             Comment:
                             <br />
                           </label>

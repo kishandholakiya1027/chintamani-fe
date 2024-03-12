@@ -276,11 +276,11 @@ const Index = () => {
                         <br />
                         an intentional or negligent breach of duty by a legal representative
                         or proxy of Chintamani Gems.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         The risk of loss and damage to the goods shall pass to you when the
                         goods are handed over.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1034px] ml-4 mt-6 self-start max-md:max-w-full">
                         2. All of our merchandise ship from the India. We ship using the India
                         post all over the world, for USA we use United States Postal
@@ -293,20 +293,20 @@ const Index = () => {
                         <br />
                         your order. Please contact us for more details. The delivery address
                         is provided by you during the ordering process.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1033px] ml-4 mt-6 self-start max-md:max-w-full">
                         3. To secure your shipment, all items are required to be shipped with
                         insurance which is not included with Free Shipping. This fee is
                         <br />
                         not refundable.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1036px] ml-4 mt-7 self-start max-md:max-w-full">
                         4. The goods are always deemed to have been delivered when our
                         delivery service delivers them to the delivery address you have
                         <br />
                         provided. The signature of the delivery note by you or a person
                         previously named in the ordering process is required.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 self-stretch ml-4 mt-4 max-md:max-w-full">
                         5. The goods are also deemed to have been delivered when you pick up
                         the goods at the address provided by our delivery service on
@@ -329,35 +329,35 @@ const Index = () => {
                         item(s) itself, but not the costs that arise as a result of the
                         <br />
                         individualization of the item(s)).
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-7 self-start max-md:max-w-full">
                         6. To protect against theft, we recommend that you provide a delivery
                         address that is not accessible to third parties.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-xl font-semibold leading-8 self-stretch mt-7 max-md:max-w-full">
                         4. Withdrawal right
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         1. If you are a consumer according to legal provisions, you have a
                         right of withdrawal in accordance with the statutory provisions.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         2. This right of withdrawal does not apply, meaning you cannot
                         withdraw from the contract, in the following cases:
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         2. If the contract is only concluded after viewing and/or trying on
                         the goods in the shop.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         3. Otherwise, the right to revoke orders is subject to the provisions
-                        of the following{" "}
+                        of the following
                         <span className="font-semibold">Withdrawal policy</span>
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         You have the right to withdraw from this contract within fourteen days
                         without statement of any reasons.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1039px] ml-4 mt-6 self-start max-md:max-w-full">
                         The withdrawal period is 7 days from the day on which you or a third
                         party whom you have appointed and who is not the deliverer
@@ -367,7 +367,7 @@ const Index = () => {
                         <br />
                         for multiple goods or the delivery of a single good in multiple
                         partial shipments).
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1060px] ml-4 mt-6 self-start max-md:max-w-full">
                         To exercise your right of withdrawal, you must explicitly notify us
                         (Chintamani Gems, admin@chintamanigems.com; +91 9737070030)
@@ -377,16 +377,16 @@ const Index = () => {
                         <br />
                         email – most preferable). You may use the attached sample withdrawal
                         notice for this purpose. However, this is not mandatory.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1040px] ml-4 mt-7 self-start max-md:max-w-full">
                         To comply with the withdrawal deadline, it is sufficient for you to
                         send your notification of exercising your right of withdrawal before
                         <br />
                         the withdrawal period has expired.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base font-semibold leading-6 ml-4 mt-6 self-start ">
                         Consequences of withdrawal
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1051px] ml-4 mt-7 self-start max-md:max-w-full">
                         Should you choose to withdraw from this contract, we shall refund all
                         payments which we have received from you without delay,
@@ -402,7 +402,7 @@ const Index = () => {
                         <br />
                         unless otherwise explicitly agreed with you; under no circumstances
                         shall you be charged fees to process this refund.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1060px] ml-4 mt-7 self-start max-md:max-w-full">
                         You must send back the goods to us without delay, no later than
                         fourteen days from the day on which you notified us about
@@ -411,7 +411,7 @@ const Index = () => {
                         dispatch the goods before the end of the fourteen day period. You
                         <br />
                         will bear the direct costs of returning the goods.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1026px] ml-4 mt-6 self-start max-md:max-w-full">
                         If we bear the return costs in individual cases and after consulting
                         with you, you must hand over the goods immediately or within
@@ -420,19 +420,19 @@ const Index = () => {
                         deadline is met if you send the goods back before the
                         <br />
                         fourteen-day period has expired.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1025px] ml-4 mt-6 self-start max-md:max-w-full">
                         We may withhold the refund until the items have been returned to us,
                         or until you have provided evidence that you have shipped
                         <br />
                         back the goods, whichever takes place first.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1029px] ml-4 mt-6 self-start max-md:max-w-full">
                         You only have to pay for any loss in value of the goods if this loss
                         in value can be traced back to handling that is not necessary to
                         <br />
                         check the nature, properties and functionality of the goods.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 self-stretch mt-6 ml-4 max-md:max-w-full">
                         If the goods are in additional packaging within the outer packaging
                         when delivered, e.g. in special additional protective packaging,
@@ -445,47 +445,47 @@ const Index = () => {
                         return
                         <br />
                         said additional packaging.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base font-semibold leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         - End of withdrawal policy -Sample withdrawal form
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         (If you wish to withdraw from the contract, please fill in and return
                         this form.)
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start ">
                         1. To; admin@chintamanigems.com
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         2. Hereby I/we (*) withdraw from the contract concluded by me/us (*)
                         for the purchase of the following goods (*)
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start ">
                         3. Ordered on (*)/received on (*)
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start ">
                         4. Name of consumer(s)
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start ">
                         5. Address of consumer(s)
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         6. Signature of consumer(s) (only for paper notification)
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-7 self-start ">
                         Date
-                    </div>{" "}
-                    <div className="border border-neutral-700 flex w-[150px] shrink-0 h-0.5 flex-col ml-4 mt-14 border-solid self-start  max-md:mt-10" />{" "}
+                    </div>
+                    <div className="border border-neutral-700 flex w-[150px] shrink-0 h-0.5 flex-col ml-4 mt-14 border-solid self-start  max-md:mt-10" />
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-5 self-start ">
                         (*) Delete as applicable.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         6. To protect against theft, we recommend that you provide a delivery
                         address that is not accessible to third parties.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-xl font-semibold leading-8 self-stretch mt-7 max-md:max-w-full">
                         5. Returns and replacement deliveries, inspections
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1054px] ml-4 mt-6 self-start max-md:max-w-full">
                         1. In the unlikely event that the goods delivered prove to be faulty,
                         damaged, or different from what you ordered, Chintamani Gems
@@ -507,7 +507,7 @@ const Index = () => {
                         packaging is considered a part of the delivered goods and must be
                         <br />
                         returned to us as well when the jewellery is returned.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1057px] ml-4 mt-6 self-start max-md:max-w-full">
                         Certificates, if supplied, must also be returned. If the certificate
                         is not returned, we will charge INR 40,000 plus VAT for a replacement
@@ -516,7 +516,7 @@ const Index = () => {
                         incurred any costs or costs for the replacement certificate that is
                         <br />
                         considerably lower than the aforementioned lump sum.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1054px] ml-4 mt-6 self-start max-md:max-w-full">
                         Should the goods show signs of deterioration (such as damage, wear and
                         tear, etc.) that go beyond the deterioration caused by the
@@ -526,7 +526,7 @@ const Index = () => {
                         <br />
                         repayments to you. In this case, our repayment to you can be reduced
                         accordingly.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1042px] ml-4 mt-6 self-start max-md:max-w-full">
                         For safety reasons, we recommend that you do not put the name
                         Chintamani Gems on the packaging of your return, as it contains
@@ -535,11 +535,11 @@ const Index = () => {
                         please contact your Chintamani Gems customer service representative
                         <br />
                         who will provide you with further instructions.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-7 self-start max-md:max-w-full">
                         If you have any questions about returning defective goods, please
                         email us at admin@chintamanigems.com.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1054px] ml-4 mt-6 self-start max-md:max-w-full">
                         2. If the inspections of goods outside the premises of Chintamani
                         Gems, e.g. with security service providers such as BVC, Malca-Amit
@@ -557,7 +557,7 @@ const Index = () => {
                         within 3 working days, Chintamani Gems reserves the right to
                         <br />
                         return the item(s) and withhold the deposit paid.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1054px] ml-4 mt-6 self-start max-md:max-w-full">
                         You must notify Chintamani Gems whether or not to proceed with the
                         purchase within two working days of inspecting the item(s). If
@@ -568,7 +568,7 @@ const Index = () => {
                         will be counted towards the purchase price and the remainder
                         <br />
                         of the purchase price will be due.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1054px] ml-4 mt-6 self-start max-md:max-w-full">
                         In the event of an insufficient delivery, costs for special or
                         additional packaging and other supplementary material may be charged.
@@ -577,26 +577,26 @@ const Index = () => {
                         transport shall be borne by you. The cost may vary depending on the
                         <br />
                         country the goods are sent from and their value.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1041px] ml-4 mt-6 self-start max-md:max-w-full">
                         All returns for which a warranty claim is asserted are subject to
                         verification and authentication by the Chintamani Gems team. The
                         <br />
                         item(s) must be classified as defective as a result of a manufacturing
                         defect by our production department.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1028px] ml-4 mt-6 self-start max-md:max-w-full">
                         If claims from this guarantee are asserted, the decision about the
                         further procedure (exchange, repair or similar) depends on the
                         <br />
                         individual case and will be discussed with you.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1025px] ml-4 mt-6 self-start max-md:max-w-full">
                         3. If the purchased jewellery has been tampered with or changed in any
                         way by you, another jeweller or any other third party, the
                         <br />
                         lifetime guarantee becomes void.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1037px] ml-4 mt-6 self-start max-md:max-w-full">
                         4. All sizes and measurements of the rings and pieces of jewellery are
                         approximate. However, we try to ensure that the sizes and
@@ -613,19 +613,19 @@ const Index = () => {
                         not
                         <br />
                         apply to custom-made rings.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 self-stretch mt-4 max-md:max-w-full">
                         
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-5 self-start max-md:max-w-full">
-                        6. The terms for resizing{" "}
+                        6. The terms for resizing
                         <span className="font-semibold">
                             outside the aforementioned 30 days
                         </span>
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Engagement Rings:
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1045px] ml-4 mt-6 self-start max-md:max-w-full">
                         1. For plain band or non-diamond or non-gemstone set ring, a resizing
                         of two sizes smaller or larger than the original size is possible
@@ -635,7 +635,7 @@ const Index = () => {
                         <br />
                         scratch for which corresponding costs will apply. The price will be
                         confirmed after consulting our sales team.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1037px] ml-4 mt-5 self-start max-md:max-w-full">
                         2. Diamond-set or gemstone-set engagement rings (including custom-made
                         rings) must be assessed in order to ensure whether
@@ -644,17 +644,17 @@ const Index = () => {
                         will apply. This will be confirmed after consulting our sales
                         <br />
                         team at admn@chintamanigems.com
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Eternity Rings:
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 ml-4 self-stretch mt-6 max-md:max-w-full">
                         3. Full eternity rings - Due to the nature of the setting, these rings
                         cannot be resized and must be replaced within 30 days of purchase.
                         <br />
                         Otherwise, changes cannot be made. Please contact our sales team to
                         discuss alternative options for your ring.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7  ml-4 self-stretch mt-6 max-md:max-w-full">
                         4. Half eternity rings - Due to the type of setting, all rings must
                         first be examined to see whether a resizing is possible or whether a
@@ -664,10 +664,10 @@ const Index = () => {
                         assessment. Please contact our sales team at
                         <br />
                         admin@chintamanigems.com
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Wedding Rings:
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1052px] ml-4 mt-5 self-start max-md:max-w-full">
                         Simple wedding rings can be resized for a fee that is payable after an
                         assessment (except for rings with a special surface and
@@ -676,19 +676,19 @@ const Index = () => {
                         inspected prior to resizing to ensure that the nature of the setting
                         <br />
                         allows a resizing.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Cocktail Rings:
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1054px] ml-4 mt-6 self-start max-md:max-w-full">
                         Due to the nature of the individual designs, please contact our sales
                         team at admin@chintamanigems.com to find out if a resizing is
                         <br />
                         possible.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base font-bold leading-6 ml-4 mt-6 self-start ">
                         Custom-made rings:
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1060px] ml-4 mt-5 self-start max-md:max-w-full">
                         Custom-made rings can be resized free of charge within 30 days of
                         collection/receipt, provided that a resizing of the respective ring
@@ -703,7 +703,7 @@ const Index = () => {
                         any additional costs in advance. It will then be clarified whether
                         <br />
                         the size change should be carried out.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 self-stretch  ml-4 mt-6 max-md:max-w-full">
                         7. All goods remain the property of Chintamani Gems until they have
                         been fully paid for. If you receive goods that you ordered but did
@@ -716,7 +716,7 @@ const Index = () => {
                         <br />
                         the goods until the day on which the goods were actually paid for or
                         returned to us.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 ml-4 self-stretch mt-5 max-md:max-w-full">
                         8. In addition to the purchase price, we may also demand compensation
                         for damages and/or expenses if goods whose collection
@@ -728,10 +728,10 @@ const Index = () => {
                         is only responsible for intent and gross negligence during
                         <br />
                         the time you are in default of collection.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-xl font-semibold leading-8 self-stretch mt-6 max-md:max-w-full">
                         6. Our liability
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 ml-4 self-stretch mt-6 max-md:max-w-full">
                         1. Claims for damages against Chintamani Gems are principally
                         excluded. Exempt from this are claims for damages resulting from
@@ -745,7 +745,7 @@ const Index = () => {
                         <br />
                         obligations are those which must be fulfilled to achieve the objective
                         of the contract.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1047px] ml-4 mt-6 self-start max-md:max-w-full">
                         2. In the event of a breach of any essential contractual obligations,
                         Chintamani Gems shall only be liable for foreseeable damage
@@ -1056,20 +1056,20 @@ const Index = () => {
                         in these Terms and Conditions or the documents referred to
                         <br />
                         therein or on the Website or provided by law.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[999px] ml-4 mt-6 self-start max-md:max-w-full">
                         3. Both parties agree that our only liability regarding the guarantees
                         and warranties contained in these Terms and Conditions
                         <br />
                         (whether innocent or negligent) is based on a violation of contract.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-6 ml-4 mt-6 self-start max-md:max-w-full">
                         4. Liability for fraud is neither limited nor excluded by this
                         section.
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-xl font-semibold leading-8 self-stretch mt-7 max-md:max-w-full">
                         16. Applicable law and place of jurisdiction
-                    </div>{" "}
+                    </div>
                     <div className="justify-center text-neutral-700 text-base leading-7 max-w-[1049px] ml-4 mt-6 self-start max-md:max-w-full">
                         1. Contracts for the purchase of goods via the Website and all
                         disputes or claims arising from or in connection with them or their
@@ -1082,7 +1082,7 @@ const Index = () => {
                         <br />
                         Indian jurisdiction.
                     </div>
-                </span>{" "}
+                </span>
 
             </div>
         </div>

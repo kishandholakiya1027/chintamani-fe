@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import RoundedDiamond from "../../../public/assests/Images/roundedDiamon.png";
+import RoundedDiamond from "/assests/Images/roundedDiamon.png";
 import MultiRangeSlider from "multi-range-slider-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -76,11 +76,11 @@ const ShopItem: FC = (props) => {
                 <div className="px-0 py-[75px] flex w-full flex-row items-stretch flex-wrap border-b-[1px]">
                   <button className="text-sm font-poppins text-[#767676] font-semibold mr-1">
                     <Link to={"/"}>Home</Link>
-                  </button>{" "}
+                  </button>
                   {category?.map((item: breadCrumbType) => {
                     return (
                       <>
-                        <span className="text-sm text-[#767676]">/</span>{" "}
+                        <span className="text-sm text-[#767676]">/</span>
                         <button className="text-sm font-poppins text-[#767676] font-normal mr-1" onClick={() => submitHandler(item)}>
                           {/* <Link to={category?.path1 ? "/" : ""}> */}
                           {item?.path}
@@ -104,7 +104,7 @@ const ShopItem: FC = (props) => {
                     </> : null}
                   {category?.path2 ?
                     <>
-                      <span className="text-sm text-[#767676]">/</span>{" "}
+                      <span className="text-sm text-[#767676]">/</span>
                       <button className="text-sm font-poppins text-[#767676] font-normal mr-1">
                         <Link to={category?.path3 ? "/" : ""}>
                           {category?.path2}
@@ -112,7 +112,7 @@ const ShopItem: FC = (props) => {
                         </Link>
                       </button>
                     </> : null}
-                  {/* <span className="text-sm text-[#767676]">/</span>{" "}
+                  {/* <span className="text-sm text-[#767676]">/</span>
                   <button className="text-sm font-poppins text-[#767676] font-normal">
                     Shop
                   </button> */}

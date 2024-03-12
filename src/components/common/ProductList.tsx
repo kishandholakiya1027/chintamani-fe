@@ -264,7 +264,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
 									? "Adding to Cart..."
 									: "Add to Cart"}
 							</button>
-						)}{" "}
+						)}
 					</div>
 				</div>
 			</>

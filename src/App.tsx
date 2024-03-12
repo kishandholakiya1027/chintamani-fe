@@ -37,6 +37,9 @@ import Faqs from "./pages/Faq";
 import Account from "./pages/account";
 import BlogDetails from "./pages/Blog/blogDetails";
 import TermsCondition from "./pages/terms-conditions";
+import ShippingPolicy from "./pages/shipping-policy";
+import RefundPolicy from "./pages/refund-policy";
+import PrivacyPolicy from "./pages/privacy-policy";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +84,18 @@ const router = createBrowserRouter([
       {
         path: "terms-condition",
         element: <TermsCondition />,
+      },
+      {
+        path: "privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "refund-policy",
+        element: <RefundPolicy />,
+      },
+      {
+        path: "shipping-policy",
+        element: <ShippingPolicy />,
       },
       {
         path: "account",

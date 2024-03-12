@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import image1 from "../../../public/assests/Images/igi_Logo..png";
-import image2 from "../../../public/assests/Images/gia_Logo.png";
-import DiamondEducation_Contour from "../../../public/assests/Images/DiamondEducation_Contour.jpg";
-import DiamondEducation_Cost from "../../../public/assests/Images/DiamondEducation_Cost.jpg";
-import DiamondEducation_BottomBanner_Desktop from "../../../public/assests/Images/DiamondEducation_BottomBanner_Desktop.jpg";
+import image1 from "/assests/Images/igi_Logo..png";
+import image2 from "/assests/Images/gia_Logo.png";
+import DiamondEducation_Contour from "/assests/Images/DiamondEducation_Contour.jpg";
+import DiamondEducation_Cost from "/assests/Images/DiamondEducation_Cost.jpg";
+import DiamondEducation_BottomBanner_Desktop from "/assests/Images/DiamondEducation_BottomBanner_Desktop.jpg";
 
 const CsDiamond = () => {
   return (

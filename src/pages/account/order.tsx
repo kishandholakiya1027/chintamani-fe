@@ -86,7 +86,7 @@ const Order: React.FC = () => {
 					name: "Acme Corp",
 					description: "Test Transaction",
 					order_id: orderData?.data?.orderDetails?.id,
-					handler: (res: Object) => {
+					handler: () => {
 						updateOrder(orderData?.data?.id);
 						toast.success("Payment success");
 						navigate("/");
