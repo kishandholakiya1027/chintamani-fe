@@ -26,7 +26,7 @@ const CheckoutComponent = () => {
 	} = useSelector((state: any) => state);
 
 	const priceFormate = useMemo(() => {
-		return cartProduct.map((product: any) => {
+		return cartProduct?.length > 0 && cartProduct?.map((product: any) => {
 			return {
 				...product.product,
 				newCalcPrice: product?.product?.disccount_price ? currency.price !== "" ? product?.product?.disccount_price * +currency.price : product?.product?.disccount_price : currency.price !== "" ? product?.product?.price * +currency.price : product?.product?.price
@@ -112,9 +112,15 @@ const CheckoutComponent = () => {
 
 	const handlePayment = useCallback(async () => {
 		setIsLoading(true);
-
+		const totalAmount = cartProduct?.reduce((prev: number, products: any) => {
+			let product = products?.product || products;
+			return (
+				prev +
+				(products?.quantity || 1) * (product?.disccount_price || product?.price)
+			);
+		}, 0);
 		try {
-			const params = { userid: user?.id, totalprice: handleTotalAmount() };
+			const params = { userid: user?.id, totalprice: totalAmount };
 			const order = await createOrder(params);
 			const options = {
 				key: VITE_RAZORPAY_KEY_ID,
@@ -167,7 +173,7 @@ const CheckoutComponent = () => {
 				<div className="w-full">
 					<div className="-mx-3 md:flex items-start">
 						<div className="px-3 md:w-6/12 lg:pr-10">
-							{priceFormate?.map((prod: any) => {
+							{priceFormate?.length > 0 && priceFormate?.map((prod: any) => {
 								let product = prod?.product || prod;
 								let qty = prod?.quantity || 1;
 								return (
