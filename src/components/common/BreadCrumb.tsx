@@ -18,7 +18,7 @@ const BreadCrumb = ({ submitHandler }: any) => {
         }
         {category?.map((item: breadCrumbType, index: number) => {
             return <>
-                <span className="text-sm text-[#767676]">/</span>{" "}
+                <span className="text-sm text-[#767676]">/</span>
                 <button className={`font-poppins text-[15px] text-[#211c50] ${!item?.id ? "font-normal":"font-medium"} before:table ${category?.length === index + 1 || !item?.id ? "cursor-default" : "cursor-pointer"}  `} onClick={() => category?.length === index + 1 || !item?.id ? {} : handleChange(item, index)}>
                     {
                         /* <Link to={category?.path1 ? "/" : ""}> */

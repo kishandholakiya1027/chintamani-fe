@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
-import Arrive from "../../../public/assests/Images/arrive1.png";
-import Yellow from "../../../public/assests/Images/yellow.png";
-import WhiteDiamond from "../../../public/assests/Images/whitediamond.png";
-import RoundedDiamond from "../../../public/assests/Images/roundedDiamon.png";
-import Crown from "../../../public/assests/Images/crown.png";
+import Arrive from "/assests/Images/arrive1.png";
+import Yellow from "/assests/Images/yellow.png";
+import WhiteDiamond from "/assests/Images/whitediamond.png";
+import RoundedDiamond from "/assests/Images/roundedDiamon.png";
+import Crown from "/assests/Images/crown.png";
 // import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";

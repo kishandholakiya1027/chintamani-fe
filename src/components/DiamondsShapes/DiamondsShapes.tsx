@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import DimondShape from "../../../public/assests/Images/diamondshape.jpg";
-import PopularDimondShape from "../../../public/assests/Images/popularDiamondShape.jpg";
-import ShapesRound1 from "../../../public/assests/Images/shapes_round1.jpg";
-import Shapes_Cushion1 from "../../../public/assests/Images/shapes_cushion1.jpg";
-import Shapes_Marquise1 from "../../../public/assests/Images/shapes_marquise1.jpg";
-import RadiantShape from "../../../public/assests/Images/radiant-shape.png";
+import DimondShape from "/assests/Images/diamondshape.jpg";
+import PopularDimondShape from "/assests/Images/popularDiamondShape.jpg";
+import ShapesRound1 from "/assests/Images/shapes_round1.jpg";
+import Shapes_Cushion1 from "/assests/Images/shapes_cushion1.jpg";
+import Shapes_Marquise1 from "/assests/Images/shapes_marquise1.jpg";
+import RadiantShape from "/assests/Images/radiant-shape.png";
 import { Button } from "../ui/button";
 
 const DiamondsShapes = () => {
@@ -97,7 +97,7 @@ const DiamondsShapes = () => {
                   money per ring turned into a very popular concept. Diamond
                   shapes are incredibly popular today, and most people would
                   consider the shape of diamond to be one of the most important
-                  factors of any ring.{" "}
+                  factors of any ring.
                 </p>
                 <p className="mt-4">
                   This popularity stems from the difference in price, the
@@ -116,7 +116,7 @@ const DiamondsShapes = () => {
                   wearing it for a long time. Something classic and versatile
                   will also blend in easily with any other jewelry and clothing
                   that you wear. Don't make a decision simply based on what is
-                  trending.{" "}
+                  trending.
                 </p>
               </div>
               <h2 className="font-bold font-poppins text-[#404040] lg:text-[30px] md:text-[24px] text-[20px] mt-4">
@@ -133,7 +133,6 @@ const DiamondsShapes = () => {
                 </h3>
                 <div className="text-base font-normal font-poppins text-[#404040]">
                   <p className="mb-4">
-                    {" "}
                     The history of the round cut diamond is a tad different than
                     most other diamond shapes. It took years upon years of
                     diamond cutting in order to create this style which is
@@ -150,7 +149,7 @@ const DiamondsShapes = () => {
                     brilliant round diamonds.
                   </p>
                   <p className="my-4">
-                    {" "}
+                    
                     Rounds are the most popular shape for not only engagement
                     rings but for other jewelry like necklaces and earrings as
                     well. When cut well, the proper reflection of light, the
@@ -167,12 +166,12 @@ const DiamondsShapes = () => {
                     over time.
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Round Cut Diamonds
                     </Link>
                   </p>
@@ -271,12 +270,12 @@ const DiamondsShapes = () => {
                     cut diamonds among hundreds of others.
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Princess Cut Diamonds
                     </Link>
                   </p>
@@ -318,12 +317,12 @@ const DiamondsShapes = () => {
                     bezel type settings are recommended with lower colors.
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Emerald Cut Diamonds
                     </Link>
                   </p>
@@ -370,12 +369,12 @@ const DiamondsShapes = () => {
                     diamond in a rainbow of color).
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Cushion Cut Diamonds
                     </Link>
                   </p>
@@ -417,12 +416,12 @@ const DiamondsShapes = () => {
                     bezel type settings are recommended with lower colors.
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Emerald Cut Diamonds
                     </Link>
                   </p>
@@ -467,12 +466,12 @@ const DiamondsShapes = () => {
                     appear colorless.
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Oval Cut Diamonds
                     </Link>
                   </p>
@@ -520,12 +519,12 @@ const DiamondsShapes = () => {
                     chipping.
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Pear Cut Diamonds
                     </Link>
                   </p>
@@ -570,12 +569,12 @@ const DiamondsShapes = () => {
                     1.00 to 1.05 for square proportions.
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Asscher Cut Diamonds
                     </Link>
                   </p>
@@ -617,12 +616,12 @@ const DiamondsShapes = () => {
                     1.75 to 2.25 is the ideal shape.
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Marquise Cut Diamonds
                     </Link>
                   </p>
@@ -718,7 +717,7 @@ const DiamondsShapes = () => {
                     percentage of the original rough diamond, with very little
                     going to waste. This means that a loose radiant diamond will
                     be priced lower on a per-carat basis than most other diamond
-                    cuts. In fact, the radiant cut diamond is{" "}
+                    cuts. In fact, the radiant cut diamond is
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
@@ -747,12 +746,12 @@ const DiamondsShapes = () => {
                     color, along with its overall beauty and appeal.
                   </p>
                   <p className="mt-4">
-                    Learn more about{" "}
+                    Learn more about
                     <Link
                       to={""}
                       className="text-[600] font-semibold text-[#211c50]"
                     >
-                      {" "}
+                      
                       Radiant Diamonds
                     </Link>
                   </p>

@@ -42,15 +42,13 @@ const RemovePopup = ({ setOpen, onSubmit }: IProps) => {
             onClick={() => setOpen("")}
             className="px-3 py-1 border-[#211c50] border text-[#211c50]  rounded-md w-full sm:w-auto"
           >
-            {" "}
-            Cancel{" "}
+            Cancel
           </button>
           <button
             onClick={() => onSubmit()}
             className="px-3 py-1 bg-[#211c50] text-white  rounded-md w-full sm:w-auto"
           >
-            {" "}
-            Remove{" "}
+            Remove
           </button>
         </div>
       </div>

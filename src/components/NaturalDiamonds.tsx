@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import KImg from "../../public/assests/Images/k1.png";
+import KImg from "/assests/Images/k1.png";
 import { Button } from "./ui/button";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";

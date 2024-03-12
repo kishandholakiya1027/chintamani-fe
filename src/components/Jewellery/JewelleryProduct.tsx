@@ -1,9 +1,9 @@
 import { FC, useEffect } from "react";
 import { Link } from "react-router-dom";
-import J1 from "../../../public/assests/Images/j-1.jpg";
-import J2 from "../../../public/assests/Images/j-2.jpg";
-import J3 from "../../../public/assests/Images/j-3.jpg";
-import Crown from "../../../public/assests/Images/crown.png";
+import J1 from "/assests/Images/j-1.jpg";
+import J2 from "/assests/Images/j-2.jpg";
+import J3 from "/assests/Images/j-3.jpg";
+import Crown from "/assests/Images/crown.png";
 import MultiRangeSlider from "multi-range-slider-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -80,8 +80,8 @@ const JewelleryProduct: FC = () => {
               <div className="px-0 py-[75px] flex w-full flex-row items-stretch flex-wrap border-b-[1px]">
                 <button className="text-sm font-poppins text-[#767676] font-semibold mr-1">
                   <Link to={"/"}>Home</Link>
-                </button>{" "}
-                <span className="text-sm text-[#767676]">/ </span>{" "}
+                </button>
+                <span className="text-sm text-[#767676]">/ </span>
                 <button className="text-sm font-poppins text-[#767676] font-normal">
                   Jewellery
                 </button>

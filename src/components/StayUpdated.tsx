@@ -1,8 +1,8 @@
-import K1 from "../../public/assests/Images/k1.png";
-import Facebook from "../../public/assests/Images/facebook.svg";
-import InstaGram from "../../public/assests/Images/instagram.svg";
-import Twitter from "../../public/assests/Images/twitter.svg";
-import Linkdin from "../../public/assests/Images/linkedin.svg";
+import K1 from "/assests/Images/k1.png";
+import Facebook from "/assests/Images/facebook.svg";
+import InstaGram from "/assests/Images/instagram.svg";
+import Twitter from "/assests/Images/twitter.svg";
+import Linkdin from "/assests/Images/linkedin.svg";
 import { Link } from "react-router-dom";
 const StayUpdated = () => {
   const socialMediaData = [

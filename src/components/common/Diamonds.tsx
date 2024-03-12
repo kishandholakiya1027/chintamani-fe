@@ -105,7 +105,7 @@ const Diamonds = () => {
 							{!!products?.length && (
 								<p className="py-[8px] text-base font-poppins font-normal text-[#404040] mb-[16px] float-left">
 									showing {totalRecords ? filter?.page || 1 : 0}-
-									{Math.ceil(totalRecords / limit) ?? 0} of {totalRecords ?? 0}{" "}
+									{Math.ceil(totalRecords / limit) ?? 0} of {totalRecords ?? 0}
 									results
 								</p>
 							)}
@@ -133,7 +133,6 @@ const Diamonds = () => {
 							</form>
 							{loader ? (
 								<div className="mt-32 flex justify-center items-center">
-									{" "}
 									<Loader />
 								</div>
 							) : null}

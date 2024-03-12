@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import KImg from "../../public/assests/Images/k.png";
+import KImg from "/assests/Images/k.png";
 import { Link, useNavigate } from "react-router-dom";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";

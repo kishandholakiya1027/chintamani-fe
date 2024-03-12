@@ -1,6 +1,6 @@
-import neklessImg from "../../public/assests/Images/nekless.png";
+import neklessImg from "/assests/Images/nekless.png";
 import { Button } from "./ui/button";
-import blackDImg from "../../public/assests/Images/blackD.png";
+import blackDImg from "/assests/Images/blackD.png";
 
 const BlackDiamond = () => {
   return (

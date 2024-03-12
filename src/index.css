@@ -142,7 +142,7 @@
 
 .diamond-sec .slick-slider .slick-prev::before {
 	content: "";
-	background: rgba(0, 0, 0, 0.2) url("../public/assests/Images/download1.png")
+	background: rgba(0, 0, 0, 0.2) url("/assests/Images/download1.png")
 		no-repeat 50% 50% / 7px 11px;
 	border-radius: 32px;
 	display: block;
@@ -169,7 +169,7 @@
 
 .diamond-sec .slick-slider .slick-next::before {
 	content: "";
-	background: transparent url("../public/assests/Images/download1.png")
+	background: transparent url("/assests/Images/download1.png")
 		no-repeat 50% 50% / 7px 11px;
 	border-radius: 32px;
 	display: block;
