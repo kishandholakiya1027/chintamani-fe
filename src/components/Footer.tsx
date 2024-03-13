@@ -94,7 +94,7 @@ const Footer: FC = () => {
                     <Link to={"tel:+447425380174"}>+44 7425 380174</Link>
                   </li>
                   <li className="mb-[5px]">
-                    <Link to={"tel:+919327812738"}>+91 93278 12738</Link>
+                    <Link to={"tel: +919737070030"}>+91 97370 70030</Link>
                   </li>
                   <li className="mb-[5px]">
                     <Link to={"mailto:info@chintamanigems.com"}>

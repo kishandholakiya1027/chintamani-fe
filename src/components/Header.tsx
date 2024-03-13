@@ -292,7 +292,7 @@ const Header = ({}: Props) => {
         return (
           <li
             key={index}
-            className="group list-none flex flex-col"
+            className="group list-none flex flex-col cursor-pointer"
             onClick={() =>
               category?.subCategories?.length
                 ? {}
@@ -318,8 +318,8 @@ const Header = ({}: Props) => {
                 >
                   {category?.name}
                 </div>
-                <div className="left-0 right-0 group-hover:visible group-hover:opacity-[1] bg-[#fff] z-[2147483641] p-0 whitespace-nowrap invisible opacity-0 flex  absolute top-[100%] shadow">
-                  <ul className="me-5">
+                <div className="left-0 right-0 group-hover:visible group-hover:opacity-[1] bg-[#f1f1f1] z-[2147483641] px-[15px] py-[30px] whitespace-nowrap invisible opacity-0 flex justify-center absolute top-[100%] shadow cursor-default">
+                  <ul className="me-10">
                     <h5 className="font-bold py-[5px] px-[15px] underline">
                       SHOP BY Category
                     </h5>
@@ -385,7 +385,7 @@ const Header = ({}: Props) => {
                                 </Link>
                               )}
                               <ul
-                                className={`sub-group-hover:visible sub-group-hover:opacity-[1] bg-[#fff] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute lg:top-[100%] md:top-100 top-[77px] left-0`}
+                                className={`sub-group-hover:visible sub-group-hover:opacity-[1] bg-[#f1f1f1] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute lg:top-[100%] md:top-100 top-[77px] left-0`}
                               >
                                 {subCategory?.innerCategories?.map(
                                   (innerCategory: subCategory, index) => {
@@ -434,8 +434,8 @@ const Header = ({}: Props) => {
                       }
                     )}
                   </ul>
-                  <div>
-                    <h5 className="font-bold py-[5px] px-[15px] underline text-center">
+                  <div className="me-10">
+                    <h5 className="font-bold py-[5px] px-[15px] underline">
                       SHOP BY SHAPE
                     </h5>
                     <div className="flex justify-center">
@@ -511,6 +511,11 @@ const Header = ({}: Props) => {
                       </ul>
                     </div>
                   </div>
+                  <img
+                    src="/assests/Images/D_GED_x1-300x225.jpg"
+                    alt=""
+                    className="w-[300px] h-auto"
+                  />
                 </div>
               </>
             ) : (
@@ -543,7 +548,7 @@ const Header = ({}: Props) => {
         >
           Knowledge
         </Link>
-        <ul className="sub-menu bg-[#fff] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%] group-hover:visible group-hover:opacity-[1]">
+        <ul className="sub-menu bg-[#f1f1f1] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%] group-hover:visible group-hover:opacity-[1]">
           <li className="flex flex-col list-none relative">
             <Link
               to={"/diamond-price"}
@@ -577,7 +582,7 @@ const Header = ({}: Props) => {
         >
           About
         </Link>
-        <ul className="left-0 right-0 sub-menu bg-[#fff] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%] group-hover:visible group-hover:opacity-[1]">
+        <ul className="left-0 right-0 sub-menu bg-[#f1f1f1] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%] group-hover:visible group-hover:opacity-[1]">
           <li className="flex flex-col list-none relative">
             <Link
               to={"/why-us"}
@@ -813,6 +818,58 @@ const Header = ({}: Props) => {
             </li>
           );
         })}
+      {categoryOpen && (
+        <>
+          <li className={`group list-none flex flex-col`} key="category">
+            <div
+              className={`bg-[#fff] justify-between ${
+                categoryOpen ? "border-b-[3px]" : ""
+              } py-5 px-[15px] text-sm text-[#211c50] font-normal ${
+                categoryOpen ? "border-b-[3px]" : ""
+              } flex items-center  ${
+                categoryOpen ? "after:rotate-[315deg]" : ""
+              }`}
+            >
+              Shape
+            </div>
+          </li>
+          <ul className="bg-[#fff] p-0 flex-col whitespace-nowrap border-b-[3px]">
+            {shapes?.map((shape: shapeType, index: number) => (
+              <li
+                className={`flex flex-col list-none relative sub-group`}
+                key={index}
+              >
+                <Link
+                  to={"#"}
+                  onClick={() => {
+                    dispatch(
+                      setCategory([
+                        { path: "Shape" },
+                        {
+                          path: shape?.name,
+                          name: "shape",
+                          id: shape?.name,
+                        },
+                      ])
+                    );
+                    navigate("/product-category");
+                    setMenuOpen(false);
+                  }}
+                  className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] font-semibold`}
+                >
+                  <img
+                    src={shape?.image}
+                    alt="CVD"
+                    className="w-6 mr-[10px] align-middle"
+                  />
+                  {shape?.name?.toLowerCase()}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
       <li className="relative group diamond list-none flex  flex-col">
         <div
           onClick={() => {
