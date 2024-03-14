@@ -288,3 +288,7 @@ input[type="number"] {
 .react-tel-input input:focus {
 	background-color: #fff !important;
 }
+
+.group:hover .dropdown, .group .dropdown {
+	transition: all 0.3s ease-in-out;
+}

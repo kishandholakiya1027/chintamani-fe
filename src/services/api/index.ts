@@ -68,7 +68,7 @@ const useApi = async ({
         }
     }).catch(err => {
         if(err?.response?.data?.message === "Invalid authorization token"){
-            console.log("🚀 ~ file: index.ts:68 ~ returninstance.request ~ err:", err)
+            console.error(err)
             dispatch(handleLogout())
             return
         }

@@ -1,28 +1,15 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import KImg from "/assests/Images/k.png";
 import { Link, useNavigate } from "react-router-dom";
-import useApi from "@/hooks/useApi";
-import { apiPath } from "@/lib/api-path";
 import { shapeType } from "@/lib/interfaces/category";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCategory } from "@/redux/reducer/category";
 
 const PrevalentDiamonds: FC = () => {
-  const { apiAction } = useApi();
-  const [shapes, setShapes] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    getAllShape();
-  }, []);
 
-  const getAllShape = async () => {
-    const data = await apiAction({
-      method: "get",
-      url: `${apiPath?.shape?.all}`,
-    });
-    setShapes(data?.data?.Shapedata);
-  };
+  const shapes = useSelector((state: any) => state?.category?.shape);
 
   return (
     <section className="w-full bg-cover mt-[25px]">
@@ -36,8 +23,6 @@ const PrevalentDiamonds: FC = () => {
         <div className="mt-[40px] hidden"></div>
         <div className="py-[54px] flex w-full lg:flex-row flex-row items-stretch justify-center flex-wrap gap-4">
           {shapes?.map((shape: shapeType) => {
-            console.log(shape, "shape123");
-
             return (
               <div
                 className="lg:w-[9.5%] md:w-[17.5%] w-[29%] flex flex-col items-center mb-2.5"

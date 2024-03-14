@@ -6,7 +6,7 @@ import ProductList from './common/ProductList'
 const TrendingDiamond = ({ product }: { product: any }) => {
     const { apiAction } = useApi()
     const [products, setProducts] = useState([])
-    console.log("🚀 ~ TrendingDiamond ~ products:", products)
+
     useEffect(() => {
         getTrendingProducts()
     }, [product])

@@ -50,7 +50,6 @@ const Forgotpassword = () => {
 			url: `${apiPath?.auth?.forgotPassword}`,
 			data: { email: formData?.email },
 		});
-		console.log("🚀 ~ onForgotPassword ~ data:", data);
 		if (data?.data?.Otp) {
 			showToast("OTP sent successfully .Please check your mail");
 
@@ -86,7 +85,6 @@ const Forgotpassword = () => {
 		) {
 			err = { ...err, confirm_pass: "Password does not match" };
 		}
-		console.log("🚀 ~ handleValidation ~ err:", err);
 		if (Object.keys(err).length > 0) {
 			setError(err);
 			return false;
@@ -120,7 +118,6 @@ const Forgotpassword = () => {
 			url: `${apiPath?.auth?.verifyOTP}`,
 			data: { email: formData?.email, otp: formData?.otp },
 		});
-		console.log("🚀 ~ VerifyOtp ~ data:", data);
 		if (!data?.data?.error) {
 			setVerified(data?.data?.ForgetPasswordToken);
 			showToast("Verified  successfully!");
@@ -146,7 +143,6 @@ const Forgotpassword = () => {
 				},
 				headers: { Authorization: `Bearer ${verified}` },
 			});
-			console.log("🚀 ~ VerifyOtp ~ data:", data);
 			if (!data?.data?.error) {
 				showToast("Your password changed  successfully!");
 				navigate("/login");

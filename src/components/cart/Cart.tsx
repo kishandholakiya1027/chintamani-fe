@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RemovePopup from "../alert/RemovePopup";
 import { useNavigate } from "react-router";
 import Loader from "../common/Loader";
+import { toast } from "react-toastify";
 
 const Index = () => {
 	const modalRef: any = useRef(null);
@@ -14,7 +15,6 @@ const Index = () => {
 		cart: { cartProduct, openCart },
 		auth: { token, user },
 	} = useSelector((state: { cart: any; auth: any }) => state);
-	// console.log("🚀 ~ cartProduct:", cartProduct)
 	const dispatch = useDispatch();
 	const { loader, apiAction } = useApi();
 	const [openPopup, setOpenPopup] = useState("");
@@ -55,7 +55,6 @@ const Index = () => {
 			data: { userid: user?.id, productid: openPopup },
 			headers: { Authorization: `Bearer ${token}` },
 		});
-		// console.log("🚀 ~ removeFromCart ~ data:", data)
 		if (!data?.data?.error) {
 			dispatch(addCartProduct(data?.data));
 			setOpenPopup("");
@@ -95,8 +94,6 @@ const Index = () => {
 			window.removeEventListener("popstate", handleRouteChange);
 		};
 	}, [ShowCart]);
-
-	console.log("loader", loader);
 
 	return (
 		<div className="min:w-[200px] relative ">
@@ -292,7 +289,12 @@ const Index = () => {
 									<button
 										className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
 										onClick={() => {
-											navigate("/checkout"), dispatch(setOpenCart());
+											if (user?.id) {
+												navigate("/checkout"), dispatch(setOpenCart());
+											} else {
+												toast("Please login to enhance experience");
+												navigate("/login");
+											}
 										}}>
 										Check out
 									</button>

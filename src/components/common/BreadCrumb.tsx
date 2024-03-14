@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const BreadCrumb = ({ submitHandler }: any) => {
     const { category } = useSelector((state: any) => state?.category)
-    console.log("🚀 ~ file: ProductHeader.tsx:8 ~ ProductHeader ~ category:", category)
     const dispatch = useDispatch()
     const handleChange = async (item: breadCrumbType, index: number) => {
         dispatch(setCategory(category?.filter((_: any, i: number) => i <= index)))
@@ -13,9 +12,6 @@ const BreadCrumb = ({ submitHandler }: any) => {
     }
     return (<nav className="font-poppins text-[15px] text-[#211c50] font-medium before:table">
         <Link to={"/"}>Home</Link>
-        {
-            /* &nbsp;/&nbsp;Shapes&nbsp;/&nbsp;OVAL */
-        }
         {category?.map((item: breadCrumbType, index: number) => {
             return <>
                 <span className="text-sm text-[#767676]">/</span>

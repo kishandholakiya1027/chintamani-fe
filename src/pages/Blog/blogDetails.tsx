@@ -10,7 +10,6 @@ const BlogDetails = () => {
     const { id } = useParams()
     const [blog, setBlog] = useState<blogType>({})
     const [blogs, setBlogs] = useState([]);
-    console.log("🚀 ~ BlogDetails ~ blogs:", blogs)
 
     useEffect(() => {
         getBlog()
@@ -27,7 +26,6 @@ const BlogDetails = () => {
         if (data) {
             setBlogs(data?.data?.Blogdata?.filter((item: any) => item?.id !== (blog?.id || id))?.slice(0,3))
         }
-        console.log("🚀 ~ getAllBlogs ~ data:", data)
     }
 
     const getBlog = async () => {

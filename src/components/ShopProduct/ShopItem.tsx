@@ -11,8 +11,7 @@ import { apiPath } from "@/lib/api-path";
 import { breadCrumbType, diamondProperty } from "@/lib/interfaces/category";
 import ReactPaginate from "react-paginate";
 
-const ShopItem: FC = (props) => {
-  console.log("🚀 ~ props:", props)
+const ShopItem: FC = () => {
   // const [ setMinValue] = useState(0);
   // const [ setMaxValue] = useState(0);
   // const [ setMinValue2] = useState(0);

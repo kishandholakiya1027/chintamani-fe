@@ -11,7 +11,12 @@ import {
   addWishLishProduct,
   setOpenCart,
 } from "@/redux/reducer/cart";
-import { setCategory, setFilterProduct } from "@/redux/reducer/category";
+import {
+  fetchAllCategoryData,
+  fetchShapeData,
+  setCategory,
+  setFilterProduct,
+} from "@/redux/reducer/category";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import {
   faBars,
@@ -27,6 +32,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import CVD from "/assests/Images/cvd.png";
+import { AppDispatch } from "@/redux/store";
 
 interface Props {
   setOpenCart?: () => void;
@@ -44,20 +50,21 @@ interface Currency {
 }
 
 const Header = ({}: Props) => {
-  const [categories, setCategories] = useState([]);
   const [menu, setMenu] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const { apiAction } = useApi();
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [KnowledgeOpen, setKnowledgeOpen] = useState(false);
   const [AboutOpen, setAboutOpen] = useState(false);
-  const [shapes, setShapes] = useState([]);
+  
   const {
     auth: { user, token },
     cart: { cartCount, wishListCount },
   } = useSelector((state: { auth: any; cart: any }) => state);
+  const allCategory = useSelector((state: any) => state?.category?.allCategory);
+  const shapes = useSelector((state: any) => state?.category?.shape);
   // const { category } = useSelector((state: any) => state?.category);
   const modalRef: any = useRef(null);
 
@@ -66,8 +73,6 @@ const Header = ({}: Props) => {
       setMenuOpen(false);
     }
   };
-
-  console.log("shapes", shapes);
 
   useEffect(() => {
     if (menuOpen) {
@@ -117,7 +122,7 @@ const Header = ({}: Props) => {
         element?.classList.add("-top-full");
       }
     };
-    getCategories();
+    dispatch(fetchAllCategoryData());
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -128,14 +133,6 @@ const Header = ({}: Props) => {
   useEffect(() => {
     setMenuOpen(false);
   }, [window.location.pathname]);
-
-  const getCategories = async () => {
-    let data = await apiAction({
-      method: "get",
-      url: `${apiPath?.categories?.all}?page=1&pageSize=100`,
-    });
-    setCategories(data?.data);
-  };
 
   useEffect(() => {
     if (user?.id) {
@@ -159,7 +156,6 @@ const Header = ({}: Props) => {
       url: `${apiPath?.user?.allWishlist}/${user?.id}`,
       headers: { Authorization: `Bearer ${token}` },
     });
-    // console.log("🚀 ~ file: Diamonds.tsx:60 ~ fetchWishlistData ~ data:", data?.data?.whishlist_products_id, data?.data?.whishlist_products_id?.map((id: string) => id))
     if (data) dispatch(addWishLishProduct(data?.data));
   };
 
@@ -247,16 +243,8 @@ const Header = ({}: Props) => {
   };
 
   useEffect(() => {
-    getAllShape();
-  }, []);
-
-  const getAllShape = async () => {
-    const data = await apiAction({
-      method: "get",
-      url: `${apiPath?.shape?.all}`,
-    });
-    setShapes(data?.data?.Shapedata);
-  };
+    dispatch(fetchShapeData());
+  }, [dispatch]);
 
   const handleCountryChange = async (selectedOption: Country | null) => {
     let updatedFormData: any = {
@@ -283,12 +271,12 @@ const Header = ({}: Props) => {
       <li className="relative group">
         <Link
           to={""}
-          className="py-5 px-[15px] group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] text-sm border-b-[3px] border-transparent text-[#211c50] font-normal hover:bg-[#fff] flex items-center"
+          className="dropdown py-5 px-[15px] group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] text-sm border-b-[3px] border-transparent text-[#211c50] font-normal hover:bg-[#fff] flex items-center"
         >
           Home
         </Link>
       </li>
-      {categories?.map((category: Category, index: number) => {
+      {allCategory?.map((category: Category, index: number) => {
         return (
           <li
             key={index}
@@ -311,217 +299,232 @@ const Header = ({}: Props) => {
               <>
                 <div
                   // to={category?.subCategories?.length ? "" : "/product-category"}
-                  className={`group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent ${
+                  className={`group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent dropdown ${
                     category?.subCategories?.length &&
                     "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
                   }  flex items-center `}
                 >
                   {category?.name}
                 </div>
-                <div className="left-0 right-0 group-hover:visible group-hover:opacity-[1] bg-[#f1f1f1] z-[2147483641] px-[15px] py-[30px] whitespace-nowrap invisible opacity-0 flex justify-center absolute top-[100%] shadow cursor-default">
-                  <ul className="me-10">
-                    <h5 className="font-bold py-[5px] px-[15px] underline">
-                      SHOP BY Category
-                    </h5>
-                    {category?.subCategories?.map(
-                      (subCategory: subCategory, index) => {
-                        return (
-                          subCategory?.status === 1 && (
-                            <li
-                              key={index}
-                              className="flex flex-col list-none relative sub-group"
-                              onClick={() =>
-                                subCategory?.innerCategories?.length
-                                  ? {}
-                                  : dispatch(
-                                      setCategory([
-                                        {
-                                          path: category?.name,
-                                          id: category?.id,
-                                          name: "categoryid",
-                                        },
-                                        {
-                                          description: subCategory?.description,
-                                          path: subCategory?.name,
-                                          id: subCategory?.id,
-                                          name: "subCategoryid",
-                                        },
-                                      ])
-                                    )
-                              }
-                            >
-                              {subCategory?.innerCategories?.length ? (
-                                <div
-                                  className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] ${
-                                    subCategory?.innerCategories?.length &&
-                                    "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
-                                  }  font-semibold`}
-                                >
-                                  <img
-                                    src={subCategory?.image || CVD}
-                                    alt="CVD"
-                                    className="w-6 mr-[10px] align-middle"
-                                  />
-                                  {subCategory?.name}
-                                </div>
-                              ) : (
-                                <Link
-                                  to={
+                <div className="dropdown left-0 right-0 group-hover:visible group-hover:opacity-[1] bg-[#f1f1f1] z-[2147483641] px-[15px] py-[50px] whitespace-nowrap invisible opacity-0 flex absolute top-[100%] shadow cursor-default group:hover:transition-all">
+                  <div className="container flex justify-between">
+                    <div className="flex w-[60%]">
+                      <ul className="me-12">
+                        <h5 className="font-bold py-[5px] underline">
+                          SHOP BY Category
+                        </h5>
+                        {category?.subCategories?.map(
+                          (subCategory: subCategory, index) => {
+                            return (
+                              subCategory?.status === 1 && (
+                                <li
+                                  key={index}
+                                  className="flex flex-col list-none relative sub-group"
+                                  onClick={() =>
                                     subCategory?.innerCategories?.length
-                                      ? ""
-                                      : "/product-category"
+                                      ? {}
+                                      : dispatch(
+                                          setCategory([
+                                            {
+                                              path: category?.name,
+                                              id: category?.id,
+                                              name: "categoryid",
+                                            },
+                                            {
+                                              description:
+                                                subCategory?.description,
+                                              path: subCategory?.name,
+                                              id: subCategory?.id,
+                                              name: "subCategoryid",
+                                            },
+                                          ])
+                                        )
                                   }
-                                  className={`border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] capitalize ${
-                                    subCategory?.innerCategories?.length &&
-                                    "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
-                                  }  font-semibold`}
                                 >
-                                  <img
-                                    src={subCategory?.image || CVD}
-                                    alt="CVD"
-                                    className="w-6 mr-[10px] align-middle"
-                                  />
-                                  {subCategory?.name?.toLowerCase()}
-                                </Link>
-                              )}
-                              <ul
-                                className={`sub-group-hover:visible sub-group-hover:opacity-[1] bg-[#f1f1f1] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute lg:top-[100%] md:top-100 top-[77px] left-0`}
-                              >
-                                {subCategory?.innerCategories?.map(
-                                  (innerCategory: subCategory, index) => {
-                                    return (
-                                      <li
-                                        key={index}
-                                        className="flex flex-col list-none relative"
-                                        onClick={() =>
-                                          dispatch(
-                                            setCategory([
-                                              {
-                                                path: category?.name,
-                                                id: category?.id,
-                                                name: "categoryid",
-                                              },
-                                              {
-                                                path: subCategory?.name,
-                                                id: subCategory?.id,
-                                                name: "subCategoryid",
-                                              },
-                                              {
-                                                path: innerCategory?.name,
-                                                id: innerCategory?.id,
-                                                name: "innerCategoryid",
-                                                description:
-                                                  innerCategory?.description,
-                                              },
-                                            ])
-                                          )
-                                        }
-                                      >
-                                        <Link
-                                          to={"/product-category"}
-                                          className="border-0 py-5 px-[15px] font-semibold text-sm decoration-none flex items-center text-[#211c50]"
-                                        >
-                                          {innerCategory?.name}
-                                        </Link>
-                                      </li>
-                                    );
-                                  }
-                                )}
-                              </ul>
-                            </li>
-                          )
-                        );
-                      }
-                    )}
-                  </ul>
-                  <div className="me-10">
-                    <h5 className="font-bold py-[5px] px-[15px] underline">
-                      SHOP BY SHAPE
-                    </h5>
-                    <div className="flex justify-center">
-                      <ul className="me-5">
-                        {shapes
-                          ?.slice(0, Math.ceil(shapes.length / 2))
-                          .map((shape: shapeType) => (
-                            <li
-                              className="flex flex-col list-none relative sub-group"
-                              key={shape.id}
-                            >
-                              <Link
-                                className="border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] 0 capitalize font-semibold"
-                                to={"#"}
-                                onClick={() => {
-                                  dispatch(
-                                    setCategory([
-                                      { path: "Shape" },
-                                      {
-                                        path: shape?.name,
-                                        name: "shape",
-                                        id: shape?.name,
-                                      },
-                                    ])
-                                  );
-                                  navigate("/product-category");
-                                }}
-                              >
-                                <img
-                                  src={shape?.image}
-                                  alt="CVD"
-                                  className="w-6 mr-[10px] align-middle"
-                                />
-                                {shape?.name?.toLowerCase()}
-                              </Link>
-                            </li>
-                          ))}
+                                  {subCategory?.innerCategories?.length ? (
+                                    <div
+                                      className={`border-0 py-2 text-sm decoration-none flex items-center text-[#211c50] font-semibold ${
+                                        subCategory?.innerCategories?.length
+                                          ? "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
+                                          : ""
+                                      }`}
+                                    >
+                                      <div className="w-6 h-6 mr-[10px] flex items-center">
+                                        <img
+                                          src={subCategory?.image || CVD}
+                                          alt="CVD"
+                                          className="w-[100%] h-[auto] max-h-[100%] align-middle"
+                                        />
+                                      </div>
+                                      {subCategory?.name}
+                                    </div>
+                                  ) : (
+                                    <Link
+                                      to={
+                                        subCategory?.innerCategories?.length
+                                          ? ""
+                                          : "/product-category"
+                                      }
+                                      className={`sublink border-0 py-2 text-sm decoration-none flex items-center text-[#211c50] capitalize ${
+                                        subCategory?.innerCategories?.length
+                                          ? "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
+                                          : ""
+                                      }  font-semibold`}
+                                    >
+                                      <div className="w-6 h-6 mr-[10px] flex items-center">
+                                        <img
+                                          src={subCategory?.image || CVD}
+                                          alt="CVD"
+                                          className="w-[100%] h-[auto] max-h-[100%] align-middle"
+                                        />
+                                      </div>
+                                      {subCategory?.name?.toLowerCase()}
+                                    </Link>
+                                  )}
+                                  <ul
+                                    className={`sub-group-hover:visible sub-group-hover:opacity-[1] bg-[#f1f1f1] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute lg:top-[100%] md:top-100 top-[77px] left-0`}
+                                  >
+                                    {subCategory?.innerCategories?.map(
+                                      (innerCategory: subCategory, index) => {
+                                        return (
+                                          <li
+                                            key={index}
+                                            className="flex flex-col list-none relative"
+                                            onClick={() =>
+                                              dispatch(
+                                                setCategory([
+                                                  {
+                                                    path: category?.name,
+                                                    id: category?.id,
+                                                    name: "categoryid",
+                                                  },
+                                                  {
+                                                    path: subCategory?.name,
+                                                    id: subCategory?.id,
+                                                    name: "subCategoryid",
+                                                  },
+                                                  {
+                                                    path: innerCategory?.name,
+                                                    id: innerCategory?.id,
+                                                    name: "innerCategoryid",
+                                                    description:
+                                                      innerCategory?.description,
+                                                  },
+                                                ])
+                                              )
+                                            }
+                                          >
+                                            <Link
+                                              to={"/product-category"}
+                                              className="ml-[34px] border-0 font-semibold text-sm decoration-none flex items-center text-[#211c50]"
+                                            >
+                                              {innerCategory?.name}
+                                            </Link>
+                                          </li>
+                                        );
+                                      }
+                                    )}
+                                  </ul>
+                                </li>
+                              )
+                            );
+                          }
+                        )}
                       </ul>
-                      <ul className="me-5">
-                        {shapes
-                          ?.slice(Math.ceil(shapes.length / 2))
-                          .map((shape: shapeType) => (
-                            <li
-                              className="flex flex-col list-none relative sub-group"
-                              key={shape.id}
-                            >
-                              <Link
-                                className="border-0 py-5 px-[15px] text-sm decoration-none flex items-center text-[#211c50] 0 capitalize font-semibold"
-                                to={"#"}
-                                onClick={() => {
-                                  dispatch(
-                                    setCategory([
-                                      { path: "Shape" },
-                                      {
-                                        path: shape?.name,
-                                        name: "shape",
-                                        id: shape?.name,
-                                      },
-                                    ])
-                                  );
-                                  navigate("/product-category");
-                                }}
-                              >
-                                <img
-                                  src={shape?.image}
-                                  alt="CVD"
-                                  className="w-6 mr-[10px] align-middle"
-                                />
-                                {shape?.name?.toLowerCase()}
-                              </Link>
-                            </li>
-                          ))}
-                      </ul>
+                      <div className="me-12">
+                        <h5 className="font-bold py-[5px] underline">
+                          SHOP BY SHAPE
+                        </h5>
+                        <div className="flex justify-center">
+                          <ul className="me-5">
+                            {shapes
+                              ?.slice(0, Math.ceil(shapes.length / 2))
+                              .map((shape: shapeType) => (
+                                <li
+                                  className="flex flex-col list-none relative sub-group"
+                                  key={shape.id}
+                                >
+                                  <Link
+                                    className="border-0 py-2 text-sm decoration-none flex items-center text-[#211c50] 0 capitalize font-semibold"
+                                    to={"#"}
+                                    onClick={() => {
+                                      dispatch(
+                                        setCategory([
+                                          { path: "Shape" },
+                                          {
+                                            path: shape?.name,
+                                            name: "shape",
+                                            id: shape?.name,
+                                          },
+                                        ])
+                                      );
+                                      navigate("/product-category");
+                                    }}
+                                  >
+                                    <div className="w-6 h-6 mr-[10px] flex items-center">
+                                      <img
+                                        src={shape?.image}
+                                        alt="CVD"
+                                        className="w-[100%] h-[auto] max-h-[100%] align-middle"
+                                      />
+                                    </div>
+                                    {shape?.name?.toLowerCase()}
+                                  </Link>
+                                </li>
+                              ))}
+                          </ul>
+                          <ul className="me-5">
+                            {shapes
+                              ?.slice(Math.ceil(shapes.length / 2))
+                              .map((shape: shapeType) => (
+                                <li
+                                  className="flex flex-col list-none relative sub-group"
+                                  key={shape.id}
+                                >
+                                  <Link
+                                    className="border-0 py-2 text-sm decoration-none flex items-center text-[#211c50] 0 capitalize font-semibold"
+                                    to={"#"}
+                                    onClick={() => {
+                                      dispatch(
+                                        setCategory([
+                                          { path: "Shape" },
+                                          {
+                                            path: shape?.name,
+                                            name: "shape",
+                                            id: shape?.name,
+                                          },
+                                        ])
+                                      );
+                                      navigate("/product-category");
+                                    }}
+                                  >
+                                    <div className="w-6 h-6 mr-[10px] flex items-center">
+                                      <img
+                                        src={shape?.image}
+                                        alt="CVD"
+                                        className="w-[100%] h-[auto] max-h-[100%] align-middle"
+                                      />
+                                    </div>
+                                    {shape?.name?.toLowerCase()}
+                                  </Link>
+                                </li>
+                              ))}
+                          </ul>
+                        </div>
+                      </div>
                     </div>
+                    <img
+                      src="/assests/Images/D_GED_x1-300x225.jpg"
+                      alt=""
+                      className="w-[35%] h-auto"
+                    />
                   </div>
-                  <img
-                    src="/assests/Images/D_GED_x1-300x225.jpg"
-                    alt=""
-                    className="w-[300px] h-auto"
-                  />
                 </div>
               </>
             ) : (
               <Link
                 to={"/product-category"}
-                className={`group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent ${
+                className={`dropdown group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent ${
                   category?.subCategories?.length &&
                   "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
                 }  flex items-center `}
@@ -541,14 +544,14 @@ const Header = ({}: Props) => {
                           </Link>
                         </li> */}
 
-      <li className="relative group diamond list-none flex  flex-col">
+      <li className="group relative group diamond list-none flex  flex-col">
         <Link
           to={""}
-          className="group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] flex items-center after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
+          className="dropdown group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] flex items-center after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
         >
           Knowledge
         </Link>
-        <ul className="sub-menu bg-[#f1f1f1] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%] group-hover:visible group-hover:opacity-[1]">
+        <ul className="dropdown sub-menu bg-[#f1f1f1] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%] group-hover:visible group-hover:opacity-[1]">
           <li className="flex flex-col list-none relative">
             <Link
               to={"/diamond-price"}
@@ -575,14 +578,14 @@ const Header = ({}: Props) => {
           </li>
         </ul>
       </li>
-      <li className="relative group diamond list-none flex  flex-col">
+      <li className="group relative group diamond list-none flex  flex-col">
         <Link
           to={""}
-          className="group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] flex items-center after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
+          className="dropdown group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] flex items-center after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
         >
           About
         </Link>
-        <ul className="left-0 right-0 sub-menu bg-[#f1f1f1] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%] group-hover:visible group-hover:opacity-[1]">
+        <ul className="dropdown left-0 right-0 sub-menu bg-[#f1f1f1] min-w-[270px] z-[2147483641] p-0 flex-col whitespace-nowrap invisible opacity-0 flex  absolute top-[100%] group-hover:visible group-hover:opacity-[1]">
           <li className="flex flex-col list-none relative">
             <Link
               to={"/why-us"}
@@ -593,21 +596,21 @@ const Header = ({}: Props) => {
           </li>
         </ul>
       </li>
-      <li className="relative diamond list-none flex flex-col">
+      <li className="group relative diamond list-none flex flex-col">
         <Link
           to={"/product-category"}
           onClick={() =>
             dispatch(setCategory([{ name: "Shop", path: "Shop", id: "Shop" }]))
           }
-          className="py-5 px-[15px] text-sm border-b-[3px] border-transparent font-normal text-[#211c50] hover:bg-[#fff] hover:border-b-[3px] hover:border-[#211c50] flex items-center"
+          className="dropdown py-5 px-[15px] text-sm border-b-[3px] border-transparent font-normal text-[#211c50] hover:bg-[#fff] hover:border-b-[3px] hover:border-[#211c50] flex items-center"
         >
           Shop
         </Link>
       </li>
-      <li className="relative diamond list-none flex flex-col">
+      <li className="group relative diamond list-none flex flex-col">
         <Link
           to={"/contact"}
-          className="py-5 px-[15px] text-sm border-b-[3px] border-transparent font-normal text-[#211c50] hover:bg-[#fff] hover:border-b-[3px] hover:border-[#211c50] flex items-center"
+          className="dropdown py-5 px-[15px] text-sm border-b-[3px] border-transparent font-normal text-[#211c50] hover:bg-[#fff] hover:border-b-[3px] hover:border-[#211c50] flex items-center"
         >
           Contact
         </Link>
@@ -642,9 +645,9 @@ const Header = ({}: Props) => {
           Category
         </div>
       </li>
-      {categories?.length > 0 &&
+      {allCategory?.length > 0 &&
         categoryOpen &&
-        categories?.map((category: Category, index: number) => {
+        allCategory?.map((category: Category, index: number) => {
           return (
             <li key={index} className={`group list-none flex flex-col`}>
               <div

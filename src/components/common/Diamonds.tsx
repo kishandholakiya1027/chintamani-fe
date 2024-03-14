@@ -32,7 +32,6 @@ const Diamonds = () => {
 		if (category?.length) {
 			window.scrollTo(0, 0);
 			let currCategory = category?.[category?.length - 1];
-			// console.log(currCategory, "currCategory");
 			if (currCategory.path === " FANCY DIAMOND") {
 				dispatch(
 					setCategory([

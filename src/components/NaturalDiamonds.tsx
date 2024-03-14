@@ -1,29 +1,15 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import KImg from "/assests/Images/k1.png";
 import { Button } from "./ui/button";
-import useApi from "@/hooks/useApi";
-import { apiPath } from "@/lib/api-path";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCategory } from "@/redux/reducer/category";
 
 const NaturalDiamonds: FC = () => {
 	const navigate = useNavigate();
-	const { apiAction } = useApi();
-	const [categories, setCategories] = useState<any[]>([]);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		getCategories();
-	}, []);
-
-	const getCategories = async () => {
-		let data = await apiAction({
-			method: "get",
-			url: `${apiPath?.categories?.all}?page=1&pageSize=100`,
-		});
-		setCategories(data?.data);
-	};
+	const allCategory = useSelector((state: any) => state?.category?.allCategory);
 
 	const handleRoute = (category: any) => {
 		dispatch(setCategory(category));
@@ -34,8 +20,8 @@ const NaturalDiamonds: FC = () => {
 		<section className="w-full">
 			<div className="container lg:px-5 md:px-5 sm:px-5 px-0 h-[100%] pb-[54px]">
 				<div className="py-0 flex flex-row items-stretch flex-wrap justify-center">
-					{categories?.length > 0 &&
-						categories?.map((elm, idx) => {
+					{allCategory?.length > 0 &&
+						allCategory?.map((elm: any, idx: number) => {
 							return (
 								<>
 									{elm?.name.toLowerCase() === "jewellery" && (

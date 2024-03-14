@@ -1,39 +1,17 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import footerLogo from "/assests/Images/LogoFooter.png";
 import Payment from "/assests/Images/Payment.png";
 import { Link, useNavigate } from "react-router-dom";
 import { setCategory } from "@/redux/reducer/category";
-import { useDispatch } from "react-redux";
-import useApi from "@/hooks/useApi";
-import { apiPath } from "@/lib/api-path";
+import { useDispatch, useSelector } from "react-redux";
 import bgImage from "/assests/Images/BgFooter.png";
 
 const Footer: FC = () => {
-  // const { category } = useSelector((state: any) => state?.category)
   const dispatch = useDispatch();
-  const [categories, setCategories] = useState([]);
-
-  const { apiAction } = useApi();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getCategories();
-  }, []);
+  const allCategory = useSelector((state: any) => state?.category?.allCategory);
 
-  const getCategories = async () => {
-    let data = await apiAction({
-      method: "get",
-      url: `${apiPath?.categories?.all}?page=1&pageSize=100`,
-    });
-    console.log(data, "data");
-    setCategories(
-      data?.data?.filter(
-        (category: any) =>
-          category?.name.toLowerCase() === "diamonds" ||
-          category?.name?.toLowerCase() === "diamond"
-      )
-    );
-  };
   const handleRoute = (category: any) => {
     dispatch(setCategory(category));
     navigate("/product-category");
@@ -108,7 +86,7 @@ const Footer: FC = () => {
               </div>
             </div>
             <div className="sm:mb-0 mb-[10px] text-[#fff] lg:pb-[0] md:pb-[40px] pb-[40px]">
-              {categories?.map((category: any) => {
+              {allCategory?.map((category: any) => {
                 return (
                   <div>
                     <h3
@@ -123,12 +101,14 @@ const Footer: FC = () => {
                         ])
                       }
                     >
-                      Diamonds
+                      {category?.name}
                     </h3>
                     <ul className="text-[15px] flex flex-col gap-1 font-poppins capitalize">
-                      {category?.subCategories.map((subCategory: any) => {
-                        return (
+                      {category?.subCategories
+                        .filter((subCategory: any) => subCategory.status === 1)
+                        .map((subCategory: any) => (
                           <li
+                            key={subCategory.id}
                             className="mb-[5px]"
                             onClick={() =>
                               handleRoute([
@@ -150,8 +130,7 @@ const Footer: FC = () => {
                               {subCategory?.name?.toLowerCase()}
                             </Link>
                           </li>
-                        );
-                      })}
+                        ))}
                     </ul>
                   </div>
                 );
