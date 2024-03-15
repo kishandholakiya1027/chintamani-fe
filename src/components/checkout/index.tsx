@@ -1,9 +1,8 @@
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
-import { addCartProduct } from "@/redux/reducer/cart";
 import { useCallback, useMemo, useState } from "react";
 import useRazorpay from "react-razorpay";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import SideComponent from "./SideComponent";
@@ -12,7 +11,6 @@ const VITE_RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID;
 const VITE_RAZORPAY_KEY_SECRET = import.meta.env.VITE_RAZORPAY_KEY_SECRET;
 
 const CheckoutComponent = () => {
-	const dispatch = useDispatch();
 	const [address, setAddress] = useState({});
 	const [contact, setContact] = useState();
 	const [currency, setCurrency] = useState({ value: "", price: "" });
@@ -26,7 +24,7 @@ const CheckoutComponent = () => {
 	} = useSelector((state: any) => state);
 
 	const priceFormate = useMemo(() => {
-		return cartProduct?.length > 0 && cartProduct?.map((product: any) => {
+		return cartProduct?.length > 0 && (cartProduct || [])?.map((product: any) => {
 			return {
 				...product.product,
 				newCalcPrice: product?.product?.disccount_price ? currency.price !== "" ? product?.product?.disccount_price * +currency.price : product?.product?.disccount_price : currency.price !== "" ? product?.product?.price * +currency.price : product?.product?.price
@@ -89,21 +87,6 @@ const CheckoutComponent = () => {
 				},
 				headers: { Authorization: `Bearer ${token}` },
 			});
-
-			const fetchCartData = async () => {
-				const cartData = await apiAction({
-					method: "get",
-					url: `${apiPath?.user?.allCart}/${user?.id}`,
-					headers: { Authorization: `Bearer ${token}` },
-				});
-
-				if (cartData) {
-					dispatch(addCartProduct(cartData?.data));
-				}
-			};
-
-			await fetchCartData();
-
 			return data;
 		} catch (error) {
 			console.log(error);

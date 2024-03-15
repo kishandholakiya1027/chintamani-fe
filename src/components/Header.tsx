@@ -7,7 +7,6 @@ import { apiPath } from "@/lib/api-path";
 import { Category, shapeType, subCategory } from "@/lib/interfaces/category";
 import { handleLogout, setUser } from "@/redux/reducer/auth";
 import {
-  addCartProduct,
   addWishLishProduct,
   setOpenCart,
 } from "@/redux/reducer/cart";
@@ -61,10 +60,11 @@ const Header = ({}: Props) => {
   
   const {
     auth: { user, token },
-    cart: { cartCount, wishListCount },
+    cart: { wishListCount },
   } = useSelector((state: { auth: any; cart: any }) => state);
   const allCategory = useSelector((state: any) => state?.category?.allCategory);
   const shapes = useSelector((state: any) => state?.category?.shape);
+  const cartProduct = useSelector((state: any) => state?.cart?.cartProduct);
   // const { category } = useSelector((state: any) => state?.category);
   const modalRef: any = useRef(null);
 
@@ -136,19 +136,9 @@ const Header = ({}: Props) => {
 
   useEffect(() => {
     if (user?.id) {
-      fetchCartData();
       fetchWishlistData();
     }
   }, []);
-
-  const fetchCartData = async () => {
-    const data = await apiAction({
-      method: "get",
-      url: `${apiPath?.user?.allCart}/${user?.id}`,
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (data) dispatch(addCartProduct(data?.data));
-  };
 
   const fetchWishlistData = async () => {
     const data = await apiAction({
@@ -1113,10 +1103,10 @@ const Header = ({}: Props) => {
                 className="mx-3 relative"
                 onClick={() => dispatch(setOpenCart())}
               >
-                {cartCount ? (
+                {cartProduct?.length > 0 ? (
                   <div className="t-0 absolute lg:left-[17px] md:left-[10px] left-[10px] lg:bottom-[18px] md:bottom-[16px] bottom-[16px]">
                     <p className="flex h-2 w-2 items-center justify-center rounded-full bg-[#211c50] p-2 text-[10px] text-white">
-                      {cartCount}
+                      {cartProduct?.length}
                     </p>
                   </div>
                 ) : null}

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import BreadCrumb from "../common/BreadCrumb";
 import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "@/lib/utils";
-import { addCartProduct, setOpenCart } from "@/redux/reducer/cart";
+import { setOpenCart } from "@/redux/reducer/cart";
 import { productType } from "@/lib/interfaces/category";
 import TrendingDiamond from "../TrendingDiamond";
 import SocialShare from "../social-share";
@@ -17,7 +17,7 @@ const ProductDetailsComponent = () => {
 		cart: { cartProduct },
 		auth: { user, token },
 	} = useSelector((state: any) => state);
-	let cartProductIds = cartProduct?.map(
+	let cartProductIds = (cartProduct || [])?.map(
 		(product: any) => product?.product?.id || product?.id
 	);
 
@@ -63,7 +63,7 @@ const ProductDetailsComponent = () => {
 				});
 				if (!data?.data?.error) {
 					setIsLoading(false);
-					dispatch(addCartProduct(data?.data));
+					// dispatch(addCartProduct(data?.data));
 					// setCartProducts([...cartProducts||[], id])
 				}
 			}

@@ -5,55 +5,44 @@ import useApi from "@/hooks/useApi";
 import { productType } from "@/lib/interfaces/category";
 import { showToast } from "@/lib/utils";
 import {
-	addCartProduct,
+	addLocalCartProduct,
 	addWishLishProduct,
+	fetchCartData,
+	postCartData,
 	setOpenCart,
 } from "@/redux/reducer/cart";
 import { useNavigate } from "react-router-dom";
 import { setCategory } from "@/redux/reducer/category";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { AppDispatch } from "@/redux/store";
 
 const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
-	const { user, token } = useSelector((state: { auth: any }) => state.auth);
+	const { user, token } = useSelector((state: any) => state.auth);
 	const { category } = useSelector((state: any) => state?.category);
 
 	const [wishlist, setWishlist] = useState<string[]>([]);
-	const [cartProducts, setCartProducts] = useState<string[]>([]);
-	const [productLoading, setProductLoading] = useState<string[]>([]);
-	console.log("products", products);
+	const [productLoading, setProductLoading] = useState<string[]>([]);	
+	const [localProduct, setLocalProduct] = useState<any>([])	
 
 	const { apiAction, loader: loading } = useApi();
-	const dispatch = useDispatch();
+	const dispatch: AppDispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const cartProduct = useSelector((state: any) => state?.cart?.cartProduct)
+	console.log("store", cartProduct);
+	
 	useEffect(() => {
 		if (user?.id) {
-			fetchCartData();
+			dispatch(fetchCartData(user?.id))
 			fetchWishlistData();
 		}
-	}, []);
+	}, [user?.id]);
 
 	const checkUser = () => {
 		if (user?.id) return true;
-
-		toast("Please login to enhance experience");
-		navigate("/login");
-	};
-
-	const fetchCartData = async () => {
-		const data = await apiAction({
-			method: "get",
-			url: `${apiPath?.user?.allCart}/${user?.id}`,
-			headers: { Authorization: `Bearer ${token}` },
-		});
-		if (data) {
-			setCartProducts(
-				data?.data?.products?.map((product: any) => product?.product?.id)
-			);
-		}
 	};
 
 	const fetchWishlistData = async () => {
@@ -102,31 +91,54 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
 		}
 	};
 
-	const addToCart = async (id: string) => {
+	const addToCart = async (id: string, product: any) => {
 		if (checkUser()) {
 			try {
-				setProductLoading((prevLoading) => [...prevLoading, id]);
-				if (cartProducts?.includes(id)) {
-					return;
-				}
-				const data = await apiAction({
-					method: "post",
-					url: `${apiPath?.product?.addToCart}`,
-					data: { userid: user?.id, productid: id, quantity: 1 },
-					headers: { Authorization: `Bearer ${token}` },
-				});
+				// setProductLoading((prevLoading) => [...prevLoading, id]);
+				// if (cartProducts?.includes(id)) {
+				// 	return;
+				// }
+				// const data = await apiAction({
+				// 	method: "post",
+				// 	url: `${apiPath?.product?.addToCart}`,
+				// 	data: { userid: user?.id, productid: id, quantity: 1 },
+				// 	headers: { Authorization: `Bearer ${token}` },
+				// });
 
-				if (!data?.data?.error) {
-					dispatch(addCartProduct(data?.data));
-					setCartProducts([...(cartProducts || []), id]);
-				}
+				// if (!data?.data?.error) {
+				// 	dispatch(addCartProduct(data?.data));
+				// 	setCartProducts([...(cartProducts || []), id]);
+				// }
+				await dispatch(postCartData({
+						userid: user?.id,
+							quantity: 1,
+							productid: id,
+							token
+				}))
+				dispatch(fetchCartData(user?.id));
 			} catch (error) {
-				console.log(error);
+				console.error(error);
 			} finally {
 				setProductLoading((prevLoading) =>
 					prevLoading.filter((productId) => productId !== id)
 				);
 			}
+		} 
+		else {
+			const isAlreadyInCart = localProduct.some(
+				(item: any) => item.product.id === product.id
+			  );
+			  
+			  if (!isAlreadyInCart) {
+				dispatch(addLocalCartProduct({ product, quantity: 1 }));
+				setLocalProduct((prev: any) => [
+				  ...prev,
+				  {
+					product: product,
+					quantity: 1,
+				  },
+				]);
+			  }			  
 		}
 	};
 
@@ -167,6 +179,12 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
 		const formattedPrice = roundedPrice.toFixed(2);
 		return formattedPrice;
 	}
+
+	// useEffect(() => {
+	// 	dispatch(addLocalCartProduct(localProduct))
+		
+	// 	setCartProducts(localProduct.map((product: any) => product.product.id))
+	// }, [localProduct?.length])
 
 	const fetchProducts = (product: productType) => {
 		return (
@@ -246,7 +264,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
 						)}
 						{/* <FontAwesomeIcon icon={faHeart} onClick={() => addToWishList(product?.id)} />
                     <FontAwesomeIcon icon={regular("heart")} /> */}
-						{cartProducts?.includes(product?.id || "") ? (
+						{(cartProduct?.length ? cartProduct : [])?.map((product: any) => product.product.id)?.includes(product?.id || "") ? (
 							<button
 								className="text-[#211c50] text-sm font-bold"
 								onClick={() => dispatch(setOpenCart())}>
@@ -254,7 +272,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
 							</button>
 						) : (
 							<button
-								onClick={() => addToCart(product?.id || "")}
+								onClick={() => addToCart(product?.id || "", product)}
 								className={`text-[#211c50] text-sm font-bold ${
 									productLoading.includes(product?.id || "")
 										? "cursor-not-allowed opacity-50"

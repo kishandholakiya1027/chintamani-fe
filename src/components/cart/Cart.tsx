@@ -1,12 +1,13 @@
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
-import { addCartProduct, addQuantity, setOpenCart } from "@/redux/reducer/cart";
+import { fetchCartData, setOpenCart } from "@/redux/reducer/cart";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RemovePopup from "../alert/RemovePopup";
 import { useNavigate } from "react-router";
 import Loader from "../common/Loader";
 import { toast } from "react-toastify";
+import { AppDispatch } from "@/redux/store";
 
 const Index = () => {
 	const modalRef: any = useRef(null);
@@ -14,8 +15,8 @@ const Index = () => {
 	const {
 		cart: { cartProduct, openCart },
 		auth: { token, user },
-	} = useSelector((state: { cart: any; auth: any }) => state);
-	const dispatch = useDispatch();
+	} = useSelector((state: any) => state);
+	const dispatch: AppDispatch = useDispatch();
 	const { loader, apiAction } = useApi();
 	const [openPopup, setOpenPopup] = useState("");
 
@@ -28,7 +29,7 @@ const Index = () => {
 			headers: { Authorization: `Bearer ${token}` },
 		});
 		if (!data?.data?.error) {
-			dispatch(addQuantity({ id, quantity: quantity || "" }));
+			// dispatch(addQuantity({ id, quantity: quantity || "" }));
 			// dispatch(addCartProduct(data?.data))
 			// setCartProducts([...cartProducts||[], id])
 		}
@@ -56,7 +57,8 @@ const Index = () => {
 			headers: { Authorization: `Bearer ${token}` },
 		});
 		if (!data?.data?.error) {
-			dispatch(addCartProduct(data?.data));
+			dispatch(fetchCartData(user?.id))
+			// dispatch(addCartProduct(data?.data));
 			setOpenPopup("");
 		}
 		// setCartProducts(cartProducts?.filter((item: string) => item !== id))
@@ -170,7 +172,7 @@ const Index = () => {
 									</div>
 								) : null}
 								{cartProduct?.length ? (
-									cartProduct?.map((products: any) => {
+									(cartProduct || [])?.map((products: any) => {
 										let product = products?.product || products;
 										let qty = products?.quantity;
 										return (
