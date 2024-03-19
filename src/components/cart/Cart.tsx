@@ -195,6 +195,7 @@ const Index = () => {
                             </p>
                             <div className="flex items-center border-gray-100 justify-start my-2">
                               <button
+                                disabled = {Number(qty) <= 1}
                                 onClick={async () => {
                                   if (user?.id) {
                                     await dispatch(
@@ -213,11 +214,6 @@ const Index = () => {
                                     );
                                   }
                                 }}
-                                disabled={
-                                  qty === "undefined" || !qty || qty === 1
-                                    ? true
-                                    : false
-                                }
                                 className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
                               >
                                 -
