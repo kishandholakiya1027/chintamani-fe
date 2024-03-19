@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import KImg from "/assests/Images/k1.png";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +23,7 @@ const NaturalDiamonds: FC = () => {
 					{allCategory?.length > 0 &&
 						allCategory?.map((elm: any, idx: number) => {
 							return (
-								<>
+								<Fragment key={idx}>
 									{elm?.name.toLowerCase() === "jewellery" && (
 										<div
 											key={idx}
@@ -136,7 +136,7 @@ const NaturalDiamonds: FC = () => {
 												</div>
 											</div>
 										))}
-								</>
+								</Fragment>
 							);
 						})}
 				</div>

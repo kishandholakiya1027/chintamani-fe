@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BreadCrumb from "../common/BreadCrumb";
 import { useDispatch, useSelector } from "react-redux";
-import { showToast } from "@/lib/utils";
-import { setOpenCart } from "@/redux/reducer/cart";
+import { addLocalCartProduct, fetchCartData, postCartData, setOpenCart } from "@/redux/reducer/cart";
 import { productType } from "@/lib/interfaces/category";
 import TrendingDiamond from "../TrendingDiamond";
 import SocialShare from "../social-share";
+import { AppDispatch } from "@/redux/store";
 
 const ProductDetailsComponent = () => {
 	const { apiAction } = useApi();
@@ -17,16 +17,13 @@ const ProductDetailsComponent = () => {
 		cart: { cartProduct },
 		auth: { user, token },
 	} = useSelector((state: any) => state);
-	let cartProductIds = (cartProduct || [])?.map(
-		(product: any) => product?.product?.id || product?.id
-	);
 
 	const [product, setProduct] = useState<productType | null>(null);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState<string[]>([]);
 	const [currentImage, setCurrentImage] = useState<any>("");
 	const [currentVideo, setCurrentVideo] = useState<any>("");
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch: AppDispatch = useDispatch();
 
 	useEffect(() => {
 		getProduct();
@@ -44,31 +41,47 @@ const ProductDetailsComponent = () => {
 	};
 	const checkUser = () => {
 		if (user?.id) return true;
-
-		showToast("Please login to enhance experience");
-		navigate("/login");
 	};
 
-	const addToCart = async () => {
-		if (cartProductIds?.includes(product?.id)) {
-			dispatch(setOpenCart());
+	const [localProduct, setLocalProduct] = useState<any>([]);
+
+	const addToCart = async (id: string, product: any) => {
+		if (checkUser()) {
+		  try {
+			await dispatch(
+			  postCartData({
+				userid: user?.id,
+				quantity: 1,
+				productid: id,
+				token,
+			  })
+			);
+			dispatch(fetchCartData(user?.id));
+		  } catch (error) {
+			console.error(error);
+		  } 
+		  finally {
+			setIsLoading((prevLoading) =>
+			  prevLoading?.filter((productId: any) => productId !== id)
+			);
+		  }
 		} else {
-			if (checkUser()) {
-				setIsLoading(true);
-				const data = await apiAction({
-					method: "post",
-					url: `${apiPath?.product?.addToCart}`,
-					data: { userid: user?.id, productid: product?.id, quantity: 1 },
-					headers: { Authorization: `Bearer ${token}` },
-				});
-				if (!data?.data?.error) {
-					setIsLoading(false);
-					// dispatch(addCartProduct(data?.data));
-					// setCartProducts([...cartProducts||[], id])
-				}
-			}
+		  const isAlreadyInCart = localProduct.some(
+			(item: any) => item.product.id === product.id
+		  );
+	
+		  if (!isAlreadyInCart) {
+			dispatch(addLocalCartProduct({ product, quantity: 1 }));
+			setLocalProduct((prev: any) => [
+			  ...prev,
+			  {
+				product: product,
+				quantity: 1,
+			  },
+			]);
+		  }
 		}
-	};
+	  };
 
 	const diamondsDetails = [
 		{
@@ -274,16 +287,38 @@ const ProductDetailsComponent = () => {
 								)}
 							</div>
 						</div>
-						<button
-							disabled={isLoading}
-							onClick={addToCart}
+						{/* <button
+							onClick={() => {cartProductIds?.includes(product?.id) ? dispatch(setOpenCart()) : addToCart(product?.id || "", product)}}
 							className="text-white text-center text-base font-bold leading-4 items-stretch border outline-none bg-purple-800 disabled:bg-purple-400  mt-7 px-5 py-3.5 rounded border-solid border-indigo-950 self-start lg:ml-2.5 md:ml-2.5 ml-0">
 							{isLoading
 								? "Adding to cart"
 								: cartProductIds?.includes(product?.id)
 								? "Go to cart"
 								: "Add to cart"}
-						</button>
+						</button> */}
+						{(cartProduct?.length ? cartProduct : [])
+              ?.map((product: any) => product?.product?.id)
+              ?.includes(product?.id || "") ? (
+              <button
+			  className="text-white text-center text-base font-bold leading-4 items-stretch border outline-none bg-purple-800 disabled:bg-purple-400  mt-7 px-5 py-3.5 rounded border-solid border-indigo-950 self-start lg:ml-2.5 md:ml-2.5 ml-0"
+                onClick={() => dispatch(setOpenCart())}
+              >
+                Go to Cart
+              </button>
+            ) : (
+              <button
+                onClick={() => addToCart(product?.id || "", product)}
+                className={`text-white text-center text-base font-bold leading-4 items-stretch border outline-none bg-purple-800 disabled:bg-purple-400  mt-7 px-5 py-3.5 rounded border-solid border-indigo-950 self-start lg:ml-2.5 md:ml-2.5 ml-0 ${
+                  isLoading.includes(product?.id || "")
+                    ? "cursor-not-allowed opacity-50"
+                    : ""
+                }`}
+              >
+                {isLoading.includes(product?.id || "")
+                  ? "Adding to Cart..."
+                  : "Add to Cart"}
+              </button>
+            )}
 						{product?.diamond_certificate && (
 							<span
 								onClick={() =>

@@ -86,9 +86,9 @@ const Footer: FC = () => {
               </div>
             </div>
             <div className="sm:mb-0 mb-[10px] text-[#fff] lg:pb-[0] md:pb-[40px] pb-[40px]">
-              {allCategory?.map((category: any) => {
+              {allCategory?.map((category: any, index: number) => {
                 return (
-                  <div>
+                  <div key={index}>
                     <h3
                       className="text-xl font-medium mb-4"
                       onClick={() =>

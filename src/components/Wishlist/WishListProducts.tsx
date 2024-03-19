@@ -1,33 +1,23 @@
 import useApi from "@/hooks/useApi";
-import { apiPath } from "@/lib/api-path";
-import { addWishLishProduct } from "@/redux/reducer/cart";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../common/Loader";
+import {
+  deleteItemW,
+  fetchWishListData,
+  removeWishlistItem,
+} from "@/redux/reducer/cart";
+import { AppDispatch } from "@/redux/store";
 
 const WishListProducts = () => {
   const [openPopup, setOpenPopup] = useState<string | undefined>("");
   const {
     cart: { wishListProduct },
-    auth: { token, user },
+    auth: { user },
   } = useSelector((state: { cart: any; auth: any }) => state);
 
-  const { apiAction, loader } = useApi();
-
-  const dispatch = useDispatch();
-  const removeFromWishList = async (id: string) => {
-    const data = await apiAction({
-      method: "post",
-      url: `${apiPath?.product?.removeWishlist}`,
-      data: { userid: user?.id, productid: id },
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (!data?.data?.error) {
-      dispatch(addWishLishProduct(data?.data));
-      // showToast("Removed to your wishlist")
-      // setWishlist(wishlist?.filter((item: string) => item !== id))
-    }
-  };
+  const dispatch: AppDispatch = useDispatch();
+  const { loader } = useApi();
 
   return (
     <div className="container mx-auto py-6">
@@ -39,10 +29,13 @@ const WishListProducts = () => {
       {loader ? <Loader /> : null}
       <div className=" md:w-full rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] ">
         {wishListProduct?.length ? (
-          wishListProduct?.map((products: any) => {
+          wishListProduct?.map((products: any, index: number) => {
             let product = products?.product || products;
             return (
-              <div className=" rounded-lg bg-white p-2 sm:p-4 border-b-[1px] border-gray-200 flex justify-start items-center">
+              <div
+                className=" rounded-lg bg-white p-2 sm:p-4 border-b-[1px] border-gray-200 flex justify-start items-center"
+                key={index}
+              >
                 <img
                   src={product?.productimage[0]}
                   alt="product-image"
@@ -72,9 +65,9 @@ const WishListProducts = () => {
                         className="w-5 h-5 cursor-pointer"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         />
                       </svg>
                     </div>
@@ -90,9 +83,21 @@ const WishListProducts = () => {
                               Cancel
                             </button>
                             <button
-                              onClick={() =>
-                                removeFromWishList(product?.id || "")
-                              }
+                              onClick={async () => {
+                                if (user?.id) {
+                                  await dispatch(
+                                    removeWishlistItem({
+                                      userid: user?.id,
+                                      productid: product?.id,
+                                    })
+                                  );
+                                  dispatch(fetchWishListData(user?.id));
+                                } else {
+                                  dispatch(
+                                    deleteItemW({ productId: product?.id })
+                                  );
+                                }
+                              }}
                               className="px-3   text-rose-500  rounded-md w-full sm:w-auto"
                             >
                               Remove

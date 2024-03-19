@@ -5,7 +5,7 @@ import { apiPath } from "@/lib/api-path";
 import { EMAIL_REGEX } from "@/lib/constant";
 import { showErrorToast, showToast } from "@/lib/utils";
 import { handleLogin } from "@/redux/reducer/auth";
-import { postCartData } from "@/redux/reducer/cart";
+import { createWishlistItem, postCartData } from "@/redux/reducer/cart";
 import { AppDispatch } from "@/redux/store";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -27,6 +27,9 @@ const Login = () => {
   const { apiAction, loader } = useApi();
 
   const cartProduct = useSelector((state: any) => state.cart?.cartProduct);
+  const wishListProducts = useSelector(
+    (state: any) => state.cart.wishListProduct
+  );
 
   const handleSubmit = async () => {
     let err: IError = {};
@@ -51,31 +54,39 @@ const Login = () => {
         data: { email, password },
       });
       if (data?.data?.qurey?.role === 1) {
-
         showToast("Login  successfully!");
 
-		const dispatchPromises: any[] = [];
-
-
+        const dispatchPromises: any[] = [];
 
         cartProduct?.forEach((element: any) => {
-			dispatchPromises.push(
-			  dispatch(
-				postCartData({
-				  userid: data?.data?.qurey?.id,
-				  quantity: element?.quantity,
-				  productid: element?.product?.id,
-				  token: data?.data?.accessToken
-				})
-			  )
-			);
-		  });
+          dispatchPromises.push(
+            dispatch(
+              postCartData({
+                userid: data?.data?.qurey?.id,
+                quantity: element?.quantity || 1,
+                productid: element?.product?.id,
+                token: data?.data?.accessToken,
+              })
+            )
+          );
+        });
 
-		  await Promise.all(dispatchPromises);
+        wishListProducts?.forEach((element: any) => {
+          dispatchPromises.push(
+            dispatch(
+              createWishlistItem({
+                userid: data?.data?.qurey?.id,
+                productid: element?.id,
+                token: data?.data?.accessToken,
+              })
+            )
+          );
+        });
 
-		  
-		  await dispatch(handleLogin(data?.data));
-		  navigate("/");
+        await Promise.all(dispatchPromises);
+
+        await dispatch(handleLogin(data?.data));
+        navigate("/");
       } else {
         showErrorToast("Failed to login. Please try again later.");
       }
