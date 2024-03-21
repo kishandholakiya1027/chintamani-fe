@@ -25,46 +25,47 @@ const ShopItem: FC = () => {
   const [limit] = useState(10);
   const [currentPage] = useState(1);
 
-  const { category } = useSelector((state: any) => state?.category)
+  const { category } = useSelector((state: any) => state?.category);
 
   const fetchProducts = async (id: string, name: string) => {
-    const data = await api({ method: "get", url: `${apiPath?.categories?.product}?${name?.toLowerCase()}=${id}` })
-    setProducts(data?.data?.product)
-    setTotalRecords(data?.data?.total)
-  }
+    const data = await api({
+      method: "get",
+      url: `${apiPath?.categories?.product}?${name?.toLowerCase()}=${id}`,
+    });
+    setProducts(data?.data?.product);
+    setTotalRecords(data?.data?.total);
+  };
 
   useEffect(() => {
-    getColors()
-    getCuts()
-    getClarity()
-  }, [])
+    getColors();
+    getCuts();
+    getClarity();
+  }, []);
 
   const getColors = async () => {
-    const data = await api({ method: "get", url: `${apiPath?.color?.all}` })
-    setColors(data?.data?.Colordata)
-  }
+    const data = await api({ method: "get", url: `${apiPath?.color?.all}` });
+    setColors(data?.data?.Colordata);
+  };
   const getCuts = async () => {
-    const data = await api({ method: "get", url: `${apiPath?.cuts?.all}` })
-    setCuts(data?.data?.Cutdata)
-  }
+    const data = await api({ method: "get", url: `${apiPath?.cuts?.all}` });
+    setCuts(data?.data?.Cutdata);
+  };
   const getClarity = async () => {
-    const data = await api({ method: "get", url: `${apiPath?.clarity?.all}` })
-    setClarities(data?.data?.Claritydata)
-  }
+    const data = await api({ method: "get", url: `${apiPath?.clarity?.all}` });
+    setClarities(data?.data?.Claritydata);
+  };
 
   useEffect(() => {
     if (category?.length) {
-      let currCategory = category?.[category?.length - 1]
-      setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id })
-      fetchProducts(currCategory?.id, currCategory?.name)
+      let currCategory = category?.[category?.length - 1];
+      setFilter({ [`${currCategory?.name?.toLowerCase()}`]: currCategory?.id });
+      fetchProducts(currCategory?.id, currCategory?.name);
     }
-  }, [category])
+  }, [category]);
 
   const submitHandler = async (item: breadCrumbType) => {
-
-    fetchProducts(item?.id, item?.name)
-
-  }
+    fetchProducts(item?.id, item?.name);
+  };
   return (
     <>
       <section className="w-full">
@@ -72,51 +73,51 @@ const ShopItem: FC = () => {
           <div className="lg:flex md:flex block flex-wrap w-full items-stretch justify-center">
             <div className="lg:flex md:flex block flex-nowrap flex-col items-start">
               <div className="p-[20px]">
-                <div className="px-0 py-[75px] flex w-full flex-row items-stretch flex-wrap border-b-[1px]">
-                  <button className="text-sm font-poppins text-[#767676] font-semibold mr-1">
-                    <Link to={"/"}>Home</Link>
-                  </button>
-                  {category?.map((item: breadCrumbType) => {
-                    return (
-                      <>
-                        <span className="text-sm text-[#767676]">/</span>
-                        <button className="text-sm font-poppins text-[#767676] font-normal mr-1" onClick={() => submitHandler(item)}>
-                          {/* <Link to={category?.path1 ? "/" : ""}> */}
-                          {item?.path}
+                <div className="pl-0 w-full border-b-[1px] border-[#eee] flex items-stretch justify-center flex-wrap mb-[46px]">
+                  <div className="w-full flex p-[20px] flex-col items-start flex-nowrap pl-[0] ">
+                    <div>
+                      <nav className="font-poppins text-[15px] text-[#211c50] font-medium before:table">
+                        <Link to={"/"}>Home</Link>
+                        {category?.map((item: breadCrumbType) => {
+                          return (
+                            <>
+                              <span>/</span>
+                              <button
+                                className="text-sm font-poppins text-[#767676] font-normal mr-1"
+                                onClick={() => submitHandler(item)}
+                              >
+                                {item?.path}
+                              </button>
+                            </>
+                          );
+                        })}
 
-                          {/* </Link> */}
-                        </button>
-                      </>
-                    )
-                  })}
-
-
-                  {category?.path1 ?
-                    <>
-                      <span className="text-sm text-[#767676]">/</span>{"  "}
-                      <button className="text-sm font-poppins text-[#767676] font-normal mr-1">
-                        <Link to={category?.path2 ? "/" : ""}>
-                          {category?.path1}
-
-                        </Link>
-                      </button>
-                    </> : null}
-                  {category?.path2 ?
-                    <>
-                      <span className="text-sm text-[#767676]">/</span>
-                      <button className="text-sm font-poppins text-[#767676] font-normal mr-1">
-                        <Link to={category?.path3 ? "/" : ""}>
-                          {category?.path2}
-
-                        </Link>
-                      </button>
-                    </> : null}
-                  {/* <span className="text-sm text-[#767676]">/</span>
-                  <button className="text-sm font-poppins text-[#767676] font-normal">
-                    Shop
-                  </button> */}
+                        {category?.path1 ? (
+                          <>
+                            <span>/</span>
+                            {"  "}
+                            <button>
+                              <Link to={category?.path2 ? "/" : ""}>
+                                {category?.path1}
+                              </Link>
+                            </button>
+                          </>
+                        ) : null}
+                        {category?.path2 ? (
+                          <>
+                            <span>/</span>
+                            <button>
+                              <Link to={category?.path3 ? "/" : ""}>
+                                {category?.path2}
+                              </Link>
+                            </button>
+                          </>
+                        ) : null}
+                      </nav>
+                    </div>
+                  </div>
                 </div>
-                <div className="py-[15px]  border-t-[1px] border-[#eee]">
+                <div className="py-[15px]">
                   <div>
                     <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
                       Price
@@ -151,14 +152,14 @@ const ShopItem: FC = () => {
                       subSteps={true}
                       minValue={690}
                       maxValue={13060}
-                    // onInput={(e: ChangeResult) => {
-                    //   setMinValue(e.minValue);
-                    //   setMaxValue(e.maxValue);
-                    // }}
-                    // onChange={(e: ChangeResult) => {
-                    //   setMinValue2(e.minValue);
-                    //   setMaxValue2(e.maxValue);
-                    // }}
+                      // onInput={(e: ChangeResult) => {
+                      //   setMinValue(e.minValue);
+                      //   setMaxValue(e.maxValue);
+                      // }}
+                      // onChange={(e: ChangeResult) => {
+                      //   setMinValue2(e.minValue);
+                      //   setMaxValue2(e.maxValue);
+                      // }}
                     />
                   </div>
                 </div>
@@ -170,13 +171,23 @@ const ShopItem: FC = () => {
                     <div className="grid grid-cols-3 gap-[5px]">
                       {clarities?.map((clarity: diamondProperty) => {
                         const extractedString = clarity?.name?.substring(0, 5);
-                        return <Button
-                          onClick={() => setFilter({ ...filter, Clarity: [...filter?.Clarity || [], clarity?.id] })}
-                          variant={"outline"}
-                          className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[97px] py-[8px] px-[16px]"
-                        >
-                          {extractedString}
-                        </Button>
+                        return (
+                          <Button
+                            onClick={() =>
+                              setFilter({
+                                ...filter,
+                                Clarity: [
+                                  ...(filter?.Clarity || []),
+                                  clarity?.id,
+                                ],
+                              })
+                            }
+                            variant={"outline"}
+                            className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[97px] py-[8px] px-[16px]"
+                          >
+                            {extractedString}
+                          </Button>
+                        );
                       })}
                     </div>
                     {/* <div className="flex gap-[5px] mt-[10px]">
@@ -217,13 +228,20 @@ const ShopItem: FC = () => {
                     <div className="grid grid-cols-3 gap-[5px]">
                       {cuts?.map((cut: diamondProperty) => {
                         const extractedString = cut?.name?.substring(0, 5);
-                        return <Button
-                          onClick={() => setFilter({ ...filter, Cuts: [...filter?.Cuts || [], cut?.id] })}
-                          variant={"outline"}
-                          className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[97px] py-[8px] px-[16px]"
-                        >
-                          {extractedString}
-                        </Button>
+                        return (
+                          <Button
+                            onClick={() =>
+                              setFilter({
+                                ...filter,
+                                Cuts: [...(filter?.Cuts || []), cut?.id],
+                              })
+                            }
+                            variant={"outline"}
+                            className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[97px] py-[8px] px-[16px]"
+                          >
+                            {extractedString}
+                          </Button>
+                        );
                       })}
                     </div>
                   </div>
@@ -236,12 +254,14 @@ const ShopItem: FC = () => {
                     <div className="grid grid-cols-4 gap-[5px]">
                       {colors?.map((color: diamondProperty) => {
                         const extractedString = color?.name?.substring(0, 5);
-                        return <Button
-                          variant={"outline"}
-                          className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[58px] py-[8px] px-[16px]"
-                        >
-                          {extractedString}
-                        </Button>
+                        return (
+                          <Button
+                            variant={"outline"}
+                            className="border-[#211c50] hover:bg-[#211c50] hover:text-[#fff] text-[#211c50] w-[58px] py-[8px] px-[16px]"
+                          >
+                            {extractedString}
+                          </Button>
+                        );
                       })}
                     </div>
                   </div>
@@ -260,7 +280,11 @@ const ShopItem: FC = () => {
                     Shop
                   </h1>
                   <span className="text-xs font-poppins">
-                    showing {limit * currentPage - 9}-{limit * currentPage < totalRecords ? limit * currentPage : totalRecords} of {totalRecords} results
+                    showing {limit * currentPage - 9}-
+                    {limit * currentPage < totalRecords
+                      ? limit * currentPage
+                      : totalRecords}{" "}
+                    of {totalRecords} results
                   </span>
                 </div>
                 <div className="font-arial text-xs text-left cursor-pointer overflow-hidden w-[198px] leading-0 mr-3">
@@ -282,9 +306,9 @@ const ShopItem: FC = () => {
 
               <div className="">
                 <ul className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-0 list-none clear-both after:table flex items-center flex-wrap gap-[3.5rem] cursor-pointer mb-[75px]">
-                  {
-                    products?.map((product: any) => {
-                      return <li className="float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]">
+                  {products?.map((product: any) => {
+                    return (
+                      <li className="float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]">
                         <div className="flex text-center items-center flex-col relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
                           <img
                             src={RoundedDiamond}
@@ -296,15 +320,17 @@ const ShopItem: FC = () => {
                           <div className="text-[16px] font-bold text-[#211c50]">
                             {product?.title}
                           </div>
-                          <div className="text-yellow-800">${product?.price}</div>
+                          <div className="text-yellow-800">
+                            ${product?.price}
+                          </div>
                         </div>
                         <div className="mb-3 mx-3 flex items-center justify-between">
                           <FontAwesomeIcon icon={faHeart} />
                           <button>add to cart</button>
                         </div>
                       </li>
-                    })
-                  }
+                    );
+                  })}
                   {/* <li className="max-w-full sm:max-w-[20%] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px]">
                     <div className="flex text-center items-center flex-col relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
                       <img
@@ -459,13 +485,12 @@ const ShopItem: FC = () => {
                       marginPagesDisplayed={2}
                       pageRangeDisplayed={4}
                       onPageChange={(val) => {
-                        setFilter({ ...filter, page: val?.selected + 1 })
+                        setFilter({ ...filter, page: val?.selected + 1 });
                       }}
                       containerClassName={"pagination"}
                       activeClassName={"active"}
-                    // forcePage={offset - 1}
+                      // forcePage={offset - 1}
                     />
-
                   </ul>
                 </nav>
               </div>

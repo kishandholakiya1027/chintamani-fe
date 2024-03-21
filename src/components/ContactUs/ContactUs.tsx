@@ -76,25 +76,13 @@ const ContactUs = () => {
   };
 
   return (
-    <section className="w-full">
-      <div className="flex flex-col items-start">
-        <div className="flex flex-wrap w-full items-stretch justify-center">
-          <div className="p-[20px] flex flex-nowrap flex-col items-start">
-            <div>
-              <div className="px-0 py-[75px] flex w-full flex-row items-stretch flex-wrap border-b-[1px]">
-                <button className="text-sm font-poppins text-[#767676] font-semibold mr-1">
-                  <Link to={"/"}>Home</Link>
-                </button>
-                <span className="text-sm text-[#767676]">/ </span>
-                <button className="text-sm font-poppins text-[#767676] font-normal">
-                  Contact
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+    <section className="container">
+        <div className="flex mt-[35px] items-center gap-[5px] font-poppins text-[15px] font-[500] text-[#211c50] py-[20px] border-b-[1px] border-solid border-[#d6d6d9]">
+        <Link to={"/"}>Home</Link>
+        <p>/</p>
+        <Link to={"/contact"}>Contact</Link>
       </div>
-      <div className="flex flex-col items-start py-[75px] px-[20px] container">
+      <div className="flex flex-col items-start pb-[75px] pt-[46px] px-[20px] container">
         <div className="w-full flex items-stretch justify-center flex-wrap">
           <div className="p-[20px] flex flex-nowrap flex-col items-start">
             <div className="flex flex-nowrap flex-col items-start">

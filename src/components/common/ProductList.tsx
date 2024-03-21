@@ -114,10 +114,15 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
         <div onClick={() => setMenu(product?.title || "", product?.id || "")}>
           <div className="flex text-center items-center flex-col  relative rounded-t-lg overflow-hidden p-0 h-full decoration-none text-[#211c50] font-semibold">
             {product?.disccount_price && (
-              <div className="w-[100px] h-[100px]  absolute top-0 -left-[20px]">
-                <span className="absolute w-[136px] bg-[#211c50] h-[78px] -left-[20px] -top-[3px] -rotate-45 flex justify-center items-center text-center text-white text-base">
-                  Sale!
-                </span>
+              <div
+                className="w-0 h-0 absolute left-0"
+                style={{
+                  borderTop: "100px solid #211c50",
+                  borderBottom: "100px solid transparent",
+                  borderRight: "100px solid transparent",
+                }}
+              >
+                <span className="absolute top-[-75px] w-[100px] left-[-15px] text-center text-white -rotate-45">Sale !</span>
               </div>
             )}
             <img

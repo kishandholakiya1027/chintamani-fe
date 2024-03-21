@@ -6,14 +6,12 @@ import DiamondImg from "/assests/Images/Diamond-Price.png";
 const DiamondPrice = () => {
   return (
     <div className="container">
-      <div className="flex mt-[35px] md:py-[95px] w-fit mx-auto items-center gap-[5px] font-poppins text-[16px] font-[600] text-[#211c50]">
+      <div className="flex mt-[35px] items-center gap-[5px] font-poppins text-[15px] font-[500] text-[#211c50] py-[20px] border-b-[1px] border-solid border-[#d6d6d9]">
         <Link to={"/"}>Home</Link>
         <p>/</p>
-        <Link to={"/diamond-price"} className="text-[#404040] font-[400]">
-          Diamond Price
-        </Link>
+        <Link to={"/diamond-price"}>Diamond Price</Link>
       </div>
-      <div className="py-[95px]">
+      <div className="pb-[95px] pt-[46px]">
         <div>
           <h3 className="font-poppins lg:text-[30px] md:text-[24px] text-[20px] mt-4 font-[700] text-[#404040] ">
             Diamond Price & Value Per Carat List

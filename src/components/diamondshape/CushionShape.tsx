@@ -15,7 +15,7 @@ const CushionShape = () => {
   return (
     <section className="w-full">
       <div className="pt-[35px] pb-[20px] flex flex-col items-start px-[20px] container">
-        <div className="pl-0 w-full border-b-[1px] border-[#eee] flex items-stretch justify-center flex-wrap mb-[100px]">
+        <div className="pl-0 w-full border-b-[1px] border-[#eee] flex items-stretch justify-center flex-wrap mb-[46px]">
           <div className="w-full flex p-[20px] flex-col items-start flex-nowrap pl-[0] ">
             <div>
               <nav className="font-poppins text-[15px] text-[#211c50] font-medium before:table">
@@ -248,7 +248,7 @@ const CushionShape = () => {
                 <select
                   name="orderby"
                   id="orderby"
-                  className="cursor-pointer text-xs py-[8px] pl-[36px] pr-[12px] outline-none text-[#000] border border-[#000]"
+                  className="cursor-pointer text-xs py-[8px] pl-1 pr-[12px] outline-none text-[#000] border border-[#000]"
                 >
                   <option value="menu_order">Default sorting</option>
                   <option value="popularity">Sort by popularity</option>

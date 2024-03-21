@@ -1,6 +1,8 @@
 // ScrollToTopButton.js
 
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -33,9 +35,12 @@ const ScrollToTopButton = () => {
       {isVisible && (
         <div
           onClick={scrollToTop}
-          className="fixed text-[40px] leading-[normal] pt-[10px] h-[42px] w-[42px] flex items-center justify-center bottom-[20px] right-[20px] cursor-pointer bg-[#000] opacity-[0.5] text-[#FFF] shadow-scrolltotop"
+          className="fixed h-[42px] w-[42px] flex items-center justify-center bottom-[20px] right-[20px] cursor-pointer bg-[#000] opacity-[0.5] shadow-scrolltotop"
         >
-          ^
+          <FontAwesomeIcon
+            icon={faChevronUp}
+            className="text-[24px] text-[#fff]"
+          />
         </div>
       )}
     </>

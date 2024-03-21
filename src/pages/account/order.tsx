@@ -234,7 +234,7 @@ const Order: React.FC = () => {
 								}`}>
 							{key === "Action" && order[value] === 0 ? (
 								<button
-									className="bg-blue-500 text-white px-2 py-1 rounded"
+									className="bg-blue-500 text-white px-2 py-1 rounded font-medium	w-max"
 									onClick={() => handlePayment(order)}>
 									Pay now
 								</button>

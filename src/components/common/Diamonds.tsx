@@ -98,7 +98,7 @@ const Diamonds = () => {
 						setFilter={setFilter}
 						isJewellery={isJewellery}
 						filter={filter}></Sidebar>
-					<div className="lg:w-[80%] md:w-[70%] w-[100%] flex flex-col flex-nowrap items-start p-[20px] lg:pl-[20px] md:pl-[20px] sm:pl-0 pl-0 pr-[0]">
+					<div className="pt-0 lg:w-[80%] md:w-[70%] w-[100%] flex flex-col flex-nowrap items-start p-[20px] lg:pl-[20px] md:pl-[20px] sm:pl-0 pl-0 pr-[0]">
 						<div className="w-full">
 							{/* <Loader />  */}
 							{!!products?.length && (
@@ -121,7 +121,7 @@ const Diamonds = () => {
 											setFilter({ ...filter, sort: Number(e?.target?.value) });
 										}
 									}}
-									className="cursor-pointer text-xs py-[8px] pl-[36px] pr-[12px] outline-none text-[#000] border border-[#000]">
+									className="cursor-pointer text-xs py-[8px] pl-1 pr-[12px] outline-none text-[#000] border border-[#000]">
 									<option value="">Default sorting</option>
 									{/* <option value="popularity">Sort by popularity</option>
                   <option value="rating">Sort by average rating</option> */}

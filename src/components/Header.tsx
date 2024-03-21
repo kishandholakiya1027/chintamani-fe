@@ -981,14 +981,14 @@ const Header = ({}: Props) => {
                   to={""}
                   className="flex flex-wrap text-center decoration-none flex-col items-center justify-center"
                 >
-                  <div className="flex items-start w-full flex-row text-left">
+                  <div className="flex items-center w-full flex-row text-left">
                     <div className="flex flex-shrink-0 flex-grow-0 self-start mr-3 mb-0 mt-0">
                       <div className="text-[#fff] inline-flex rounded-[50%]">
-                        <FontAwesomeIcon icon={faWhatsapp} size="xl" />
+                        <FontAwesomeIcon icon={faWhatsapp} size="lg" />
                       </div>
                     </div>
                     <div className="flex-grow-1 w-full sm:block hidden">
-                      <h2 className="sm:text-[17px] text-[10px] text-[#fff] font-poppins">
+                      <h2 className="sm:text-[14px] text-[10px] text-[#fff] font-poppins">
                         +44 7425 380174 (24x7 Support)
                       </h2>
                       <p className="text-base mb-3 self-start m-0 hidden">

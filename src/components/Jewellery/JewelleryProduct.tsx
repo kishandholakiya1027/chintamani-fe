@@ -7,7 +7,7 @@ import Crown from "/assests/Images/crown.png";
 import MultiRangeSlider from "multi-range-slider-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { apiPath } from "@/lib/api-path";
 import api from "@/services/api";
 // import { setCategory } from "@/redux/reducer/category";
@@ -18,8 +18,6 @@ const JewelleryProduct: FC = () => {
   // const [minValue2, setMinValue2] = useState(0);
   // const [maxValue2, setMaxValue2] = useState(0);
 
-
-
   // const [filter, setFilter] = useState<any>({});
   // const [products, setProducts] = useState([]);
   // const [colors, setColors] = useState([]);
@@ -27,14 +25,17 @@ const JewelleryProduct: FC = () => {
   // const [clarities, setClarities] = useState([]);
   // const [totalRecords, setTotalRecords] = useState(0);
 
-  const { category } = useSelector((state: any) => state?.category)
-  
+  const { category } = useSelector((state: any) => state?.category);
+
   const fetchProducts = async (id: string, name: string) => {
-    const data = await api({ method: "get", url: `${apiPath?.categories?.product}?${name?.toLowerCase()}=${id}` })
+    const data = await api({
+      method: "get",
+      url: `${apiPath?.categories?.product}?${name?.toLowerCase()}=${id}`,
+    });
     // setTotalRecords(data?.data?.total)
-    console.log("🚀 ~ fetchProducts ~ data:", data)
+    console.log("🚀 ~ fetchProducts ~ data:", data);
     // setProducts(data?.data?.product)
-  }
+  };
 
   // useEffect(() => {
   //   getColors()
@@ -57,12 +58,11 @@ const JewelleryProduct: FC = () => {
 
   useEffect(() => {
     if (category?.length) {
-      let currCategory = category?.[category?.length - 1]
+      let currCategory = category?.[category?.length - 1];
       // setFilter({[`${currCategory?.name?.toLowerCase()}`]:currCategory?.id})
-      fetchProducts(currCategory?.id, currCategory?.name)
-
+      fetchProducts(currCategory?.id, currCategory?.name);
     }
-  }, [category])
+  }, [category]);
 
   // const submitHandler = async (item: breadCrumbType, index: number) => {
   //   dispatch(setCategory(category?.filter((_: any, i: number) => i <= index)))
@@ -76,16 +76,17 @@ const JewelleryProduct: FC = () => {
         <div className="flex flex-wrap w-full items-stretch justify-center">
           <div className="p-[20px] flex flex-nowrap flex-col items-start">
             <div>
-              <div className="px-0 py-[75px] flex w-full flex-row items-stretch flex-wrap border-b-[1px]">
-                <button className="text-sm font-poppins text-[#767676] font-semibold mr-1">
-                  <Link to={"/"}>Home</Link>
-                </button>
-                <span className="text-sm text-[#767676]">/ </span>
-                <button className="text-sm font-poppins text-[#767676] font-normal">
-                  Jewellery
-                </button>
+              <div className="pl-0 w-full border-b-[1px] border-[#eee] flex items-stretch justify-center flex-wrap mb-[46px]">
+                <div className="w-full flex p-[20px] flex-col items-start flex-nowrap pl-[0] ">
+                  <div>
+                    <nav className="font-poppins text-[15px] text-[#211c50] font-medium before:table">
+                      <Link to={"/"}>Home</Link>
+                      &nbsp;/&nbsp;Jewellery
+                    </nav>
+                  </div>
+                </div>
               </div>
-              <div className="py-[15px]  border-t-[1px] border-[#eee]">
+              <div className="py-[15px]">
                 <div>
                   <div className="mt-[20px] text-left text-[16px] text-[#000] font-poppins font-medium uppercasemb mb-[15px]">
                     Price

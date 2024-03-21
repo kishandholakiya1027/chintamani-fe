@@ -1,17 +1,18 @@
+import { Link } from "react-router-dom";
+
 const RefundPolicy = () => {
   return (
     <div className="container mx-auto">
       <div className="flex flex-col mb-10">
-        <span className="self-center flex w-full max-w-[1490px] flex-col mt-24">
-          <div className="text-neutral-700 text-base font-semibold leading-6 self-center">
-            Home
-            <span className=" text-neutral-700">
-              / Refund Policy
-            </span>
+        <span className="self-center flex w-full max-w-[1490px] flex-col">
+          <div className="flex mt-[35px] items-center gap-[5px] font-poppins text-[15px] font-[500] text-[#211c50] py-[20px] border-b-[1px] border-solid border-[#d6d6d9]">
+            <Link to={"/"}>Home</Link>
+            <p>/</p>
+            <Link to={"/refund-policy"}>Refund Policy</Link>
           </div>
-          <span className="flex w-[1150px] max-w-full flex-col items-stretch gap-5 mt-5 self-end max-md:flex-wrap">
+          <span className="flex w-[1150px] max-w-full flex-col items-stretch gap-5 self-end max-md:flex-wrap">
             <div className="flex flex-col text-neutral-700 text-base leading-7 grow shrink basis-auto">
-              <div className="mb-4 text-neutral-700 text-3xl font-bold leading-10  mt-16  max-md:mt-10">
+              <div className="mb-4 text-neutral-700 text-3xl font-bold leading-10  mt-16  mt-[46px]">
                 Refund Policy
               </div>
             </div>

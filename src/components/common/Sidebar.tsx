@@ -51,7 +51,7 @@ const Sidebar = ({setFilter, filter, isJewellery}: any) => {
   };
 
   return (
-    <div className="lg:w-[20%] md:w-[30%] w-[100%] px-[0] border-r-[1px] border-[#eee] py-[20px] flex flex-col flex-nowrap items-start">
+    <div className="lg:w-[20%] md:w-[30%] w-[100%] px-[0] border-r-[1px] border-[#eee] flex flex-col flex-nowrap items-start">
       <div className="w-full mt-[0]">
         <div>
           <div className="py-[15px]  border-t-[1px] border-[#eee]">

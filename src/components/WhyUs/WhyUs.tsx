@@ -13,7 +13,7 @@ const WhyUs = () => {
             <p>/</p>
             <Link to={"/why-us"}>Why Us</Link>
           </div>
-          <div className="pt-[36px]">
+          <div className="pt-[46px]">
             <h2 className="text-[#000000] font-poppins text-[25px] font-[600] mb-[10px]">
               Why Us ?
             </h2>
