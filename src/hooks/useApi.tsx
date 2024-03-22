@@ -34,7 +34,6 @@ const useApi = () => {
     //   );
     // useEffect(() => {
     //     let ele:any = document.getElementsByClassName("loader")[0]
-    //     console.log("🚀 ~ useEffect ~ ele:", ele, ele.getAttribute("class"), typeof ele.getAttribute("class"))
 
     //     if (loader) {
     //         ele.setAttribute("class", ele.getAttribute("class")?.replace(/hidden/g, ""))

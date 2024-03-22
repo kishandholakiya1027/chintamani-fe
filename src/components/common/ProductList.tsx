@@ -1,5 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import useApi from "@/hooks/useApi";
 import { productType } from "@/lib/interfaces/category";
 import {
@@ -13,13 +11,15 @@ import {
   removeWishlistItem,
   setOpenCart,
 } from "@/redux/reducer/cart";
-import { useNavigate } from "react-router-dom";
 import { setCategory } from "@/redux/reducer/category";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { AppDispatch } from "@/redux/store";
+import { useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
   const { user, token } = useSelector((state: any) => state.auth);
@@ -27,22 +27,29 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
   const wishListProducts = useSelector(
     (state: any) => state.cart.wishListProduct
   );
-  const [productLoading, setProductLoading] = useState<string[]>([]);
+  const [loadingStates, setLoadingStates] = useState(
+    Array(products.length).fill(false)
+  );
 
   const { loader: loading } = useApi();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
   const cartProduct = useSelector((state: any) => state?.cart?.cartProduct);
-  console.log("store", cartProduct);
 
   const checkUser = () => {
-    if (user?.id) return true;
+    return !!user?.id;
   };
 
-  const addToCart = async (id: string, product: any) => {
-    if (checkUser()) {
-      try {
+  const addToCart = async (id: string, product: any, productIndex: number) => {
+    setLoadingStates((prevStates) => {
+      const newState = [...prevStates];
+      newState[productIndex] = true;
+      return newState;
+    });
+
+    try {
+      if (checkUser()) {
         await dispatch(
           postCartData({
             userid: user?.id,
@@ -51,22 +58,26 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
             token,
           })
         );
-        dispatch(fetchCartData(user?.id));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setProductLoading((prevLoading) =>
-          prevLoading.filter((productId) => productId !== id)
+        await dispatch(fetchCartData(user?.id));
+      } else {
+        const isAlreadyInCart = cartProduct.some(
+          (item: any) => item.product.id === product.id
         );
-      }
-    } else {
-      const isAlreadyInCart = cartProduct.some(
-        (item: any) => item.product.id === product.id
-      );
 
-      if (!isAlreadyInCart) {
-        dispatch(addLocalCartProduct({ product, quantity: 1 }));
+        if (!isAlreadyInCart) {
+          dispatch(addLocalCartProduct({ product, quantity: 1 }));
+        }
       }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setTimeout(() => {
+        setLoadingStates((prevStates) => {
+          const newState = [...prevStates];
+          newState[productIndex] = false;
+          return newState;
+        });
+      }, 1000);
     }
   };
 
@@ -108,7 +119,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
     return formattedPrice;
   }
 
-  const fetchProducts = (product: productType) => {
+  const fetchProducts = (product: productType, index: number) => {
     return (
       <>
         <div onClick={() => setMenu(product?.title || "", product?.id || "")}>
@@ -122,7 +133,9 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
                   borderRight: "100px solid transparent",
                 }}
               >
-                <span className="absolute top-[-75px] w-[100px] left-[-15px] text-center text-white -rotate-45">Sale !</span>
+                <span className="absolute top-[-75px] w-[100px] left-[-15px] text-center text-white -rotate-45">
+                  Sale !
+                </span>
               </div>
             )}
             <img
@@ -230,11 +243,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
                 </svg>
               </div>
             )}
-            {/* <FontAwesomeIcon icon={faHeart} onClick={() => addToWishList(product?.id)} />
-                    <FontAwesomeIcon icon={regular("heart")} /> */}
-            {(cartProduct?.length ? cartProduct : [])
-              ?.map((product: any) => product?.product?.id)
-              ?.includes(product?.id || "") ? (
+            {cartProduct?.some((v: any) => v?.product?.id === product?.id) ? (
               <button
                 className="text-[#211c50] text-sm font-bold"
                 onClick={() => dispatch(setOpenCart())}
@@ -243,16 +252,11 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
               </button>
             ) : (
               <button
-                onClick={() => addToCart(product?.id || "", product)}
-                className={`text-[#211c50] text-sm font-bold ${
-                  productLoading.includes(product?.id || "")
-                    ? "cursor-not-allowed opacity-50"
-                    : ""
-                }`}
+                disabled={loadingStates[index]}
+                onClick={() => addToCart(product?.id || "", product, index)}
+                className={`text-[#211c50] text-sm font-bold`}
               >
-                {productLoading.includes(product?.id || "")
-                  ? "Adding to Cart..."
-                  : "Add to Cart"}
+                {loadingStates[index] ? "Adding to Cart..." : "Add to Cart"}
               </button>
             )}
           </div>
@@ -267,12 +271,12 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
         <div className="w-full gap-5 cursor-pointer lg:mb-[75px] md:mb-[75px] mb-0">
           <Slider {...settings}>
             {products?.length ? (
-              products?.map((product: productType) => (
+              products?.map((product: productType, index: number) => (
                 <li
                   key={product.id}
                   className={`max-w-full relative ml-0 bg-[#f1f1f1] rounded-[20px] overflow-hidden w-full shadow-[0px_.125rem_.25rem_0px_rgba(0,0,0,0.075)]`}
                 >
-                  {fetchProducts(product)}
+                  {fetchProducts(product, index)}
                 </li>
               ))
             ) : (
@@ -292,7 +296,7 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
                       key={index}
                       className={`max-w-full sm:max-w-[${width}] float-left relative ml-0 bg-[#f1f1f1] rounded-[20px] shadow-[0px_.125rem_.25rem_0px_rgba(0,0,0,0.075)] overflow-hidden w-[${width}] `}
                     >
-                      {fetchProducts(product)}
+                      {fetchProducts(product, index)}
                     </li>
                   );
                 })

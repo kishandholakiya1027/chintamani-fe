@@ -89,8 +89,6 @@ const Index = () => {
     };
   }, [ShowCart]);
 
-  console.log("cartProduct", cartProduct);
-
   return (
     <div className="min:w-[200px] relative ">
       {/* <label htmlFor="drawer-toggle" className="absolute top-0 left-0 inline-block p-4 transition-all duration-500 bg-indigo-500 rounded-lg peer-checked:rotate-180 peer-checked:left-64">

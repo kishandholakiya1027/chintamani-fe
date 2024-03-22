@@ -285,9 +285,9 @@ const Header = ({}: Props) => {
                   className={`group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent dropdown ${
                     category?.subCategories?.length &&
                     "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
-                  }  flex items-center `}
+                  }  flex items-center capitalize`}
                 >
-                  {category?.name}
+                  {category?.name?.toLowerCase()}
                 </div>
                 <div className="dropdown left-0 right-0 group-hover:visible group-hover:opacity-[1] bg-[#f1f1f1] z-[2147483641] px-[15px] py-[50px] whitespace-nowrap invisible opacity-0 flex absolute top-[100%] shadow cursor-default group:hover:transition-all">
                   <div className="container flex justify-between">
@@ -326,7 +326,7 @@ const Header = ({}: Props) => {
                                 >
                                   {subCategory?.innerCategories?.length ? (
                                     <div
-                                      className={`border-0 py-2 text-sm decoration-none flex items-center text-[#211c50] font-semibold ${
+                                      className={`border-0 py-2 text-sm decoration-none flex items-center text-[#211c50] font-semibold capitalize ${
                                         subCategory?.innerCategories?.length
                                           ? "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
                                           : ""
@@ -339,7 +339,7 @@ const Header = ({}: Props) => {
                                           className="w-[100%] h-[auto] max-h-[100%] align-middle"
                                         />
                                       </div>
-                                      {subCategory?.name}
+                                      {subCategory?.name?.toLowerCase()}
                                     </div>
                                   ) : (
                                     <Link
@@ -507,12 +507,12 @@ const Header = ({}: Props) => {
             ) : (
               <Link
                 to={"/product-category"}
-                className={`dropdown group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent ${
+                className={`capitalize dropdown group-hover:bg-[#fff] group-hover:border-b-[3px] group-hover:border-[#211c50] py-5 px-[15px] text-sm text-[#211c50] font-normal border-b-[3px] border-transparent ${
                   category?.subCategories?.length &&
                   "after:w-[0.35em] after:h-[0.35em] after:border-r-[0.1em] after:border-t-[0.1em] after:rotate-[135deg] after:border-[#211c50] after:ml-[0.5em] hover:visible hover:opacity-[1]"
                 }  flex items-center `}
               >
-                {category?.name}
+                {category?.name?.toLowerCase()}
               </Link>
             )}
           </li>

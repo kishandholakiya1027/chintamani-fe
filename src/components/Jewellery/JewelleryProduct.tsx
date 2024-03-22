@@ -33,7 +33,7 @@ const JewelleryProduct: FC = () => {
       url: `${apiPath?.categories?.product}?${name?.toLowerCase()}=${id}`,
     });
     // setTotalRecords(data?.data?.total)
-    console.log("🚀 ~ fetchProducts ~ data:", data);
+    console.log(data);
     // setProducts(data?.data?.product)
   };
 
