@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import LogoShape from "/assests/Images/logo-shape.png";
 import MainLogo from "/assests/Images/main-logo.png";
-
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { Category, shapeType, subCategory } from "@/lib/interfaces/category";
@@ -26,22 +25,16 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import CVD from "/assests/Images/cvd.png";
 import { AppDispatch } from "@/redux/store";
+import { CurrencyContext } from "@/contexts/currency";
 
 interface Props {
   setOpenCart?: () => void;
-}
-
-interface Country {
-  value: string;
-  label: JSX.Element;
-  currency: string[];
 }
 
 interface Currency {
@@ -49,6 +42,24 @@ interface Currency {
   label: string;
 }
 
+const currency = [
+  {
+    value: "USD",
+    label: "USD",
+  },
+  {
+    value: "GBP",
+    label: "GBP",
+  },
+  {
+    value: "EUR",
+    label: "EUR",
+  },
+  {
+    value: "INR",
+    label: "INR",
+  },
+];
 const Header = ({}: Props) => {
   const [menu, setMenu] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -58,11 +69,11 @@ const Header = ({}: Props) => {
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [KnowledgeOpen, setKnowledgeOpen] = useState(false);
   const [AboutOpen, setAboutOpen] = useState(false);
-  
   const {
     auth: { user, token },
     cart: { wishListProduct },
   } = useSelector((state: { auth: any; cart: any }) => state);
+  const { setCurrency }: any = useContext(CurrencyContext);
   const allCategory = useSelector((state: any) => state?.category?.allCategory);
   const shapes = useSelector((state: any) => state?.category?.shape);
   const cartProduct = useSelector((state: any) => state?.cart?.cartProduct);
@@ -150,60 +161,18 @@ const Header = ({}: Props) => {
     }
   };
 
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [currencies, setCurrencies] = useState<Currency[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [selectedCurrency, setSelectedCurrency] = useState<Currency | null>(
     null
   );
 
   useEffect(() => {
-    // Fetch countries along with currencies
-    axios
-      .get("https://restcountries.com/v3.1/all?fields=name,flags,currencies")
-      .then((response) => {
-        const countriesData: Country[] = response.data.map((country: any) => ({
-          value: country.name.common,
-          label: (
-            <div className="flex items-center cursor-pointer">
-              <img
-                src={country.flags.svg}
-                alt={country.name.common}
-                className="mr-2 w-5 h-5"
-              />
-              {country.name.common}
-            </div>
-          ),
-          currency: country.currencies || [],
-        }));
-        setCountries(countriesData);
-      })
-      .catch((error) => {
-        console.error("Error fetching countries:", error);
-      });
-
-    // Fetch currencies separately
-    axios
-      .get("https://open.er-api.com/v6/latest")
-      .then((response) => {
-        const currenciesData: Currency[] = Object.keys(response.data.rates).map(
-          (currency) => ({
-            value: currency,
-            label: currency,
-          })
-        );
-
-        setCurrencies(currenciesData);
-      })
-      .catch((error) => {
-        console.error("Error fetching currencies:", error);
-      });
-  }, []);
+    setSelectedCurrency(user?.currency);
+    setCurrency(user?.currency);
+  }, [user]);
 
   useEffect(() => {
-    setSelectedCountry(user?.country);
-    setSelectedCurrency(user?.currency);
-  }, [user]);
+    setCurrency(selectedCurrency?.value || selectedCurrency);
+  }, [selectedCurrency]);
 
   const updateUserData = async (data: any) => {
     try {
@@ -228,16 +197,6 @@ const Header = ({}: Props) => {
   useEffect(() => {
     dispatch(fetchShapeData());
   }, [dispatch]);
-
-  const handleCountryChange = async (selectedOption: Country | null) => {
-    let updatedFormData: any = {
-      country: selectedOption?.value,
-      userid: user.id,
-    };
-
-    updateUserData(updatedFormData);
-    setSelectedCountry(selectedOption);
-  };
 
   const handleCurrencyChange = async (selectedOption: Currency | null) => {
     let updatedFormData: any = {
@@ -970,6 +929,28 @@ const Header = ({}: Props) => {
     </div>
   );
 
+  const googleTranslateElementInit = () => {
+    // @ts-ignore
+    new window.google.translate.TranslateElement(
+      {
+        autoDisplay: false,
+        pageLanguage: "en",
+      },
+      "google_translate_element"
+    );
+  };
+
+  useEffect(() => {
+    var addScript = document.createElement("script");
+    addScript.setAttribute(
+      "src",
+      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    );
+    document.body.appendChild(addScript);
+    // @ts-ignore
+    window.googleTranslateElementInit = googleTranslateElementInit;
+  }, []);
+
   return (
     <>
       <header>
@@ -1007,25 +988,16 @@ const Header = ({}: Props) => {
                 <div className="relative">
                   <div className="flex items-center justify-center">
                     <div className="font-arial text-xs text-left cursor-pointer lg:w-[200px] md:w-[200px] w-[130px] leading-0 mr-3 rounded-lg">
-                      <Select
-                        options={countries}
-                        placeholder="Select a country"
-                        onChange={handleCountryChange}
-                        value={countries.find(
-                          (it: any) => it.value === selectedCountry
-                        )}
-                        isSearchable
-                        className="cursor-pointer"
-                      />
+                      <div id="google_translate_element"></div>
                     </div>
                     <div className="font-arial text-xs text-left cursor-pointer lg:w-[120px] md:w-[120px] w-[100px] leading-0 rounded-lg">
                       <Select
-                        options={currencies}
+                        options={currency}
                         placeholder="Select a currency"
                         className="cursor-pointer"
                         onChange={handleCurrencyChange}
                         isSearchable
-                        value={currencies.find(
+                        value={currency.find(
                           (it: any) => it.value === selectedCurrency
                         )}
                       />
@@ -1037,7 +1009,7 @@ const Header = ({}: Props) => {
           </div>
         </div>
         <div className="w-full py-[18px]">
-          <div className="container flex mx-auto flex-nowrap justify-between items-stretch w-full lg:px-5 md:px-4 px-4 grid grid-cols-3">
+          <div className="container mx-auto flex-nowrap justify-between items-stretch w-full lg:px-5 md:px-4 px-4 grid grid-cols-3">
             <div className="items-center justify-start lg:flex md:hidden sm:hidden hidden">
               <div className="w-full flex flex-nowrap items-start flex-col">
                 <div className="pt-2 relative text-gray-600">

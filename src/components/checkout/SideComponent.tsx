@@ -1,8 +1,9 @@
+import { CurrencyContext } from "@/contexts/currency";
 import useApi from "@/hooks/useApi";
 import { apiPath } from "@/lib/api-path";
 import { PHONE_CODE_REGEX, PINCODE_REGEX } from "@/lib/constant";
 import { formatPhoneNumber } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import { useSelector } from "react-redux";
 import Select from "react-select";
@@ -30,6 +31,7 @@ const SideComponent = ({
     auth: { user },
   } = useSelector((state: any) => state);
   const { apiAction } = useApi();
+  const { currency: curr }: any = useContext(CurrencyContext);
 
   const [error, setError] = useState<any>({});
   const handleChange = (name: string, value: string) => {
@@ -40,7 +42,14 @@ const SideComponent = ({
   const handleSelectChange = (name: string, value: any) => {
     setCurrency({ value: value.value, price: value?.price });
     setError({ ...error, [name]: "" });
-  }
+  };
+
+  useEffect(() => {
+    if (curr) {
+      const data = currencyOption.find((item: any) => item.value === curr);
+      setCurrency({ value: curr, price: data?.price });
+    }
+  }, [curr, currencyOption]);
 
   const onAddress = () => {
     let err: any = {};
@@ -87,20 +96,18 @@ const SideComponent = ({
       url: `${apiPath?.currency?.getCurrency}?page=1&pageSize=100`,
     });
 
-    const currenciesData = data.data.CurrencyData.map(
-      (currency: any) => ({
-        value: currency.name,
-        label: currency.name,
-        price: currency.currencypriceid.value,
-      })
-    );
+    const currenciesData = data.data.CurrencyData.map((currency: any) => ({
+      value: currency.name,
+      label: currency.name,
+      price: currency.currencypriceid.value,
+    }));
 
     setCurrencyOption(currenciesData);
-  }
+  };
 
   useEffect(() => {
-    getCurrency()
-  }, [])
+    getCurrency();
+  }, []);
 
   return (
     <div>
@@ -208,7 +215,9 @@ const SideComponent = ({
                     className="cursor-pointer mt-2 "
                     onChange={(e) => handleSelectChange("currency", e)}
                     isSearchable
-                    value={currencyOption.find((it: any) => it.value === currency)}
+                    value={currencyOption.find(
+                      (it: any) => it.value === currency
+                    )}
                   />
                   {error?.currency && (
                     <p className="text-red-500 text-xs mt-2">
@@ -246,8 +255,9 @@ const SideComponent = ({
                       <span className="text-gray-600 font-semibold">Name</span>
                     </div>
                     <div className="flex-grow ">
-                      <span>{`${user?.firstname || ""} ${user?.lastname || ""
-                        }`}</span>
+                      <span>{`${user?.firstname || ""} ${
+                        user?.lastname || ""
+                      }`}</span>
                     </div>
                   </div>
                   <div className="w-full flex mb-3 items-center">
@@ -277,9 +287,11 @@ const SideComponent = ({
                       </span>
                     </div>
                     <div className="flex-grow">
-                      <span>{`${address?.address || ""}, ${address?.city || ""
-                        }, ${address?.pincode || ""}, ${address?.country || ""
-                        }`}</span>
+                      <span>{`${address?.address || ""}, ${
+                        address?.city || ""
+                      }, ${address?.pincode || ""}, ${
+                        address?.country || ""
+                      }`}</span>
                     </div>
                   </div>
                 </div>

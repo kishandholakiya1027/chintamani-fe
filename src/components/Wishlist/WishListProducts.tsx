@@ -1,5 +1,5 @@
 import useApi from "@/hooks/useApi";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../common/Loader";
 import {
@@ -8,6 +8,9 @@ import {
   removeWishlistItem,
 } from "@/redux/reducer/cart";
 import { AppDispatch } from "@/redux/store";
+import { convertUSD } from "@/lib/currency";
+import { CurrencyContext } from "@/contexts/currency";
+import { apiPath } from "@/lib/api-path";
 
 const WishListProducts = () => {
   const [openPopup, setOpenPopup] = useState<string | undefined>("");
@@ -15,9 +18,31 @@ const WishListProducts = () => {
     cart: { wishListProduct },
     auth: { user },
   } = useSelector((state: { cart: any; auth: any }) => state);
-
+  const [currencyOption, setCurrencyOption] = useState<any>([]);
+  const { currency }: any = useContext(CurrencyContext);
   const dispatch: AppDispatch = useDispatch();
-  const { loader } = useApi();
+  const { loader, apiAction } = useApi();
+
+  const getCurrency = async () => {
+    let data = await apiAction({
+      method: "get",
+      url: `${apiPath?.currency?.getCurrency}?page=1&pageSize=100`,
+    });
+
+    const currenciesData = data.data.CurrencyData.map((currency: any) => ({
+      value: currency.name,
+      label: currency.name,
+      price: currency.currencypriceid.value,
+    }));
+
+    setCurrencyOption(currenciesData);
+  };
+
+  useEffect(() => {
+    if (currencyOption?.length === 0) {
+      getCurrency();
+    }
+  }, [currencyOption]);
 
   return (
     <div className="container mx-auto py-6">
@@ -46,7 +71,15 @@ const WishListProducts = () => {
                     <h2 className="text-[15px] sm:text-[18px] font-bold text-gray-900">
                       {product?.title}
                     </h2>
-                    <p className="text-sm">${product?.price}</p>
+                    <p className="text-sm">
+                      {convertUSD(
+                        product?.price,
+                        currency,
+                        currencyOption?.find(
+                          (item: any) => item?.value === currency
+                        )?.price
+                      )}
+                    </p>
                     {/* <div className="flex items-center border-gray-100 justify-start my-2">
                         <button onClick={() => handleProductQuantity(product?.id, product?.quantity - 1)} disabled={product?.quantity === "undefined" || !product?.quantity || product?.quantity === 1 ? true : false} className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"> - </button>
                         <input className="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value={product?.quantity?.toString() || ""} min="1" onChange={(e) => handleProductQuantity(product?.id, Number(e.target.value ? e.target.value : ""))} />

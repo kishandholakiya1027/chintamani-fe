@@ -8,13 +8,15 @@ import {
   setOpenCart,
   updateCartItem,
 } from "@/redux/reducer/cart";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RemovePopup from "../alert/RemovePopup";
 import { useNavigate } from "react-router";
 import Loader from "../common/Loader";
 import { toast } from "react-toastify";
 import { AppDispatch } from "@/redux/store";
+import { convertUSD } from "@/lib/currency";
+import { CurrencyContext } from "@/contexts/currency";
 
 const Index = () => {
   const modalRef: any = useRef(null);
@@ -24,9 +26,10 @@ const Index = () => {
     auth: { token, user },
   } = useSelector((state: any) => state);
   const dispatch: AppDispatch = useDispatch();
+  const [currencyOption, setCurrencyOption] = useState<any>([]);
+  const { currency }: any = useContext(CurrencyContext);
   const { loader, apiAction } = useApi();
   const [openPopup, setOpenPopup] = useState("");
-
   const navigate = useNavigate();
 
   const handleTotalAmount = () => {
@@ -65,6 +68,27 @@ const Index = () => {
   useEffect(() => {
     setShowCart(openCart);
   }, [openCart]);
+
+  const getCurrency = async () => {
+    let data = await apiAction({
+      method: "get",
+      url: `${apiPath?.currency?.getCurrency}?page=1&pageSize=100`,
+    });
+
+    const currenciesData = data.data.CurrencyData.map((currency: any) => ({
+      value: currency.name,
+      label: currency.name,
+      price: currency.currencypriceid.value,
+    }));
+
+    setCurrencyOption(currenciesData);
+  };
+
+  useEffect(() => {
+    if (currencyOption?.length === 0) {
+      getCurrency();
+    }
+  }, [currencyOption]);
 
   useEffect(() => {
     if (ShowCart) {
@@ -189,11 +213,17 @@ const Index = () => {
                               {product?.title}
                             </h2>
                             <p className="text-sm">
-                              ${product?.disccount_price || product?.price}
+                              {convertUSD(
+                                product?.disccount_price || product?.price,
+                                currency,
+                                currencyOption?.find(
+                                  (item: any) => item?.value === currency
+                                )?.price
+                              )}
                             </p>
                             <div className="flex items-center border-gray-100 justify-start my-2">
                               <button
-                                disabled = {Number(qty) <= 1}
+                                disabled={Number(qty) <= 1}
                                 onClick={async () => {
                                   if (user?.id) {
                                     await dispatch(
@@ -307,7 +337,16 @@ const Index = () => {
                 <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-full">
                   <div className="mb-2 flex justify-between">
                     <p className="text-gray-700">Subtotal</p>
-                    <p className="text-gray-700">${handleTotalAmount()}</p>
+                    <p className="text-gray-700">
+                      {" "}
+                      {convertUSD(
+                        +handleTotalAmount(),
+                        currency,
+                        currencyOption?.find(
+                          (item: any) => item?.value === currency
+                        )?.price
+                      )}
+                    </p>
                   </div>
                   <div className="flex justify-between">
                     <p className="text-gray-700">Shipping</p>
@@ -318,7 +357,14 @@ const Index = () => {
                     <p className="text-lg font-bold">Total</p>
                     <div className="">
                       <p className="mb-1 text-lg font-bold">
-                        ${handleTotalAmount()} USD
+                        {/* ${handleTotalAmount()} USD */}
+                        {convertUSD(
+                          +handleTotalAmount(),
+                          currency,
+                          currencyOption?.find(
+                            (item: any) => item?.value === currency
+                          )?.price
+                        )}
                       </p>
                     </div>
                   </div>

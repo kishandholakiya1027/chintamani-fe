@@ -14,16 +14,21 @@ import {
 import { setCategory } from "@/redux/reducer/category";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
 import { AppDispatch } from "@/redux/store";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import { convertUSD } from "@/lib/currency";
+import { CurrencyContext } from "@/contexts/currency";
+import { apiPath } from "@/lib/api-path";
 
 const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
   const { user, token } = useSelector((state: any) => state.auth);
   const { category } = useSelector((state: any) => state?.category);
+  const { apiAction } = useApi();
+  const [currencyOption, setCurrencyOption] = useState<any>([]);
+  const { currency }: any = useContext(CurrencyContext);
   const wishListProducts = useSelector(
     (state: any) => state.cart.wishListProduct
   );
@@ -152,16 +157,36 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
               <div className="text-[#b3af54] text-[.857em] mt-1">
                 {product?.disccount_price ? (
                   <>
-                    <del>${formatPrice(product?.price)}</del>
+                    <del>
+                      {convertUSD(
+                        +formatPrice(product?.price),
+                        currency,
+                        currencyOption?.find(
+                          (item: any) => item?.value === currency
+                        )?.price
+                      )}
+                    </del>
                     &nbsp;
                     <span className="font-semibold">
-                      ${formatPrice(product?.disccount_price)}
+                      {convertUSD(
+                        +formatPrice(product?.disccount_price),
+                        currency,
+                        currencyOption?.find(
+                          (item: any) => item?.value === currency
+                        )?.price
+                      )}
                     </span>
                   </>
                 ) : (
                   <>
                     <span className="font-semibold">
-                      ${formatPrice(product?.price)}
+                      {convertUSD(
+                        +formatPrice(product?.price),
+                        currency,
+                        currencyOption?.find(
+                          (item: any) => item?.value === currency
+                        )?.price
+                      )}
                     </span>
                   </>
                 )}
@@ -264,6 +289,27 @@ const ProductList = ({ products = [], loader, width = "25%", slider }: any) => {
       </>
     );
   };
+
+  const getCurrency = async () => {
+    let data = await apiAction({
+      method: "get",
+      url: `${apiPath?.currency?.getCurrency}?page=1&pageSize=100`,
+    });
+
+    const currenciesData = data.data.CurrencyData.map((currency: any) => ({
+      value: currency.name,
+      label: currency.name,
+      price: currency.currencypriceid.value,
+    }));
+
+    setCurrencyOption(currenciesData);
+  };
+
+  useEffect(() => {
+    if (currencyOption?.length === 0) {
+      getCurrency();
+    }
+  }, [currencyOption]);
 
   return (
     <>
