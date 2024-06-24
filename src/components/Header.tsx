@@ -994,7 +994,7 @@ const Header = ({}: Props) => {
                       <Select
                         options={currency}
                         placeholder="Select a currency"
-                        className="cursor-pointer"
+                        className="notranslate cursor-pointer"
                         onChange={handleCurrencyChange}
                         isSearchable
                         value={currency.find(
